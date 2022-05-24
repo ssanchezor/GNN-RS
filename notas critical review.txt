@@ -1,0 +1,40 @@
+Goals
+- Implemantar un Recommender systems cliente-producto
+- Implemantar un Recommender systems cliente-producto añadiendo contexto como canal venta, caracteristica del producto familia.
+- Bias: Popularidad, edad, zona??, Impacto revista?
+- Extraer features imagenes añadir al modelo 
+
+
+Implentation
+- Deep learning - FM, GCN, GCN Attention, (bonus GAN)
+- Dataset H&M - explicar
+- Python
+- LAB:  Colab + Jupiter
+- PROD: Google Cloud VM
+
+Milestones
+- Buscar dataset ok
+- Preparar Dataset ok
+- Implemantar un Recommender systems cliente-producto LAB - Ok
+- Preparar repositorio Git - ok 
+- Mid-term presentation - 1-jun
+- Implemantar un Recommender systems cliente-producto añadiendo contexto como canal venta, caracteristica del producto familia. WIP - 7 junio
+- Fine-tuning - 10 jun
+- Prog Python - 17 jun
+- PROD - 21 jun 
+- Bias: Popularidad, edad, zona??, Impacto revista? - 5-jun
+- Extraer features imagenes añadir al modelo - 5 jun
+- PROD 
+- Preparar presentación final 
+- Presentación final - 13-jul
+
+Project Plan
+gantt
+
+Progress
+
+
+Questions
+
+Lo ven realista
+documentación de bias 
