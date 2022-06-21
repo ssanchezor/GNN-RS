@@ -1,7 +1,7 @@
 Goals
 - Implemantar un Recommender systems cliente-producto
 - Implemantar un Recommender systems cliente-producto añadiendo contexto como canal venta, caracteristica del producto familia.
-- Bias: Popularidad, edad, zona??, Impacto revista?
+- Bias: Popularidad, edad, zona??, Impacto de la revista?
 - Extraer features imagenes añadir al modelo 
 
 
