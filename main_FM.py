@@ -6,37 +6,40 @@ from build_dataset import CustomerArticleDataset
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-logs_base_dir = "runs2"
-os.makedirs(logs_base_dir, exist_ok=True)
 
-tb_fm = SummaryWriter(log_dir=f'{logs_base_dir}/{logs_base_dir}_FM/')
-tb_gcn = SummaryWriter(log_dir=f'{logs_base_dir}/{logs_base_dir}_GCN/')
-tb_gcn_attention = SummaryWriter(log_dir=f'{logs_base_dir}/{logs_base_dir}_GCN_att/')
+if __name__ == '__main__':
 
-dataset_path = "../data/"
-full_dataset = CustomerArticleDataset(dataset_path, num_negatives_train=4, num_negatives_test=99)
-data_loader = DataLoader(full_dataset, batch_size=256, shuffle=True, num_workers=0)
+    device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
+    logs_base_dir = "runHM_10000"
+    dataset_path = "../data/"
+    
+    os.makedirs(logs_base_dir, exist_ok=True)
 
-model = FactorizationMachineModel(full_dataset.field_dims[-1], 32).to(device)
+    tb_fm = SummaryWriter(log_dir=f'{logs_base_dir}/{logs_base_dir}_FM/')
+    
+    full_dataset = CustomerArticleDataset(dataset_path, num_negatives_train=4, num_negatives_test=99)
+    data_loader = DataLoader(full_dataset, batch_size=256, shuffle=True, num_workers=0)
 
-criterion = torch.nn.BCEWithLogitsLoss(reduction='mean')
-optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)
+    model = FactorizationMachineModel(full_dataset.field_dims[-1], 32).to(device)
 
-#Train the model
-tb = True
-topk = 10
-num_epochs=20
+    criterion = torch.nn.BCEWithLogitsLoss(reduction='mean')
+    optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)
 
-for epoch_i in range(num_epochs):
-    train_loss = train_one_epoch(model, optimizer, data_loader, criterion, device)
-    hr, ndcg = test(model, full_dataset, device, topk=topk)
+    #Train the model
+    tb = True
+    topk = 10
+    num_epochs=20
 
-    print(f'epoch {epoch_i}:')
-    print(f'training loss = {train_loss:.4f} | Eval: HR@{topk} = {hr:.4f}, NDCG@{topk} = {ndcg:.4f} ')
+    for epoch_i in range(num_epochs):
+        train_loss = train_one_epoch(model, optimizer, data_loader, criterion, device)
+        hr, ndcg, coverage = test(model, full_dataset, device, topk=topk)
 
-    if tb:
-        tb_fm.add_scalar('train/loss', train_loss, epoch_i)
-        tb_fm.add_scalar('eval/HR@{topk}', hr, epoch_i)
-        tb_fm.add_scalar('eval/NDCG@{topk}', ndcg, epoch_i)
+        print(f'epoch {epoch_i}:')
+        print(f'training loss = {train_loss:.4f} | Eval: HR@{topk} = {hr:.4f}, NDCG@{topk} = {ndcg:.4f}, COV@{topk} = {coverage:.4f} ')
+
+        if tb:
+            tb_fm.add_scalar('train/loss', train_loss, epoch_i)
+            tb_fm.add_scalar(f'eval/HR@{topk}', hr, epoch_i)
+            tb_fm.add_scalar(f'eval/NDCG@{topk}', ndcg, epoch_i)
+            tb_fm.add_scalar(f'eval/COV@{topk}', coverage, epoch_i)
