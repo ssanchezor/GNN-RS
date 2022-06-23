@@ -27,7 +27,7 @@ def test(model, full_dataset, device, topk=10):
     #mcanals dictionary for coverage. Number of articles in full dataset
     num_items= full_dataset.field_dims[-1]
     num_customers=  full_dataset.field_dims[0]
-    dicitems={}
+    coverage=[]
     
     HR, NDCG = [], []
     #for user_test in full_dataset.test_set:
@@ -38,13 +38,10 @@ def test(model, full_dataset, device, topk=10):
         recommend_list = user_test[indices.cpu().detach().numpy()][:, 1] #mcanals items recommended
         HR.append(getHitRatio(recommend_list, gt_item)) #mcanals our already positive 
         NDCG.append(getNDCG(recommend_list, gt_item))
-        for gt_item in recommend_list: 
-            if gt_item in dicitems:
-                dicitems[gt_item]+=1
-            else:
-                dicitems[gt_item]=1
-    coverage = len(dicitems)/(num_items-num_customers)
-    return mean(HR), mean(NDCG), coverage
+        coverage.append(recommend_list[:topk])
+        
+    cov = len(np.unique(coverage))/(num_items-num_customers)
+    return mean(HR), mean(NDCG), cov
 
 
 def test_Rand_WRONG (model, full_dataset, device, topk=10):
