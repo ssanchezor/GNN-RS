@@ -163,6 +163,9 @@ class CustomerArticleDataset(torch.utils.data.Dataset):
         return test_set
 
     def build_test_set_AllItems(self, gt_test_interactions):
+        #if True:
+        #    print ("No build_test_set_complete")
+        #    return
         max_users, max_items = self.field_dims[:2]  # number users (943), number items (2625)
         test_set_allitems = []
         for pair in tqdm(gt_test_interactions, desc="BUILDING TEST SET..."):
@@ -179,7 +182,9 @@ class CustomerArticleDataset(torch.utils.data.Dataset):
 
 
 if __name__ == '__main__':
+    # in order to generate the correct files you NEED to execute this code from main
     transactions = pd.read_csv("../data/transactions_ddup_2019-09-22_nart_5_ncust_20_ncustr_10000.csv")
+    #transactions = pd.read_csv("../data/transactions_ddup_2019-09-22_nart_5_ncust_20_ncustr_5000.csv")
 
     transactions = add_label_column(transactions, 1)
     transactions = transactions.sort_values(['customer_id', 't_dat'], ascending=[True, False])
@@ -192,3 +197,6 @@ if __name__ == '__main__':
     test_data = pd.DataFrame(test_dataset, columns=column_names)
     train_data.to_csv("../data/customer.train.article", sep="\t", index=False, header=False)
     test_data.to_csv("../data/customer.test.article", sep="\t", index=False, header=False)
+    pd.DataFrame(customer_dict.items()).to_csv("../data/customer.dic" , sep="\t", index=False,header=False)
+    pd.DataFrame(article_dict.items()).to_csv("../data/article.dic" , sep="\t", index=False,header=False)
+    print ("EOP")

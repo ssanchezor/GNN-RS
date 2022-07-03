@@ -77,7 +77,15 @@ def testpartial(model, full_dataset, device, topk=10):
     HR, NDCG, NOVELTY = [], [], []
     dicitems = dict.fromkeys(list(range(num_customers, num_items)), 0)
 
-    for user_test in full_dataset.test_set:
+    # start by mcanals for visualization
+    l_users=[]
+    l_gt_item=[]
+    l_recommened_list=[]
+    l_val_recommened_list=[] # not used as overflows GPU
+    # end by mcanals for visualization
+
+    #for user_test in full_dataset.test_set:
+    for (user_test) in tqdm (full_dataset.test_set, desc= "PARTIAL Eval test dataset: "): # debug de mcanals
         gt_item = user_test[0][1]
         novelty = 0
         predictions = model.predict(user_test, device)
@@ -99,9 +107,18 @@ def testpartial(model, full_dataset, device, topk=10):
                 dicitems[item] = 1
         NOVELTY.append(novelty / topk)
 
+        # start by mcanals for visualization
+        l_gt_item.append(gt_item) # positive item
+        l_users.append(user_test[0][0])        
+        l_recommened_list.append(recommend_list)
+        l_info=[l_users, l_gt_item,l_recommened_list, l_val_recommened_list, NDCG]
+        # l_val_recommened_list.append(vals) overflows GPU
+        # end by mcanals for visualization
+        
+
     coverage = len({key: value for (key, value) in dicitems.items() if value > 0}) / (num_items - num_customers)
     gini = getGini(list(dicitems.values()))
-    return mean(HR), mean(NDCG), coverage, gini, dicitems, mean(NOVELTY)
+    return mean(HR), mean(NDCG), coverage, gini, dicitems, mean(NOVELTY) , l_info
 
 
 def getHitRatio(recommend_list, gt_item):
