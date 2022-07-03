@@ -90,7 +90,7 @@ if __name__ == '__main__':
         train_loss=0
 
         
-        hr, ndcg, cov, gini, dict_FM, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
+        hr, ndcg, cov, gini, dict_recomend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
 
         print(f'epoch {epoch_i}:')
         print(f'training loss = {train_loss:.4f} | Eval: HR@{topk} = {hr:.4f}, NDCG@{topk} = {ndcg:.4f}, COV@{topk} = {cov:.4f}, GINI@{topk} = {gini:.4f}, NOV@{topk} = {nov:.4f} ')
@@ -114,4 +114,4 @@ if __name__ == '__main__':
 
 
     info_model_report (model, dataset_path, res_info, l_info, \
-            full_dataset, title="Popularity Recommender - Partial", topk=10 )
+            full_dataset, dict_recomend, title="Popularity Recommender - Partial", topk=10 )

@@ -17,6 +17,7 @@ from build_dataset import CustomerArticleDataset
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 import numpy as np
+from utilities import Popularity_Graphic
 
 
 
@@ -35,6 +36,29 @@ def image_path_from_item(dataset_path, item):
     s=f"{dataset_path}images/{item[0:3]}/{item}.jpg"
     s= "<img src=""{}"" width=""75"">".format(s)
     return s
+
+
+def html_top_recomend(dataset_path, dic_map_items, \
+        l_max_items, l_max_items_acum  ):
+
+    lbl_item_list=[]; lbl_item_filenames=[]
+    for idx, val in zip (l_max_items, l_max_items_acum): #
+        # need sring verions for path with 0
+        rl_item_string =('000000' + str(dic_map_items[idx]))[-10:]
+        lbl_item_list.append(rl_item_string + "<br>" + str(idx) + "<br>" + str(val) ) # debug
+        lbl_item_filenames.append(image_path_from_item(dataset_path,rl_item_string))        
+    html_top_l=""
+    while (len(lbl_item_list))>0:
+        chk_items=lbl_item_list[0:10]
+        chk_items_filenames=lbl_item_filenames[0:10]
+        html_top_l+= table_string([chk_items_filenames, chk_items]) # historical
+        lbl_item_list=lbl_item_list[10:]
+        lbl_item_filenames=lbl_item_filenames[10:]
+    # prepare data
+    return html_top_l
+
+
+
 def html_user_info(dataset_path, dic_map_users, dic_map_items, users_real, items_real, \
         df_iter, user, gt, l_recommened_list_user ):
 
@@ -86,7 +110,7 @@ def html_user_info(dataset_path, dic_map_users, dic_map_items, users_real, items
 
 
 def info_model_report (model, dataset_path, res_info, \
-                l_info, full_dataset, title="None", topk=10):
+                l_info, full_dataset, dict_recomen, title="None", topk=10):
 
 
     items_real = pd.read_csv("../data/articles.csv")
@@ -183,6 +207,20 @@ def info_model_report (model, dataset_path, res_info, \
     html_out+=html_head
     html_out+= "<h2>Model results</h2>"
     html_out+=  table_string(res_info)
+
+    
+    html_out+= "<h2>Recommendation distribution</h2>"
+    gragph_name="Report_{}".format(title.replace(" ",""))
+    info= Popularity_Graphic(dict_recomen, gragph_name)
+    fnamepng, info_l1,l_max_items, l_max_items_acum, tot_sum = info
+    html_out+="<p>{}<p>".format(info_l1)
+    html_out+= "<img src=""{}"">".format(fnamepng)
+    html_out+="<h3>100 first items and accumulative percentage or 80% (whathever it happens first)</h3>"
+    html_out+="<p>Total number of items -> {}<p>".format(tot_sum)
+    aux_val=sum (l_max_items_acum)/tot_sum*100    
+    html_out+="<p>Cummulative percentaje displayed items -> {} % <p>".format(f"{aux_val:.4f}")
+    auxs= html_top_recomend(dataset_path, dic_map_items, l_max_items, l_max_items_acum  )
+    html_out+= auxs
     html_out+= "<h2>First users sample</h2>"
 
     for n in range (0,5):
@@ -247,26 +285,26 @@ if __name__ == '__main__':
     data_loader = DataLoader(full_dataset, batch_size=256, shuffle=True, num_workers=0)
 
 
-    #PATH="FactorizationMachineModel.pt"
-    #model = FactorizationMachineModel(full_dataset.field_dims[-1], 32).to(device)
+    PATH="FactorizationMachineModel.pt"
+    model = FactorizationMachineModel(full_dataset.field_dims[-1], 32).to(device)
 
-    PATH="FactorizationMachineModel_withGCN.pt"
-    attention = False
-    identity_matrix = identity(full_dataset.train_mat.shape[0])
-    identity_matrix = identity_matrix.tocoo().astype(np.float32)
-    indices = torch.from_numpy(np.vstack((identity_matrix.row, identity_matrix.col)).astype(np.int64))
-    values = torch.from_numpy(identity_matrix.data)
-    shape = torch.Size(identity_matrix.shape)
+    #PATH="FactorizationMachineModel_withGCN.pt"
+    #attention = False
+    #identity_matrix = identity(full_dataset.train_mat.shape[0])
+    #identity_matrix = identity_matrix.tocoo().astype(np.float32)
+    #indices = torch.from_numpy(np.vstack((identity_matrix.row, identity_matrix.col)).astype(np.int64))
+    #values = torch.from_numpy(identity_matrix.data)
+    #shape = torch.Size(identity_matrix.shape)
 
-    identity_tensor = torch.sparse.FloatTensor(indices, values, shape)
-    edge_idx, edge_attr = from_scipy_sparse_matrix(full_dataset.train_mat)
-    model = FactorizationMachineModel_withGCN(full_dataset.field_dims[-1], 64, identity_tensor.to(device),
-                                            edge_idx.to(device), attention).to(device)
+    #identity_tensor = torch.sparse.FloatTensor(indices, values, shape)
+    #edge_idx, edge_attr = from_scipy_sparse_matrix(full_dataset.train_mat)
+    #model = FactorizationMachineModel_withGCN(full_dataset.field_dims[-1], 64, identity_tensor.to(device),
+    #                                        edge_idx.to(device), attention).to(device)
 
     model.load_state_dict(torch.load(PATH, map_location=device))
 
     print ("Display test")
-    hr, ndcg, cov, gini, dict_FM, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
+    hr, ndcg, cov, gini, dict_recomend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
 
     print(f'Eval: HR@{topk} = {hr:.4f}, NDCG@{topk} = {ndcg:.4f}, COV@{topk} = {cov:.4f}, GINI@{topk} = {gini:.4f}, NOV@{topk} = {nov:.4f} ')
 
@@ -278,5 +316,5 @@ if __name__ == '__main__':
     dataset_path = "../data/"
 
     info_model_report (model, dataset_path, res_info, l_info, \
-            full_dataset, topk=10 )
+            full_dataset, dict_recomend, title="Test report" , topk=10 )
     

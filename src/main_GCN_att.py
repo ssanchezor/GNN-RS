@@ -49,7 +49,7 @@ if __name__ == '__main__':
     for epoch_i in range(num_epochs):
         train_loss = train_one_epoch(model, optimizer, data_loader, criterion, device)    
         #hr, ndcg, coverage = test(model, full_dataset, device, topk=topk)
-        hr, ndcg, cov, gini, dict_FM, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
+        hr, ndcg, cov, gini, dict_recomend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
 
         print(f'epoch {epoch_i}:')
         print(f'training loss = {train_loss:.4f} | Eval: HR@{topk} = {hr:.4f}, NDCG@{topk} = {ndcg:.4f}, COV@{topk} = {cov:.4f}, GINI@{topk} = {gini:.4f}, NOV@{topk} = {nov:.4f} ')
@@ -74,4 +74,4 @@ if __name__ == '__main__':
     dataset_path = "../data/"
 
     info_model_report (model, dataset_path, res_info, l_info, \
-            full_dataset, title="GCN with Attention - Partial", topk=10 )
+            full_dataset, dict_recomend, title="GCN with Attention - Partial", topk=10 )

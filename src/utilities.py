@@ -24,10 +24,21 @@ def Popularity_Graphic(total_recommendations_dict, Title):
             break
         else:
             z = z + 1
+    # 100 items or 0.8 at least for report
+    if z>=100:
+        l_max_items=list_index[0:100]
+        l_max_items_acum=list_dict[0:100]
+    else:
+        l_max_items=list_index[0:z]
+        l_max_items_acum=list_dict[0:z]
+    tot_sum=sum(list_dict)
+    
+
+            
 
     print(Title)
-    print('Number Products at what reach the 80% of the recommendations', z, '(Accumulate recommendations',
-          list_accumsum[z], ')')
+    info_l1= "Number Products at what reach the 80% of the recommendations {} (Accumulate recommendations {})".format(z, list_accumsum[z])
+    print(info_l1)
     print('Products:{0:2.2f}% '.format((z / len(list_dict)) * 100))
     print(list_index[:10])
     head_tail_split = z
@@ -41,4 +52,16 @@ def Popularity_Graphic(total_recommendations_dict, Title):
     plt.legend()
     plt.tight_layout()
     fname = "../data/" + Title + ".pdf"
+    fnamepng = "../data/" + Title + ".png"
     plt.savefig(fname)
+    plt.savefig(fnamepng)
+    info=[]
+    info.append(fnamepng)
+    info.append(info_l1)
+    info.append(l_max_items)
+    info.append(l_max_items_acum)
+    info.append(tot_sum)
+    return info
+
+    
+
