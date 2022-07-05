@@ -223,7 +223,8 @@ def info_model_report (model, dataset_path, res_info, \
     html_out+= auxs
     html_out+= "<h2>First users sample</h2>"
 
-    for n in range (0,5):
+    NUMBERFIRSTSAMPLES=30
+    for n in range (0,NUMBERFIRSTSAMPLES):
         user = l_users[n] # user=3
         gt = l_gt_item[n] #  gt= 10083
         l_recommened_list_user=l_recommened_list[n]
@@ -232,8 +233,9 @@ def info_model_report (model, dataset_path, res_info, \
         html_out+=html_user
 
     html_out+= "<p></p><h2>Top recomendations sample</h2>"
-    nsample=5
-    for n in range (5, num_users):        
+    NUMBERTOPSAMPLES=30
+    nsample=NUMBERTOPSAMPLES
+    for n in range (NUMBERFIRSTSAMPLES, num_users):        
         user = l_users[n] # user=3
         gt = l_gt_item[n] #  gt= 10083
         l_recommened_list_user=l_recommened_list[n]
@@ -244,11 +246,10 @@ def info_model_report (model, dataset_path, res_info, \
             nsample-=1
             if nsample==0:
                 break
-
-
     html_out+= "<p></p><h2>Predictions without GT sample</h2>"
-    nsample=5
-    for n in range (5, num_users):        
+    NUMBERBADSAMPLES=30
+    nsample=NUMBERBADSAMPLES
+    for n in range (NUMBERFIRSTSAMPLES, num_users):        
         user = l_users[n] # user=3
         gt = l_gt_item[n] #  gt= 10083
         l_recommened_list_user=l_recommened_list[n]
@@ -285,21 +286,20 @@ if __name__ == '__main__':
     data_loader = DataLoader(full_dataset, batch_size=256, shuffle=True, num_workers=0)
 
 
-    PATH="FactorizationMachineModel.pt"
-    model = FactorizationMachineModel(full_dataset.field_dims[-1], 32).to(device)
+    #PATH="FactorizationMachineModel.pt"
+    #model = FactorizationMachineModel(full_dataset.field_dims[-1], 32).to(device)
 
-    #PATH="FactorizationMachineModel_withGCN.pt"
-    #attention = False
-    #identity_matrix = identity(full_dataset.train_mat.shape[0])
-    #identity_matrix = identity_matrix.tocoo().astype(np.float32)
-    #indices = torch.from_numpy(np.vstack((identity_matrix.row, identity_matrix.col)).astype(np.int64))
-    #values = torch.from_numpy(identity_matrix.data)
-    #shape = torch.Size(identity_matrix.shape)
-
-    #identity_tensor = torch.sparse.FloatTensor(indices, values, shape)
-    #edge_idx, edge_attr = from_scipy_sparse_matrix(full_dataset.train_mat)
-    #model = FactorizationMachineModel_withGCN(full_dataset.field_dims[-1], 64, identity_tensor.to(device),
-    #                                        edge_idx.to(device), attention).to(device)
+    PATH="FactorizationMachineModel_withGCN_epoch7.pt"
+    attention = False
+    identity_matrix = identity(full_dataset.train_mat.shape[0])
+    identity_matrix = identity_matrix.tocoo().astype(np.float32)
+    indices = torch.from_numpy(np.vstack((identity_matrix.row, identity_matrix.col)).astype(np.int64))
+    values = torch.from_numpy(identity_matrix.data)
+    shape = torch.Size(identity_matrix.shape)
+    identity_tensor = torch.sparse.FloatTensor(indices, values, shape)
+    edge_idx, edge_attr = from_scipy_sparse_matrix(full_dataset.train_mat)
+    model = FactorizationMachineModel_withGCN(full_dataset.field_dims[-1], 64, identity_tensor.to(device),
+                                            edge_idx.to(device), attention).to(device)
 
     model.load_state_dict(torch.load(PATH, map_location=device))
 
