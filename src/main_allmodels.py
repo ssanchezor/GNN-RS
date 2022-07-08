@@ -64,7 +64,7 @@ if __name__ == '__main__':
         train_loss_GCN_att = train_one_epoch(model_GCN_att, optimizer_GCN_att, data_loader, criterion, device)
 
     #FM
-    hr, ndcg, cov, gini, dict_FM, nov = testpartial(model_FM, full_dataset, device, topk=topk)
+    hr, ndcg, cov, gini, dict_FM, nov, _ = testpartial(model_FM, full_dataset, device, topk=topk)
     if epoch_i == num_epochs - 1:
         new_row = pd.Series(data={'Dataset': 'H&M', 'Model': 'FM', 'HR': hr, 'NDCG': ndcg, 'COVERAGE': cov, 'GINI': gini,
                                   'NOVELTY': nov, 'TESTSET': 'PARTIAL'})
@@ -77,7 +77,7 @@ if __name__ == '__main__':
         metrics_model = metrics_model.append(new_row, ignore_index=True)
 
     #GCN
-    hr, ndcg, cov, gini, dict_GCN, nov = testpartial(model_GCN, full_dataset, device, topk=topk)
+    hr, ndcg, cov, gini, dict_GCN, nov,_  = testpartial(model_GCN, full_dataset, device, topk=topk)
     if epoch_i == num_epochs - 1:
         new_row = pd.Series(data={'Dataset': 'H&M', 'Model': 'GCN', 'HR': hr, 'NDCG': ndcg, 'COVERAGE': cov, 'GINI': gini,
                                   'NOVELTY': nov, 'TESTSET': 'PARTIAL'})
@@ -90,7 +90,7 @@ if __name__ == '__main__':
         metrics_model = metrics_model.append(new_row, ignore_index=True)
 
     # GCN att
-    hr, ndcg, cov, gini, dict_GCN_att, nov = testpartial(model_GCN_att, full_dataset, device, topk=topk)
+    hr, ndcg, cov, gini, dict_GCN_att, nov, _ = testpartial(model_GCN_att, full_dataset, device, topk=topk)
     if epoch_i == num_epochs - 1:
         new_row = pd.Series(data={'Dataset': 'H&M', 'Model': 'GCN_ATT', 'HR': hr, 'NDCG': ndcg, 'COVERAGE': cov, 'GINI': gini,
                                   'NOVELTY': nov, 'TESTSET': 'PARTIAL'})
@@ -103,7 +103,7 @@ if __name__ == '__main__':
         metrics_model = metrics_model.append(new_row, ignore_index=True)
 
     #Random
-    hr, ndcg, cov, gini, dict_rand, nov = testpartial(model_rand, full_dataset, device, topk=topk)
+    hr, ndcg, cov, gini, dict_rand, nov, _ = testpartial(model_rand, full_dataset, device, topk=topk)
     if epoch_i == num_epochs - 1:
         new_row = pd.Series(data={'Dataset': 'H&M', 'Model': 'Random', 'HR': hr, 'NDCG': ndcg, 'COVERAGE': cov, 'GINI': gini,
                                   'NOVELTY': nov, 'TESTSET':'PARTIAL'})
@@ -116,7 +116,7 @@ if __name__ == '__main__':
         metrics_model = metrics_model.append(new_row, ignore_index=True)
 
     # Popularity
-    hr, ndcg, cov, gini, dict_pop, nov = testpartial(model_pop, full_dataset, device, topk=topk)
+    hr, ndcg, cov, gini, dict_pop, nov, _ = testpartial(model_pop, full_dataset, device, topk=topk)
     if epoch_i == num_epochs - 1:
         new_row = pd.Series(data={'Dataset': 'H&M', 'Model': 'Popularity', 'HR': hr, 'NDCG': ndcg, 'COVERAGE': cov, 'GINI': gini,
                                   'NOVELTY': nov, 'TESTSET': 'PARTIAL'})

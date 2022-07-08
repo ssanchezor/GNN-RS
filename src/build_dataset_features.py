@@ -178,6 +178,7 @@ class CustomerArticleDataset(torch.utils.data.Dataset):
 
 if __name__ == '__main__':
     transactions = pd.read_csv("../data/transactions_ddup_2019-09-22_nart_5_ncust_20_ncustr_10000.csv")
+    transactions = pd.read_csv("../data/transactions_ddup_2019-09-22_nart_5_ncust_20_ncustr_80000.csv")
     transactions = add_label_column(transactions, 1)
     transactions = transactions.sort_values(['customer_id', 't_dat'], ascending=[True, False])
 
@@ -188,4 +189,8 @@ if __name__ == '__main__':
     train_data = pd.DataFrame(train_dataset, columns=column_names)
     test_data = pd.DataFrame(test_dataset, columns=column_names)
     train_data.to_csv("../data/customer.train.article.channel", sep="\t", index=False, header=False)
-    test_data.to_csv("../data/customer.test.article.channel", sep="\t", index=False, header=False)
+    test_data.to_csv("../data/customer.test.article.channel", sep="\t", index=False, header=False)        
+    pd.DataFrame(customer_dict.items()).to_csv("../data/customer.channel.dic" , sep="\t", index=False,header=False)
+    pd.DataFrame(article_dict.items()).to_csv("../data/article.channel.dic" , sep="\t", index=False,header=False)
+    pd.DataFrame(channel_dict.items()).to_csv("../data/channel.channel.dic" , sep="\t", index=False,header=False)
+    print("EOP")

@@ -64,8 +64,8 @@ if __name__ == '__main__':
             tb_gcn.add_scalar(f'eval/GINI@{topk}', gini, epoch_i)
             tb_gcn.add_scalar(f'eval/NOV@{topk}', nov, epoch_i)
     
-    PATH = "FactorizationMachineModel_withGCN.pt"
-    torch.save(model.state_dict(), PATH)
+        PATH = "FactorizationMachineModel_withGCN_.pt"
+        torch.save(model.state_dict(), PATH)
 
     res_header=[f"HR@{topk}", f"NDCG@{topk}", f"COV@{topk}",f"GINI@{topk}",f"NOV@{topk}" ]
     res_values=[f"{hr:.4f}", f"{ndcg:.4f}", f"{cov:.4f}", f"{gini:.4f}", f"{nov:.4f}"  ]
