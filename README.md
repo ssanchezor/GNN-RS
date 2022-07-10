@@ -2,7 +2,7 @@
 
 This repository contains different machine learning models, such as FM, GCN and GAT, that are commonly used to implement personalized Recommender Systems. It consists of a first part to explain, in a theoretical manner, the main characteristics of this type of systems, as well as a second part with a set of detailed steps on how to run the program.
 
-Our project aims to compare the different models and evaluate how well they perform in making recommendations. In order to do this, for each of them we will measure some metrics (HR, NDCG, Coverage, etc...) that are frequently used in this area.
+Our project aims to compare the different models and evaluate how well they perform in making recommendations, in this case focusing on a real example from the fashion industry. In order to do this, for each of them, we will measure some metrics (HR, NDCG, Coverage, etc...) that are frequently used in this kind of systems.
 
 Finally, we will perform a detailed analysis of the obtained results in order to detect and assess possible biases. 
 
