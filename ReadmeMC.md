@@ -371,11 +371,9 @@ Note: Tensorboard information can be displayed if need it.
 #### B.2.4 Factorization Machines with Graph Convolutional Network <a name="B2-models-nofeat-GCN"></a>
 
 In 'model_GCN.py' are the classes we will need for Machines Factorization with Graph Convolutional Network model.
- * `GraphModel`  generates different types of GCN embeddings as a function of the attention parameter value if set. If the attention es set as off, it will use pytorch geometric ["`GCNConv`"](https://pytorch-geometric.readthedocs.io/en/latest/modules/nn.html)
+ * `GraphModel`  generates different types of GCN embeddings as a function of the attention parameter value if set. If the attention is set as off, it will use pytorch geometric ["`GCNConv`"](https://pytorch-geometric.readthedocs.io/en/latest/modules/nn.html)
  * `FactorizationMachineModel_withGCN` the model definition that wii use `FeaturesLinear(field_dims)` and `FM_operation(reduce_sum=True)` from the `model_FM.py` and the previous `GraphModel`.
 
- * `FactorizationMachineModel` generates Factorization Machine Model with pairwise interactions using regular embeddings
- 
 'main_GCN.py' will;
 
 * Will define a Tersorboard instance to log the metrics 
@@ -403,3 +401,45 @@ for epoch_i in range(num_epochs):
         hr, ndcg, cov, gini, dict_recommend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
 ```
 * Last step will be the report generation.
+ 
+#### B.2.5 Factorization Machines with Graph Convolutional Network and attention <a name="B2-models-nofeat-GCN-ATT"></a>
+
+This model reuses the 'model_GCN.py' code. Class is set up accoding the attention value:
+
+ * `GraphModel`  generates different types of GCN embeddings as a function of the attention parameter value if set. If the attention is set as ON, it will use pytorch geometric [`GATConv`](https://pytorch-geometric.readthedocs.io/en/latest/modules/nn.html)
+ * `FactorizationMachineModel_withGCN` the model definition that wii use `FeaturesLinear(field_dims)` and `FM_operation(reduce_sum=True)` from the `model_FM.py` and the previous `GraphModel`.
+
+'main_GCN_att.py' will almost the same as 'main_GCN.py' (i.e. Tensorboard settings.)
+
+Note: *We only have been able to run this model with the 10.000 user setup.*
+
+
+### B.3. Model execution with features <a name="B2-models-feat"></a>
+#### B.3.1 Factorization Machines with context.
+
+This is the only model we have setup with context (the sales channel)-
+
+Dataset includes and extra column in the transaction table. 
+
+'model_FM_context.py' has the model definition:
+
+ * `FeaturesLinear`  that is part of the Factorization Machine formula
+ * `ContextFactorizationMachine` the last term of the Factorization Machine formula
+ * `ContextFactorizationMachineMode` generates Factorization Machine Model with pairwise interactions using regular embeddings
+
+'main_FM_context.py' will;
+
+* Will define a Tersorboard instance to log the metrics (see note below)
+* Create a instance of the dataset (`full_dataset = CustomerArticleDataset(...)`). 
+* Create a dataloder instance (`data_loader = DataLoader(...)`)
+* Create model instance (`model = ContextFactorizationMachineModel(full_dataset.field_dims, 32).to(device)`) 
+* Define loss function and optimizer:
+    * `criterion = torch.nn.BCEWithLogitsLoss(reduction='mean')`
+    * `optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)`
+For each epoch, we will train the epoch, test the test dataset:
+```
+for epoch_i in range(num_epochs):
+        train_loss = train_one_epoch(model, optimizer, data_loader, criterion, device)
+        hr, ndcg, cov, gini, dict_recommend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
+```
+* Last step will be the report generation (as data is different, report generation has a specific version for this dataset).
