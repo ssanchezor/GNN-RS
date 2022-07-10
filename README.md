@@ -8,11 +8,10 @@ Our project aims to display the effectiveness of synthetic  data generation as a
 Final Project for the UPC [Artificial Intelligence with Deep Learning Postgraduate Course](https://www.talent.upc.edu/ing/estudis/formacio/curs/310402/postgraduate-course-artificial-intelligence-deep-learning/) 2020-2021 online edition, authored by:
 
 * [Bernat Ribes](https://www.linkedin.com/in/bernat-ribes-garcia-247338a0/)
-* [Antonio Castaño](https://www.linkedin.com/in/antoniocasblan/)
-* [Guillermo Oyarzun](http://www.cttc.upc.edu/?q=user/93)
-* [Marcos Estecha](https://www.linkedin.com/in/marcos-estecha-07a54a113)
+* [Sonia Sánchez](https://www.linkedin.com/in/sosanchez/)
+* [Miguel Canals](https://www.linkedin.com/in/mknals/)
 
-Advised by [Santiago Puch](https://www.linkedin.com/in/santipuch)
+Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
 
 ## Table of Contents <a name="toc"></a>
 
