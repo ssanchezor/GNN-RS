@@ -8,8 +8,8 @@
 
  -[B. Running the code](#B-running)
     - [B.1. Dataset creation](#B1-dataset)
-    - [B.2. Models execution](#B2-models)
-
+    - [B.2. Model execution withour features](#B2-models-nofeat)
+    
 ## A. Enviroment Requirements <a name='A-requirements'>
 
 ### A.1. Software  <a name='A1-software'></a>
@@ -294,8 +294,8 @@ For instance for user 38:
 |39	|1282	|1	|1	|20200903|
 |...|...|...|...|...|
 |...|...|...|...|...|
- 
- ##### ../data/customer.dic
+
+##### ../data/customer.dic
 
 This is dictionary file that will allow us to relate each indexed customer with the actual customer value in original H&M dataset. Remains the same for featured dataset.
 
@@ -303,3 +303,42 @@ This is dictionary file that will allow us to relate each indexed customer with 
 
 This is dictionary file that will allow us to relate each indexed article with the actual article value in original H&M dataset. Remains the same for featured dataset.
 
+### B.2. Model execution without features <a name="B2-models-nofeat"></a>
+
+All model share a very common pattern
+
+| Program | Description |
+|:------------------------:|:-------:|
+|model_MODEL_NAME.py| Definition of the model class |
+|main_MODEL_NAME.py| Main program in order to create an instance of the the dataset, another instance of the loader, another instance of the model and the loss function and the optimizer, and finally the loop for each epoch in order to tranin the epoch and evaulate the the dataset |
+
+
+#### B.2.1 Random model <a name="B2-models-nofeat-random"></a>
+
+In 'model_Random.py' there is a simple class definition that will pick a random item
+
+'main_Random.py' will 
+* Create a instance of the dataset (`full_dataset = CustomerArticleDataset(...)`)
+* Create a dataloder instance (`data_loader = DataLoader(...)`)
+* Create model instance (`model=RandomModel(..)`) 
+
+There are no epochs, so the only remaining task are:
+* There is no training. The predictions will generated when we test the test dataset
+* We will verifiy the accuraccy of the dataset:`metric1, metric2...= testpartial(model, full_dataset, device, topk=topk)`
+* We will generate a report displaying actual H&M data
+
+#### B.2.2 Popularity model <a name="B2-models-nofeat-poularity"></a>
+
+In 'model_Popularity.py' there is a simple class definition that will pick the most popular items
+
+'main_Popularity.py' will 
+* Create a instance of the dataset (`full_dataset = CustomerArticleDataset(...)`)
+* Create a dataloder instance (`data_loader = DataLoader(...)`)
+* Create model instance (` model= Popularity_Recommender(full_dataset.train_mat)`) 
+
+There are no epochs, so the only remaining task are:
+* There is no training. The predictions will generated when we test the test dataset
+* We will verifiy the accuraccy of the dataset:`metric1, metric2...= testpartial(model, full_dataset, device, topk=topk)`
+* We will generate a report displaying actual H&M data
+
+#### B.2.3 Factorization Machines model <a name="B2-models-nofeat-FM"></a>
