@@ -91,7 +91,7 @@ As a result of a preliminary analysis of the data set, we have observed the foll
 
 · Higher accumulation of younger costumers:
 <p align="left">
-  <img src="Images/Customerxage.png" width="500" 
+  <img src="Images/CustomerxAgeaxis.png" width="500" 
      height="300" >
 </p>
 
