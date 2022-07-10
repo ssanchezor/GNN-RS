@@ -121,6 +121,8 @@ Due to computational limitations, we have decided to apply a series of different
 - Reduce data range for the last year
 - Shuffle & pick N customers (10K and 80K)
 
+These values can be modified by following the steps defined in: [1.2. Objectives](#12-milestones)
+
 Results after applying data filtering:
 
 |             Filtered Dataset features - 10K      | | 
