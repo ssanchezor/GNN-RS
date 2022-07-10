@@ -41,7 +41,7 @@ Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
     - [6.1. Results 10k Customers (Random Sampling TestSet)](#61-results10K)
     - [6.2. Results 10k Customers (Full)](#62-results10KF)
     - [6.3. Results 80k Customers (Full)](#63-results80K)
-    - [6.4. Model Comparizon](#64-comparison)
+    - [6.4. Model Comparison](#64-comparison)
 - [7. Conclusions](#7-conclusions) 
 - [8. Acknowledgements](#8-acknowledgements)
  
