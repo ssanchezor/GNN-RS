@@ -220,11 +220,13 @@ In order to have a faster training and reduce its computational cost, we have op
 - [Factorization Machine](FM)<a name="FM"></a>
 
 <b>Embeddings</b>
+
 Once we have generated our train and test datasets, we need a way to personalize users (customers) and items (articles). In order to do so, embeddings are commonly used. An embedding can be described as a relatively low-dimensional space into which you can translate high-dimensional vectors. They encode different features information across some given dimensions.
 
 Given enough data, we can train an algorithm to understand relationships between entities and automatically learn features to represent them.
 
 <b>Matrix Factorization</b>
+
 Our Recommender systems are based on collaborative filtering, which objective is to discover the similarities on the user’s past behavior and make predictions to the user based on a similar preference with other users. This model is then used to predict items (or ratings for items) that the user may have an interest in.
 
 Matrix factorization is a way to generate latent features when multiplying two different kinds of entities. Collaborative filtering is the application of matrix factorization to identify the relationship between items’ and users’ entities. With the input of users’ transactions on different articles, we would like to predict whether users would like certain articles so the users can get the recommendation based on the prediction.
