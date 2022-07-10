@@ -115,6 +115,12 @@ As a result of a preliminary analysis of the dataset, we have observed the follo
   <img src="Images/InteractionsxColor.png" width="400">
 </p>
  
+ · Predominant channel (2) for the articles purchase:
+
+<p align="left">
+  <img src="Images/interactionxchannel.png" width="400">
+</p>
+
 ### 2.2. Pre-processing  <a name="22-preprocessing"></a> 
 
 Due to computational limitations, we have decided to apply a series of different filters in order to reduce the number of transactions:
@@ -151,6 +157,7 @@ After doing some analysis of the resulting data, we have computed the long-tail 
 Products on left side (or in blue line) are called as popular because their popularity is higher then those in yellow or long-tail area. Moreover, popular products are generally competitive products. On the other hand, products in yellow long-tail area are thought to be unpopular or new products in market. The threshold which discriminates the popular and unpopular items in market is an hyper-parameter for the retailer. 
 
 As it can be seen, it appears that our H&M dataset has some popularity bias since very few articles occupy nearly 80% of the total transactions.
+
 `Short Head: 12.667 articles 24.10% (80%) - Max Ranking 5283 votes`
                                                        
 ## 3. Deep Neural Networks Models <a name="3-dnns"></a>
