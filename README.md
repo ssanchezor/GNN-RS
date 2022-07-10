@@ -38,6 +38,9 @@ Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
     - [4.2. Hardware](#42-hardware)
 - [5. How to run the program](#5-program) 
 - [6. Results](#6-results)
+    - [6.1. Results 10k Customers (Random Sampling TestSet)](#61-results10K)
+    - [6.2. Results 10k Customers (Full)](#62-results10KF)
+    - [6.3. Results 80k Customers (Full)](#63-results80K)
 - [7. Conclusions](#7-conclusions) 
 - [8. Acknowledgements](#8-acknowledgements)
  
@@ -305,6 +308,22 @@ To launch the instance we used Cloud Deep Learning VM Image. We created a Linux 
 |FM + GCN  |59,59 %|36,02 %|64,10 %|0,7615|9,1412|MEDIUM|
 |FM + GAT |Not feasible|	Not feasible|	Not feasible|	Not feasible|	Not feasible|	VERY HIGH|
 
+<div<div style="overflow-x:auto;">
+  <table>
+    <tr><td>
+         <p align="left">
+         <img src="Images/FactorizationMachine.png" width="300">
+         </p>
+        </td>
+        <td>
+         <p align="left">
+         <img src="Images/FactorizationMachine.png" width="300">
+         </p>
+        </td>
+      </tr>
+  </table>
+</div>
+   
 
 ## 6. Conclusions <a name="6-conclusions"></a>
 
