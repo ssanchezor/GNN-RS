@@ -96,26 +96,26 @@ As a result of a preliminary analysis of the dataset, we have observed the follo
 <div style="overflow-x:auto;">
   <table>
     <tr><td>
-         <p align="left">Higher accumulation of younger costumers</p>
+         <p align="left">Most of the costumers are young</p>
          <p align="left">
             <img src="Images/CustomerxAgeaxis.png" width="400" >
          </p>
         </td>
         <td>
-         <p align="left">Uniform distribution in transactions grouped by costumer's age:</p>
+         <p align="left">Uniform distribution of transactions grouped by costumer's age</p>
          <p align="left">
             <img src="Images/InteractionxCustomerAge.png" width="400">
          </p>
         </td>
       </tr>
       <tr><td>
-         <p align="left">Non-uniform distribution in transactions grouped by product category:</p>
+         <p align="left">Non-uniform distribution of transactions grouped by product category</p>
          <p align="left">
             <img src="Images/Interactionsxartcategorylabsinside.png" width="400">
          </p>
         </td>
         <td>
-         <p align="left">Non-uniform distribution in transactions grouped by product color:</p>
+         <p align="left">Non-uniform distribution of transactions grouped by product color</p>
          <p align="left">
             <img src="Images/InteractionsxColor.png" width="400">
          </p>
