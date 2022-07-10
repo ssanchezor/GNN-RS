@@ -87,7 +87,7 @@ Transaction data is divided into several different files:
 |Number of transactions  | 31.788.324|
 |Data range  | From 2018 to 2020 |
 
-As a result of a preliminary analysis of the data set, we have observed the following characteristics:
+As a result of a preliminary analysis of the dataset, we have observed the following characteristics:
 
 · Higher accumulation of younger costumers:
 <p align="left">
