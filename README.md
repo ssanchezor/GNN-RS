@@ -151,7 +151,7 @@ Results after applying data filtering:
 After doing some analysis of the resulting data, we have computed the long-tail graph to show the distribution of popularity among articles in the dataset (for both 10K and 80K customers).
 
 <p align="left">
-  <img src="Images/HM80KPopularityRanking.png" width="400">
+  <img src="Images/HM80KPopularityRanking.png" width="400" height="400">
 </p>
 
 Products on left side (or in blue line) are called as popular because their popularity is higher then those in yellow or long-tail area. Moreover, popular products are generally competitive products. On the other hand, products in yellow long-tail area are thought to be unpopular or new products in market. The threshold which discriminates the popular and unpopular items in market is an hyper-parameter for the retailer. 
@@ -185,7 +185,7 @@ Coverage can be described as the percentage of articles in the training dataset 
 Gini index is commonly used to to assess the diversity of the recommendations. The Gini coefficient is defined based on the Lorenz curve, that plots the percentiles of the items on the graph's horizontal axis according to the number of recommendation (or purchases). The cumulative recommendations/purchases is plotted on the vertical axis. An index value of 1 means that a single item is being recommended to all users, where a value of 0 means that all items are recommended equally to all the users.  [Source](https://www.researchgate.net/figure/The-Lorenz-curve-and-Gini-coefficient_fig3_242258189)
 
 <p align="left">
-  <img src="Images/gini.png" width="400">
+  <img src="Images/gini.png" width="400" height="400">
 </p>
 
 In our case study, we will try to adjust the recommendation algorithm in order to increase the coverage of products and improve the distribution of article recommendations.
