@@ -203,7 +203,8 @@ GINI   |Between 0 and 1. The closer to 0 the more equity.    |
 NOVELTY |The Higher the more diversity of less popular items is included in the recommendations   |
 
 ### 3.2. Experiment Methods & Test Strategy  <a name="32-experimenttest"></a>
-Our experiments are based on Offline testing. We use implicit feedback, where the purchases of each user are  available for positive items, whilst all non-interacted items are considered as negatives.
+Our experiments are based on <b>Offline testing</b>. We use implicit feedback, where the purchases of each user are  available for positive items, whilst all non-interacted items are considered as negatives.
+
 In order to have a faster experimentation and reduce their computational cost we opted for random sampling to build target sets. As some papers pointed that maybe the model ranking can not be estable using this method, we tested with the full test set in order to compare the results and assess our ranking remains equal, so we mantain this strategy in the rest of experiments.[Source](https://arxiv.org/pdf/2107.13045.pdf)
 
 ### 3.2. Machine Learning Models  <a name="33-ML"></a>
