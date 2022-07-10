@@ -322,7 +322,7 @@ train_loss=0 # no parameters to learn
  * Last step will be the report generation.
 
 
-# B.2.2 Popularity model <a name="B2-models-nofeat-poularity"></a>
+#### B.2.2 Popularity model <a name="B2-models-nofeat-poularity"></a>
 
 In 'model_Popularity.py' there is created a `Popularity_Recommender` class that generates a popularity recommender model that predicts most popular items that the costumer has not previously purchased
 
@@ -362,9 +362,44 @@ for epoch_i in range(num_epochs):
         train_loss = train_one_epoch(model, optimizer, data_loader, criterion, device)
         hr, ndcg, cov, gini, dict_recommend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
 ```
-Last step will be the report generation.
+* Last step will be the report generation.
 
 Note: Tensorboard information can be displayed if need it.
-
 ![TB sample for FM](https://github.com/ssanchezor/GNN-RS/blob/main/Images/Tensorboard_FM_80000.GIF?raw=true)
 
+
+#### B.2.4 Factorization Machines with Graph Convolutional Network <a name="B2-models-nofeat-GCN"></a>
+
+In 'model_GCN.py' are the classes we will need for Machines Factorization with Graph Convolutional Network model.
+ * `GraphModel`  generates different types of GCN embeddings as a function of the attention parameter value if set. If the attention es set as off, it will use pytorch geometric ["`GCNConv`"](https://pytorch-geometric.readthedocs.io/en/latest/modules/nn.html)
+ * `FactorizationMachineModel_withGCN` the model definition that wii use `FeaturesLinear(field_dims)` and `FM_operation(reduce_sum=True)` from the `model_FM.py` and the previous `GraphModel`.
+
+ * `FactorizationMachineModel` generates Factorization Machine Model with pairwise interactions using regular embeddings
+ 
+'main_GCN.py' will;
+
+* Will define a Tersorboard instance to log the metrics 
+* Create a instance of the dataset (`full_dataset = CustomerArticleDataset(...)`). 
+* Create a dataloder instance (`data_loader = DataLoader(...)`)
+* Will run a embedding/matrix preparation:
+''''
+    identity_matrix = identity(full_dataset.train_mat.shape[0])
+    identity_matrix = identity_matrix.tocoo().astype(np.float32)
+    indices = torch.from_numpy(np.vstack((identity_matrix.row, identity_matrix.col)).astype(np.int64))
+    values = torch.from_numpy(identity_matrix.data)
+    shape = torch.Size(identity_matrix.shape)
+    identity_tensor = torch.sparse.FloatTensor(indices, values, shape)
+    edge_idx, edge_attr = from_scipy_sparse_matrix(full_dataset.train_mat)
+* Create model instance:
+    * `attention = False`
+    * `model = FactorizationMachineModel_withGCN(full_dataset.field_dims[-1], 64, identity_tensor.to(device),                                            edge_idx.to(device), attention).to(device)`
+* Define loss function and optimizer:
+    * `criterion = torch.nn.BCEWithLogitsLoss(reduction='mean')`
+    * `optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)`
+For each epoch, we will train the epoch, test the test dataset:
+```
+for epoch_i in range(num_epochs):
+        train_loss = train_one_epoch(model, optimizer, data_loader, criterion, device)
+        hr, ndcg, cov, gini, dict_recommend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
+```
+* Last step will be the report generation.
