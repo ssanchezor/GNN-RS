@@ -48,7 +48,7 @@ conda install -c conda-forge spacy
 conda install -c conda-forge matplotlib 
 ```
 
-##A.2. Hardware  <a name='A2-hardware'></a> 
+## A.2. Hardware  <a name='A2-hardware'></a> 
 
 We have used Google Collab for many of the early stages of the software development. 
 
@@ -117,5 +117,7 @@ Just to get an idea, these 2 settings will represent:
 
 | Customers dataset | Number of items | Number of transactions|
 |:-----------------:|:---------------:|:---------------------:|
-|10.000| 38200 | 401.000 |
+|10.000| 38.200 | 401.000 |
 |80.000| 52.600 | 3.272.000 |
+
+
