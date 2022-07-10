@@ -162,33 +162,44 @@ We have implemented several metrics to measure the Recommenders performance in t
 
 - #### HIT RATIO
 
-In recommender settings, the hit ratio is simply the fraction of users for which the correct answer is included in the recommendation list of length TOPK. the larger TOPK is, the higher hit ratio becomes.[Source](https://towardsdatascience.com/ranking-evaluation-metrics-for-recommender-systems-263d0a66ef54)
+In recommender settings, the hit ratio is simply the fraction of users for which the correct answer is included in the recommendation list of length TOPK. the larger TOPK is, the higher hit ratio becomes. [Source](https://towardsdatascience.com/ranking-evaluation-metrics-for-recommender-systems-263d0a66ef54)
 
-- #### Structural Similarity (SSIM)
+- #### Normalized Discounted Cumulative Gain (NDCG)
 
-SSIM aims to predict the perceived the quality of a digital image. It is a perception based model that computes the degradation in an image comparison as in the preceived change in the structural information. This metric captures the perceptual changes in traits such as luminance and contrast.
+Normalized Discounted Cumulative Gain. It is a measure of ranking quality.The idea of DCG is that highly relevant documents appearing lower in a recommendations list should be penalized and relevance value is reduced logarithmically proportional to the position of the result. And NDCG is simply to normalize the DCG score by IDCG such that its value is always between 0 and 1 regardless of the length. [Source](https://towardsdatascience.com/ranking-evaluation-metrics-for-recommender-systems-263d0a66ef54)
 
-- #### Multi-Scale Gradient Magnitude Similarity Deviation (MS GMSD)
+- #### COVERAGE
 
-MS-GMSD works on a similar version as SSIM, but it also accounts for different scales for computing luminance and incorporates chromatic distortion support.
+Coverage is the percent of items in the training data the model is able to recommend on a test set.
 
-- #### Mean Deviation Similarity Index (MDSI)
+- #### GINI Coefficient
 
-MDSI computes the joint similarity map of two chromatic channels through standard deviation pooling, which serves as an estimate of color changes. 
+To assess the diversity of the recommendations we use the  Gini index.  When a value of the index is 1 it signifies that a single item is being recommended to all users. A value of 0 means that all items are recommended equally to all the users. The Gini coefficient is defined based on the Lorenz curve. The Lorenz curve plots the percentiles of the items on the graph's horizontal axis according to the number of recommendation (or purchases). The cumulative recommendations/purchases is plotted on the vertical axis. [Source](https://www.researchgate.net/figure/The-Lorenz-curve-and-Gini-coefficient_fig3_242258189)
 
-- #### Haar Perceptural Similarity Index (HaarPSI)
+<p align="left">
+  <img src="Images/gini.png" width="400">
+</p>
 
-HaarPSI works on the Haar wavelet decomposition and assesses local similarities between two images and the relative importance of those local regions. This metric is the current state-of-the-art as for the agreement with human opinion on image quality. 
+We need to adjust the recommendation algorithm to increase the coverage of products and improve the distribution of product recommendations.
+
+- #### NOVELTY
+
+To evaluate the novelty we use the mean self-information (MSI) also call Surprise. The intuition behind quantifying information is the idea of measuring how much surprise there is in an event. Those events that are rare (low probability) are more surprising and therefore have more information than those events that are common (high probability). [Source](https://machinelearningmastery.com/what-is-information-entropy/)
+Low Probability Event: High Information (surprising).
+High Probability Event: Low Information (unsurprising).
+
+Information will be zero when the probability of an event is 1.0 or a certainty there is no surprise.
+We calculate it as -log(p(i)) where p(i) is popularity of the item. [Source](https://digibuo.uniovi.es/dspace/bitstream/handle/10651/50960/diez2018.pdf?sequence=1)
 
 - #### Measure Assessment
 
 Measure | Bar | 
 :------: | :------:|
-PSNR   | Context dependant, generally the higher the better.  | 
-SSIM   |  Ranges from 0 to 1, being 1 the best value.     | 
-MS-GMSD |  Ranges from 0 to 1, being 1 the best value.    |  
-MDSI   |   Ranges from 0 to inf, being 0 the best value.    |
-HaarPSI |   Ranges from 0 to 1, being 1 the best value.   |
+HIT RATIO   | The higher the better.  | 
+NDCG   |  The higher the better quality of the ranking.    | 
+COVERAGE |  The higher the more items are recommended.  |  
+GINI   |   Between 0 and 1. The closer to 0 the more equity.    |
+NOVELTY |  The Higher the more diversity of less popular items is included in the recommendations   |
 
 ### 3.2. Generative Adversarial Networks (GANs)  <a name="32-gans"></a>
 
