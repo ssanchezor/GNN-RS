@@ -1,7 +1,7 @@
 # Readme MC
 ## Table of Contents <a name="toc"></a>
 
-- [X .TOC](#1-intro)
+[X .TOC](#1-intro)
  -[A. Environment Requirements](#A-requirements)
     - [A.1. Software](#A1-software)
     - [A.2. Hardware](#A2-hardware)
@@ -48,7 +48,7 @@ conda install -c conda-forge spacy
 conda install -c conda-forge matplotlib 
 ```
 
-## A.2. Hardware  <a name='A2-hardware'></a> 
+### A.2. Hardware  <a name='A2-hardware'></a> 
 
 We have used Google Collab for many of the early stages of the software development. 
 
@@ -65,7 +65,7 @@ As the kaggle's original data for all the full dataset of H&M is to big, we have
 
 ### B.1. Dataset creation <a name="B1-dataset"></a>
 
-#### Full dataset
+#### Starting point: Full Kaggle dataset
 
 Full dataset has been download from kaggle's  ["H&M Personalized Fashion Recommendations"](https://www.kaggle.com/competitions/h-and-m-personalized-fashion-recommendations)
 
@@ -120,4 +120,177 @@ Just to get an idea, these 2 settings will represent:
 |10.000| 38.200 | 401.000 |
 |80.000| 52.600 | 3.272.000 |
 
+#### Working files for models without features with `build_dataset.py`
 
+The dataset we will be use for our models depend if there are some feature or not. First case is just without any feture.
+
+So, we need to transform the previous filtered csv in to working files that will resemble the Movilens indexed format for all items and customers. The program that will make this conversion is `build_dataset.py`
+
+We will need to specifiy the csv with our filtered dataset in the main procedure
+```
+if __name__ == '__main__':
+    transactions = transactions = pd.read_csv("../data/transactions_ddup_2019-09-22_nart_5_ncust_20_ncustr_80000.csv")
+```
+After running the program, it will generate the working files we need to use to run the models
+
+Customer-article transactions are sorted by users and then by date for each user. The first transaction will be used for the test dataset.
+
+##### ../data/customer.test.article
+
+This is the general format:
+| customer_id | article_id | label| t_dat|
+|:-----------:|:----------:|:----:|:----:|
+|...|...|...|...|
+|...|...|...|...|
+|user i-1|item 1 |1|tdat 1|
+|user i|item 1|1|tdat 1|
+|user i+1|item 1 |1|tdat 1|
+|...|...|...|...|
+
+For example the first transaction of the first 4 users:
+| customer_id | article_id | label| t_dat|
+|:-----------:|:----------:|:----:|:----:|
+|1	|1	|1	|20200519|
+|2	|27	|1	|20200618|
+|3	|63|	1	|20200613|
+|4	|92|	1	|20200618|
+|...|...|...|...|
+|...|...|...|...|
+
+##### ../data/customer.train.article
+
+Train data will contain the remain transactions for each user:
+
+| customer_id | article_id | label| t_dat|
+|:-----------:|:----------:|:----:|:----:|
+|...|...|...|...|
+|...|...|...|...|
+|user i-1|item m |1|tdat m|
+|user i|item 2|1|tdat 2|
+|user i|item 3||tdat 3|
+|...|...|...|...|
+|user i|item n |1|tdat n|
+|user i+1|item 2 |1|tdat 2|
+|...|...|...|...|
+|...|...|...|...|
+
+For instance for user 38:
+
+| customer_id | article_id | label| t_dat|
+|:-----------:|:----------:|:----:|:----:|
+|...|...|...|...|
+|...|...|...|...|
+|37	|1241	|1	|20190927|
+|38	|548	|1	|20200901|
+|38	|1243	|1	|20200901|
+|38	|1244	|1	|20200831|
+|38	|1245	|1	|20200831|
+|38	|551	|1	|20200831|
+|38	|1246	|1	|20200831|
+|...|...|...|...|
+|38	|1279	|1	|20191123|
+|38	|350	|1	|20191123|
+|38	|1280	|1	|20191123|
+|39	|1282	|1	|20200903|
+|...|...|...|...|
+|...|...|...|...|
+
+##### ../data/customer.dic
+
+This is dictionary file that will allow us to relate each indexed customer with the actual customer value in original H&M dataset. This will be use to generate our reports only.
+
+| actual customer_id | indexed customer_id | 
+|-------------------:|:------------------:|
+|00011770272...3ccbb8d5dbb4b92	|1|
+|00023e3dd86...e0038c6b10f655a	|2|
+|0002d2ef78e...bde96e828d770f6	|3|
+|0002e6cdaab...98119fa9cb3cee7	|4|
+|00045027219...d9a84994678ac71	|5|
+|...|...|
+|...|...|
+
+##### ../data/article.dic
+
+This is dictionary file that will allow us to relate each indexed article with the actual article value in original H&M dataset. This will be use to generate our reports only.
+
+| actual aticle_id | indexed article_id | 
+|-------------------:|:------------------:|
+|708485004|	1|
+|820462009|	2|
+|863456003|	3|
+|570002090|	4|
+|863456005|	5|
+|...|...|
+|...|...|
+
+
+#### Working files for models with features with `build_dataset_features.py`
+
+The dataset we will be use for our models depend if there are some feature or not. Second case is just without the sales channel value.
+
+The program that will make this conversion is `build_dataset_features.py`
+
+We will need to specifiy the csv with our filtered dataset in the main procedure
+```
+if __name__ == '__main__':
+    transactions = transactions = pd.read_csv("../data/transactions_ddup_2019-09-22_nart_5_ncust_20_ncustr_80000.csv")
+```
+After running the program, it will generate the working files we need to use to run the models
+
+Customer-article transactions are sorted by users and then by date for each user. The first transaction will be used for the test dataset.
+
+##### ../data/customer.test.article.channel
+
+This is the general format:
+| customer_id | article_id | chanel_id |label| t_dat|
+|:-----------:|:----------:|:----:|:----:|:----:|
+|...|...|...|...|...|
+|...|...|...|...|...|
+|user i-1|item 1| channel 1 |1|tdat 1|
+|user i|item 1|channel 1 |1|tdat 1|
+|user i+1|item 1 |channel 1 |1|tdat 1|
+|...|...|...|...|...|
+
+For example the first transaction of the first 4 users:
+| customer_id | article_id | label| t_dat|
+|:-----------:|:----------:|:----:|:----:|
+|1	|1	|1	|1	|20200519|
+|2	|27	|2	|1	|20200618|
+|3	|63|1	|	1	|20200613|
+|4	|92|2	|	1	|20200618|
+|...|...|...|...|
+|...|...|...|...|
+
+##### ../data/customer.train.article.channel
+
+Train data will contain the remain transactions for each user:
+
+| customer_id | article_id |  chanel_id | label| t_dat|
+|:-----------:|:----------:|:----:|:----:|:----:|
+|...|...|...|...|...|
+|...|...|...|...|...|
+|user i-1|item m |channel m |1|tdat m|
+|user i|item 2|channel 2| 1|tdat 2|
+|user i|item 3|channel 3||tdat 3|
+|...|...|...|...|
+|user i|item n |channel n|1|tdat n|
+|user i+1|item 2 |channel 2|1|tdat 2|
+|...|...|...|...|...|
+|...|...|...|...|...|
+
+For instance for user 38:
+
+| customer_id | article_id | label| t_dat|
+|:-----------:|:----------:|:----:|:----:|
+|...|...|...|...|
+|...|...|...|...|
+|37	|1241	|2	|1	|20190927|
+|38	|548	|2	|1	|20200901|
+|38	|1243	|2	|1	|20200901|
+|38	|1244	|2	|1	|20200831|
+|...|...|...|...|
+|38	|350	|1	|1	|20191123|
+|38	|1280	|1	|1	|20191123|
+|39	|1282	|1	|1	|20200903|
+|...|...|...|...|...|
+|...|...|...|...|...|
