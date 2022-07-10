@@ -274,13 +274,13 @@ To launch the instance we used Cloud Deep Learning VM Image. We created a Linux 
 ## 6.1 Results 10K Customers <a name="61-results10k"></a>
 
 
-Model | HR@10 | NDCG@10 |COV@10 |GINI@10 |NOV@10 |COMPUTATIONAL REQUIREMENTS
-:------: | :------:| :------:| :------:| :------:|:------:|
-Random | 10,33%	|4,76%|92,60%|0,3397|11,3275|	LOW|
-Popularity |39,61%|22,33%|16,42%|0,9006|7,821|LOW|
-FM |20,22%|10,44%|34,42%|0,8525|9,995|LOW|
-FM + GCN  |36,11%|20,77%|50,97%|0,7351|10,1138|MEDIUM|
-FM + GAT |39,27 %|23,17 %|49,98 %|0,7575|9,1396|VERY HIGH|
+|Model | HR@10 | NDCG@10 |COV@10 |GINI@10 |NOV@10 |COMPUTATIONAL REQUIREMENTS|
+:------: | :------:| :------:| :------:| :------:|:------:|:-----------------:|
+|Random | 10,33%	|4,76%|92,60%|0,3397|11,3275|	LOW|
+|Popularity |39,61%|22,33%|16,42%|0,9006|7,821|LOW|
+|FM |20,22%|10,44%|34,42%|0,8525|9,995|LOW|
+|FM + GCN  |36,11%|20,77%|50,97%|0,7351|10,1138|MEDIUM|
+|FM + GAT |39,27 %|23,17 %|49,98 %|0,7575|9,1396|VERY HIGH|
 
 
 
