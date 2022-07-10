@@ -41,6 +41,7 @@ Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
     - [6.1. Results 10k Customers (Random Sampling TestSet)](#61-results10K)
     - [6.2. Results 10k Customers (Full)](#62-results10KF)
     - [6.3. Results 80k Customers (Full)](#63-results80K)
+    - [6.4. Model Comparizon](#64-comparison)
 - [7. Conclusions](#7-conclusions) 
 - [8. Acknowledgements](#8-acknowledgements)
  
@@ -346,7 +347,7 @@ To launch the instance we used Cloud Deep Learning VM Image. We created a Linux 
   </table>
 </div>
 
-### 6.4 Model Comparison <a name="64-Comparison"></a>   
+### 6.4 Model Comparison <a name="64-comparison"></a>   
 
 
 <div style="overflow-x:auto;">
@@ -361,36 +362,20 @@ To launch the instance we used Cloud Deep Learning VM Image. We created a Linux 
    </table>
   </div>
   
-## 6. Conclusions <a name="6-conclusions"></a>
+## 7. Conclusions <a name="7-conclusions"></a>
 
-* **Training GANs** proved to be a **hard task**.
-    * Requires a vest amount of **resources**.
-    * **Training process** is **not straightforward**.
+* The results of the**FM+GAT** model were promising with a small dataset, but it has not been possible to test it with a larger one due to the computational resources it required.
 
-* **SNGAN outperformed** DCGAN, ACGAN and WGAN.
-    * Even though **after huge amount of experimentation** metrics were still far from initial goal.
+* **FM+GCN** Model give a very good and balanced much better than Popularity Model.
 
-* On the **GAN training parametrization**:
-    * **Batch size** is among the most relevant parameters to reduce training times and improve image quality. The reasonale behind this effect could come from the _Discriminator_ having less examples to generalize its classification of real and fake images.
-    * The number of **training epochs** also affects the quality of the generated images. Longer traning usually ends up producing better images even though the two losses did not converge.
-    * Another parameter tweak that comes handy when training these architectures is the **size of the latent vector**. With higher sizes the quality of images did not improve, but it did reduce the training time.
-    * **Label smoothing** has another critical change that was done in our GANs. It did produce better images and also it did stabilize the training. Mathematically, the class probabilities of the discriminator are, in general, lower when using this technique and thus, it balances the performance of the _Discriminator_ and the _Generator_.
-    * **Spectral normalization**, which deals with exploding gradients, did also increase the quality of the generated images. It gave out a new architecture purely based on a DCGAN.
-    * **Different learning rates**, more specifically with higher values for the _Discriminator_, did stabilize training and also increased the quality of the images. The explanation behind this behavior is that setting bigger steps for optimizing the loss function of the _Discriminator_  makes this agent more imprecise at the classification task whereas the smaller steps for the _Generator_ gives it a more precise approach to image generation.
+* **Popularity** Model is a very cheap model with notso bad performance in terms of accuracy.
 
-* **Different metrics** are sensible to **different aspects** of image quality.
-    * Best practice to **use a set** of them to assess the generated images.
-    * **Include a metric** based on **human perception**.
- 
-* Good results for a **lack** of **resources**.
-    * Fine-tuned **EfficientNet** achieves **high accuracy** with **reduced dataset**.
-    * Dataset with **sysnthetic images** does **not improve accuracy**.
-    * **Balanced dataset** with **synthetic images** and no augmentations achieves **good results**.
+* Our original dataset had a distribution with an obvious **popularity bias** ,inherent to fashion, and for this reason it is difficult to obtain better results in terms of **Gini and Novelty** if other strategies are not used, such as performing a subsequent reranking including more items belonging to the long tail or using a hybrid recommender always taking into account the users preferences.
 
-## 7. Acknowledgements <a name="7-acknowledgements"></a>
+* The selection of metrics to mesure the **Fairness** has not been easy.
 
-We would like to thank all the staff from the Prostgraduate Course on Artificial Intelligence with Deep Learning for all the effort and care that they took and showed preparing the materials and lecture which provided us with the tools to build this project.
+## 8. Acknowledgements <a name="8-acknowledgements"></a>
 
-We would like to give a special thanks to Santi Puch, our advisor, who provided very helpful advise and spent numerous hours revising our material and searching tricks and tips for our project.
+We would like to thank all the teachers from the Prostgraduate Course on Artificial Intelligence with Deep Learning. It has been a hard but amazing journey.
 
-Finally, we would also like to highlight the very useful work of François Rozet, the creator of PIQA. It really helped us to implement an standard of metrics in a really straightforward and clear manner.
+Finally, we would also thanks our families for its patient and support during this months.
