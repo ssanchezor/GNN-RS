@@ -342,9 +342,10 @@ To launch the instance we used Cloud Deep Learning VM Image. We created a Linux 
          <img src="Images/FM_GCN80KDistribution.png" width="500">
          </p>
         </td>
-        </tr>
+       </tr>
   </table>
 </div>
+
 ### 6.4 Model Comparison <a name="64-Comparison"></a>   
 
 
@@ -359,6 +360,7 @@ To launch the instance we used Cloud Deep Learning VM Image. We created a Linux 
       </tr>
    </table>
   </div>
+  
 ## 6. Conclusions <a name="6-conclusions"></a>
 
 * **Training GANs** proved to be a **hard task**.
