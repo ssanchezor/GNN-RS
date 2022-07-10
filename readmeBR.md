@@ -122,13 +122,13 @@ As a result of a preliminary analysis of the dataset, we have observed the follo
        <tr><td>
          <p align="left">Predominant channel (2) for purchasing articles:</p>
          <p align="left">
-            <img src="Images/interactionxchannel.png" width="400">
+            <img src="Images/interactionxchannel.png" width="300">
          </p>
         </td>
          <td>
          <p align="left">Most of costumers do not check news:</p>
          <p align="left">
-            <img src="Images/CustomerNews.png" width="400">
+            <img src="Images/CustomerNews.png" width="300">
          </p>
         </td>
   </table>
