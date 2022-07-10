@@ -370,7 +370,7 @@ It has not been possible to compute the FM+GAT model with this dataset due to th
   
 ## 7. Conclusions <a name="7-conclusions"></a>
 
-* The results of the**FM+GAT** model were promising with a small dataset, but it has not been possible to test it with a larger one due to the computational resources it required.
+* The results of the **FM+GAT** model were promising with a small dataset, but it has not been possible to test it with a larger one due to the computational resources it required.
 
 * **FM+GCN** Model give a good and balanced resulto, much better than Popularity Model.
 
