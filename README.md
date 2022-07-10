@@ -147,60 +147,8 @@ After doing some analysis of the resulting data, we have computed the long-tail 
 
 Products on left side (or in blue line) are called as popular because their popularity is higher then those in yellow or long-tail area. Moreover, popular products are generally competitive products. On the other hand, products in yellow long-tail area are thought to be unpopular or new products in market. The threshold which discriminates the popular and unpopular items in market is an hyper-parameter for the retailer. 
 
-In our example, it seems that there are some popularity bias since very few articles occupy nearly the 80% of the total transactions.    
+As it can be seen, it appears that our H&M dataset has some popularity bias since very few articles occupy nearly 80% of the total transactions.    
                                                        
-
-### 2.1. Data Description  <a name="21-eda"></a>
-
-Through the API available in the ISIC home page we have been able to download all the images collection with its descriptions associated. The whole database is about 110 gigabytes (GB). The format of the colour images is both JPEG and PNG with a high variety of resolution sizes. Each image has a corresponding JSON-based description file with the image metadata information. From these metadata files we have been conducted a quick Exploratory Data Analysis (EDA) to acquire more awareness of how distributed it is. Initially, there were 27 metadata fields from which we later filtered out and kept only 8 of them. Some meaningful classes worthy to mention are the dcm_name field which identifies the image associated; the benign_malignant class from which we later classify; and finally the diagnosis class which details the diagnosis of the dermatological image lesion is referred to.
-
-<p align="center">
-  <img width="90%" height="90%" src="Data/images-sagan/diagnosis.png"/>
-</p>
-
-
-As we mention, we carried out a gently Data Wrangling to obtain some useful insight about the images data handling. From this procedure we have verified that there is a very high target class imbalance which need to take in consideration when modeling.
-
-<p align="center">
-  <img width="70%" height="70%" src="Data/images-sagan/sex.png" /> 
-  <img width="70%" height="70%" src="Data/images-sagan/age.png" />
-</p>
-
-### 2.2. Pre-processing  <a name="22-preprocessing"></a> 
-
-To be able to feed our dataset into the classifier, we must first condition it to the network and to our resource’s limitations.
-
-#### CSV files
-
-As mentioned before, every image comes with a JSON files with relevant information regarding the patient and the skin spot. This files were all put into a CSV file where each column stands for a field from the JSON file. 
-In addition to the initial fields, we added “dcm_name” to store the name of the image the data belongs to, and “target” which is set to 0 if the skin spot is benign and to 1 in case it is malignant.
-
-#### Dataset reduction
-
-We reduced the dataset to 5K images to diminish the training cost, keeping the malignant/benign ratio so the results can be escalated to the complete dataset.
-
-Given the size of the image’s directory, we modified it so it only contained the images that were going to be fed into the network, in order not to use more storage than necessary in GCP. We did this through a series of automated functions in python.
-
-#### Data augmentation
-
-We applied several transformations to avoid overfitting when training our network with the reduced dataset. To do that, we have used albumentations’ library due to the large number of augmentations it has available.
-
-The images input size was variable and with a bigger resolution, we resized them to 128x128 to fit the synthetically generated images. Furthermore, we applied techniques involving changing the image’s contrast and brightness scale and rotations. We also normalized its mean and standard deviation and finally we converted the images ton tensors so they can be feed into our model.
-
-Here are some of the images before and after applying the transformations.
-
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/37978771/115211333-c0ff6600-a0ff-11eb-8ee7-fbd3dee7f332.png">
-</p>
-
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/37978771/115211501-e68c6f80-a0ff-11eb-878f-b2b58ff11400.png">
-</p>
-
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/37978771/115211526-ef7d4100-a0ff-11eb-9d35-5751703abaca.png">
-</p>
-
 ## 3. Deep Neural Networks Models <a name="3-dnns"></a>
 
 Under this section we present all the GAN versions implemented. We approach to the proble with our own variation of implementation of the technique and methodology first introduced in [Frid-Adar et al.](https://arxiv.org/abs/1803.01229) in 2018.
