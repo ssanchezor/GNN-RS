@@ -203,11 +203,11 @@ We calculate it as `-log(p(i))` where p(i) is popularity of the item. [Source](h
 
 Measure | Bar | 
 :------: | :------:|
-HIT RATIO   |The higher the better, more accuracy.  | 
-NDCG   |The higher the better, meaningful results first.    | 
-COVERAGE |The higher the better, more items are recommended.  |  
-GINI   |The lower the better, more equity.    |
-NOVELTY |The higher the better, less popular items are included in the recommendations   |
+HIT RATIO   |The higher the better, more accuracy  | 
+NDCG   |The higher the better, meaningful results first    | 
+COVERAGE |The higher the better, more items recommended  |  
+GINI   |The lower the better, more equity    |
+NOVELTY |The higher the better, less popular items included in the recommendations   |
 
 ### 3.2. Experiment Methods & Test Strategy  <a name="32-experimenttest"></a>
 Our experiments are based on <b>Offline testing</b>. We use implicit feedback, where the purchases of each user are available as positive items, while all non-interacted items are considered as negative.
