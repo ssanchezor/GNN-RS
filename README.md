@@ -73,7 +73,7 @@ For training and testing our models, we have used the dataset provided by Kaggle
 
 H&M dataset contains data from all the transactions that took place during 2018-2020 period, as well as images of all the involved articles.
 
-Transaction data is divided into several files:
+Transaction data is divided into several different files:
 - articles.csv - detailed metadata for each article_id available for purchase
 - customers.csv - metadata for each customer_id in dataset
 - transactions_train.csv - training data, consisting of the purchases each customer for each date, as well as additional information (i.e. channel).
@@ -84,6 +84,29 @@ Transaction data is divided into several files:
 |Number of costumers                | 1.371.980|
 |Number of transactions  | 31.788.324|
 |Data range  | From 2018 to 2020 |
+
+Due to computational limitations, we have decided to apply a series of different filters in order to reduce the number of transactions.
+
+- Articles that have been purchased more than 5 times
+- Customers who have bought more than 20 articles
+- Reduce data range for the last year
+- Shuffle & pick N customers (10K and 80K)
+
+Results after applying data filtering:
+
+|             Filtered Dataset features - 10K      | | 
+|:------------------------:|:-------:|
+|Number of articles    | 38.782|
+|Number of costumers                | 10.000|
+|Number of transactions  | 489.710|
+|Data range  | From 2020|
+
+|             Filtered Dataset features - 80K      | | 
+|:------------------------:|:-------:|
+|Number of articles    | 52.661|
+|Number of costumers                | 80.000|
+|Number of transactions  | 3.990.745|
+|Data range  | From 2020|
 
 <p align="center">
   <img src="Data/images-sagan/data-tree-background.png">
