@@ -40,29 +40,29 @@ Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
  
 ## 1. Introduction <a name="1-intro"></a>
 
-Over the last decade Deep Neural Networks have produced unprecedented performance on a number of tasks, given sufficient data. One of the main challenges in the medical imaging domain is how to cope with the small datasets and limited amount of annotated samples, especially when employing supervised machine learning algorithms that require labeled data and larger training examples.
+Nowadays Recommender Systems have become a key peace to solve the problem of overload information. The information if far for being reduced, as well as the diversity of users that uses platform such as  Netflix, wirh more than 17.000 titles and 221.64 million of paying subscriptions, or Amazon, with116.44 billion U.S. dollars sales and more than 200 million Prime members.
 
-In an attempt to overcome this challenge, the researchers adopted data augmentation schemes, commonly including simple modifications of dataset images such as translation, rotation, flip and scale. However, little additional information can be gained from the diversity provided by these techniques.
+But what makes a recommender a good recommender? It is not only a question of personalizing the recommendations in such a way that the system shows the user items related to their tastes, but also of reflecting the diversity in a fair way, so that users can discover new things that may interest them and, at the same time, the systems ensure that no bias or, worse, discrimination is added.
 
-On the other hand, since their introduction by [Goodfellowet al.](https://papers.nips.cc/paper/5423-generative-adversarial-nets), Generative Adversarial Networks (GANs) have become the defacto standard for high quality image synthesis. There are two general ways in which GANs have been used in medical imaging. The first is focused on the generative aspect and the second one is on the discriminative aspect. Focusing on the first one, GANs can help in exploring and discovering the underlying structure of training data and learning to generate new images. This property makes GANs very promising in coping with data scarcity and patient privacy.
+Of course, some items are popular for a reason, so it is important to find a trade-off between accuracy & fairness.
 
 
 ### 1.1. Motivation <a name="11-motivation"></a>
 
-Skin cancer is the most prevalent type of cancer. Melanoma, specifically, is responsible for 75% of skin cancer deaths, despite being the least common skin cancer. As with other cancers, early and accurate detection—potentially aided by data science—can make treatment more effective. The advance of medical imaging informatics and the new AI approaches are leading the efforts to improve melanoma diagnosis. Machine learning algorithms require sufficient data volume for attaining successful results. However, there is inherent problematic in the field of medical imaging where abnormal findings are by definition uncommon. The paucity of annotated data and class imbalance of insufficient variability leads to poor classification performance.
-
-In this project we have explored the possibilities of applying different flavors of GANs given their potential as an augmented method for image representation and classification.
+In this project we have compared differents methods and models to make  recommendations and we have tried to find out which of them gives  more balanced results in terms of hits and fairness, reducing the popularity bias without damaging the quality of the ranking.
 
 
 ### 1.2. Objectives <a name="12-milestones"></a>
 
-The main purpose of this project is to demonstrate the potential solution to the problem of insufficiency data volume in the medical domain. The proposed solution consists of using GANs for synthetic medical data augmentation for improving a CNN-based classifier's performance. To tackle this task, it can be further broken down into the following sub-objectives:
-- Explore, clean and process the data that will be used for training and evaluating the implemented Deep Neural Networks.
-- Research, develop, implement and train a classifier model. This classifier will be based on a scaled up CNN whose function will be to detect malign dermathological lesions from the different augmented images.
-- Perform classifier performance tests. In order to establish a solid base evaluation model to compare with, there wil be necessary to undertake several experiments for fine tuning appropriately the model to our data.
-- Research, develop, implement and train a series of GANs-based models to be able to demonstrate how much we can improve the performance of the classifier.
-- Carried out a series of experiments comparing the performance of the classifier using standard augmentation over the training data with respect to the performance obtained using the synthetic data from the differents GANs.
-- Draw final conclusions from all the experiments conducted and the different improvements attempted.
+The main purpose of this project is to test the potencial of deep neural networks to solve the problem of personalize recommendations, in particular the use of Graph convolutional networks and Graph attention networks and to analyze how to popularity bias affect  each model.  To be more specific, the main objectives are the following:
+- Find a complete dataset that fits for the task. In this case we opted for an H&M dataset.
+- Explore and undestand the data, clean and pre-process it to be used for training and test our models.
+- Implement different simple models as Random and Popularity to have a reference.
+- Implement a Factorization Machine with regular embeddings and after add embeddings generated by an GCN and GAT and analyze the results.
+- Explore the Popularity Bias and analyze how it affects each model.
+- Carried out some experiments adding more data expecting improvements in the results.
+- Add some features related to the contexto of the transaction a evaluate how each model results is affected.
+- Extract conclusions and insights from the results and visualize them in an understandable way.
 
 ## 2. Corpora <a name="2-available-datasets"></a>
 
