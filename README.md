@@ -145,7 +145,9 @@ After doing some analysis of the resulting data, we have computed the long-tail 
   <img src="Images/HM80KPopularityRanking.png" width="400">
 </p>
 
-Products on left side (or in blue line) are called as popular because their popularity is higher then those in yellow or long-tail area. Moreover, popular products are generally competitive products. On the other hand, products in yellow long-tail area are thought to be unpopular or new products in market. The threshold which discriminates the popular and unpopular items in market is an hyper-parameter for the retailer. In our example, it seems that there are high popularity bias indices since very few articles occupy nearly the 80% of the total transactions.    
+Products on left side (or in blue line) are called as popular because their popularity is higher then those in yellow or long-tail area. Moreover, popular products are generally competitive products. On the other hand, products in yellow long-tail area are thought to be unpopular or new products in market. The threshold which discriminates the popular and unpopular items in market is an hyper-parameter for the retailer. 
+
+In our example, it seems that there are some popularity bias since very few articles occupy nearly the 80% of the total transactions.    
                                                        
 
 ### 2.1. Data Description  <a name="21-eda"></a>
