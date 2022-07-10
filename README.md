@@ -66,11 +66,19 @@ The main purpose of this project is to test the potencial of deep neural network
 - Add some features related to the contexto of the transaction a evaluate how each model results is affected.
 - Extract conclusions and insights from the results and visualize them in an understandable way.
 
-## 2. Corpora <a name="2-available-datasets"></a>
+## 2. H&M Dataset <a name="2-available-datasets"></a>
 
-For training and testing our models, we have used the dataset provided by the healthcare organization for informatics in medical imaging, the [Society for Imaging Informatics in Medicine (SIIM)](https://siim.org/) joined by the [International Skin Imaging Collaboration (ISIC)](https://www.isic-archive.com/#!/topWithHeader/wideContentTop/main). 
+For training and testing our models, we have used the dataset provided by Kaggle competition [H&M Personalized Fashion Recommendations
+](https://www.kaggle.com/c/h-and-m-personalized-fashion-recommendations).
 
-After some filtering for rebalancing the missing or non-labeled images and cutting off the excess of benign lesions, we finish with a total number of 22,922 images split in Train (16,045 observations) and Test (6,877 observations).
+H&M dataset contains data from all the transactions that took place during 2018-2020 period, as well as images of all the involved articles.
+
+Transaction data is divided into several files:
+- articles.csv - detailed metadata for each article_id available for purchase
+- customers.csv - metadata for each customer_id in dataset
+- transactions_train.csv - training data, consisting of the purchases each customer for each date, as well as additional information (i.e. channel).
+
+
 
 <p align="center">
   <img src="Data/images-sagan/data-tree-background.png">
