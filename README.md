@@ -287,6 +287,7 @@ To launch the instance we used Cloud Deep Learning VM Image. We created a Linux 
 |FM + GCN  |36,11%|20,77%|50,97%|0,7351|10,1138|MEDIUM|
 |FM + GAT |39,27 %|23,17 %|49,98 %|0,7575|9,1396|VERY HIGH|
 
+The Random Model of course shows the best results regarding the fairness but the accuracy metrics are very poor. Popularity Model has the better results related to accuracy but obviously has bias. The more balanced one is FM+GAT Model than performance better in all the metrics than the rest.
 
 ### 6.2 Results 10K Customers (Full) <a name="62-results10kF"></a>
 
@@ -298,6 +299,9 @@ To launch the instance we used Cloud Deep Learning VM Image. We created a Linux 
 |FM + GCN  |1,03%|0,58%|6,49 %|0,9926|8,465|MEDIUM|
 |FM + GAT |2,20 %|1,46%|17,65 %|0,9739|8,465|VERY HIGH|
 
+The test on all elements of the training set helps us put the numbers in context and see them in some perspective.
+The ranking of the models does not change much and the relationship between metrics is maintained, but the popularity model shows a greater bias.
+
 ### 6.3 Results 80K Customers (Random Sampling Test Set) <a name="63-results80k"></a>
 
 |Model | HR@10 | NDCG@10 |COV@10 |GINI@10 |NOV@10 |COMPUTATIONAL REQUIREMENTS|
@@ -308,6 +312,8 @@ To launch the instance we used Cloud Deep Learning VM Image. We created a Linux 
 |FM + Context |53,24%|29,99%|39,91%|0,8312|8,6605|LOW|
 |FM + GCN  |59,59 %|36,02 %|64,10 %|0,7615|9,1412|MEDIUM|
 |FM + GAT |Not feasible|	Not feasible|	Not feasible|	Not feasible|	Not feasible|	VERY HIGH|
+
+It has not been possible to compute the FM+GAT model with this dataset due to the memory and gpu requirements it required, although the results would most likely have been better than the rest. Anyway FM + GCN improve all the metrics by adding more data. Also is important to mention than by adding the sales channel as context information in the embeddings with the FM Model, improves a lot the results obtained by FM. 
 
 <div style="overflow-x:auto;">
   <table>
@@ -370,6 +376,8 @@ To launch the instance we used Cloud Deep Learning VM Image. We created a Linux 
 
 * **Popularity** Model is a very cheap model with notso bad performance in terms of accuracy.
 
+* By adding **extra features** to the FM Model we observed an evident improvements in the metrics so we guess that doing the same for FM+GCN and FM+GAT will allow to have a very good results in all the metrics.
+
 * Our original dataset had a distribution with an obvious **popularity bias** ,inherent to fashion, and for this reason it is difficult to obtain better results in terms of **Gini and Novelty** if other strategies are not used, such as performing a subsequent reranking including more items belonging to the long tail or using a hybrid recommender always taking into account the users preferences.
 
 * The selection of metrics to mesure the **Fairness** has not been easy.
@@ -377,5 +385,7 @@ To launch the instance we used Cloud Deep Learning VM Image. We created a Linux 
 ## 8. Acknowledgements <a name="8-acknowledgements"></a>
 
 We would like to thank all the teachers from the Prostgraduate Course on Artificial Intelligence with Deep Learning. It has been a hard but amazing journey.
+
+It is also fair to mention and appreciate the amount of articles and code available through the Internet, shared knowledge is the best way to progress.
 
 Finally, we would also thanks our families for its patient and support during this months.
