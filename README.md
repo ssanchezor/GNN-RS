@@ -114,14 +114,14 @@ As a result of a preliminary analysis of the dataset, we have observed the follo
  
 ### 2.2. Pre-processing  <a name="22-preprocessing"></a> 
 
-Due to computational limitations, we have decided to apply a series of different filters in order to reduce the number of transactions.
+Due to computational limitations, we have decided to apply a series of different filters in order to reduce the number of transactions:
 
 - Articles that have been purchased more than 5 times
 - Customers who have bought more than 20 articles
 - Reduce data range for the last year
 - Shuffle & pick N customers (10K and 80K)
 
-These values can be modified by following the steps defined in: [1.2. Objectives](#12-milestones)
+These values can be modified in any time by following the steps defined in: [1.2. Objectives](#12-milestones)
 
 Results after applying data filtering:
 
@@ -139,9 +139,18 @@ Results after applying data filtering:
 |Number of transactions  | 3.990.745|
 |Data range  | 2020|
 
+After doing some analysis of the resulting data, we have computed the long-tail graph to show the distribution of popularity among articles in the dataset (for both 10K and 80K customers).
+
 <p align="center">
-  <img src="Data/images-sagan/data-tree-background.png">
+  <img src="Images/HM10KPopularityRanking.png width="400">
 </p>
+
+<p align="left">
+  <img src="Images/HM80KPopularityRanking.png" width="400">
+</p>
+
+Products on left side (or in blue line) are called as popular because their popularity is higher then those in yellow or long-tail area. Moreover, popular products are generally competitive products. On the other hand, products in yellow long-tail area are thought to be unpopular or new products in market. The threshold which discriminates the popular and unpopular items in market is an hyper-parameter for the retailer. In our example, it seems that there are high popularity bias indices since very few articles occupy nearly the 80% of the total transactions.    
+                                                       
 
 ### 2.1. Data Description  <a name="21-eda"></a>
 
