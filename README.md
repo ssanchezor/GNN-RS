@@ -116,7 +116,7 @@ Other observations:
 <p align="center">
   <img src="Data/images-sagan/data-tree-background.png">
 </p>
-
+ 
 ### 2.2. Pre-processing  <a name="22-preprocessing"></a> 
 
 Due to computational limitations, we have decided to apply a series of different filters in order to reduce the number of transactions.
