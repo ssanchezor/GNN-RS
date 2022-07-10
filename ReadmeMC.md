@@ -294,3 +294,12 @@ For instance for user 38:
 |39	|1282	|1	|1	|20200903|
 |...|...|...|...|...|
 |...|...|...|...|...|
+ 
+ ##### ../data/customer.dic
+
+This is dictionary file that will allow us to relate each indexed customer with the actual customer value in original H&M dataset. Remains the same for featured dataset.
+
+##### ../data/article.dic
+
+This is dictionary file that will allow us to relate each indexed article with the actual article value in original H&M dataset. Remains the same for featured dataset.
+
