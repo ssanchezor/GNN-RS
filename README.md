@@ -345,8 +345,20 @@ To launch the instance we used Cloud Deep Learning VM Image. We created a Linux 
         </tr>
   </table>
 </div>
-   
+### 6.4 Model Comparison <a name="64-Comparison"></a>   
 
+
+<div style="overflow-x:auto;">
+  <table>
+    <tr><td>
+         <p align="left"> <b>Radar Chart    </b></p>
+         <p align="left">
+         <img src="Images/spidergraphtransparent.png" width="500">
+         </p>
+        </td>
+      </tr>
+   </table>
+  </div>
 ## 6. Conclusions <a name="6-conclusions"></a>
 
 * **Training GANs** proved to be a **hard task**.
