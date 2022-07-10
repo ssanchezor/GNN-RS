@@ -449,5 +449,8 @@ Report generation.
 
 ![Random model - 80.000 users - Partial](https://github.com/ssanchezor/GNN-RS/blob/main/Data/RandomRecommender-Partial-80000_users.pdf)
 
-Regional features (e.g. [RMAC](https://arxiv.org/pdf/1604.01325.pdf))
-![hustlin_erd](erd.pdf)
+
+![Random model - 80.000 users - Partial](https://github.com/ssanchezor/GNN-RS/blob/main/Data/RandomRecommender-Partial-80000_users.pdf)
+
+
+![Test](https://docs.google.com/viewer?url=${https://github.com/ssanchezor/GNN-RS/blob/main/Data/RandomRecommender-Partial-80000_users.pdf})
