@@ -27,11 +27,11 @@ Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
     - [3.1. Evaluation Metrics](#31-metrics)
     - [3.2. Experiment Methods & Test Strategy](#32-experimenttest)
     - [3.3. Machine Learning Models](#33-ML)
+        - [Factorization Machine](FM)
+        - [Graph Convolutional Networks](GCN)
+        - [Graph Attention Networks](GAT)
         - [Random](RAND)
         - [Popularity](POP)
-        - [FM with regular embeddings](FM)
-        - [FM with GCN embeddings](FMGCN)
-        - [FM with GAT embeddings](FMGAT)
     - [3.3. Adding context](#32-efficientnet) 
 - [4. Environment Requirements](#4-envs)
     - [4.1. Software](#41-software)
@@ -231,7 +231,7 @@ In order to have a faster training and reduce its computational cost, we have op
 
 ### 3.3. Machine Learning Models  <a name="33-ML"></a>
 
-- [Factorization Machine](FM)<a name="FM"></a>
+- ### [Factorization Machine](FM)<a name="FM"></a>
 
 <b>Embeddings</b>
 
@@ -276,7 +276,7 @@ Expected behaviour:
 |Medium|Medium|Medium|Medium|Medium|Medium|
 
 
-- [Graph Convolutional Networks](GCN)<a name="GCN"></a>
+- ### [Graph Convolutional Networks](GCN)<a name="GCN"></a>
 
 Factorization Machines add some side information to the possible interactions through extending the feature vectors, which may provoke a very high number of parameters, specially when adding different features. Graph Convolutional Networks helps to address this problem by making use of Knowledge Graphs to represent the available data, since it is an easier way to consider more entities involved in the interactions.
 
@@ -306,7 +306,7 @@ Expected behaviour:
 |------|-------:|----------------:|--------------:|--------------:|-------------:|
 |High|High|Medium|Medium|Medium|High
 
-- [Graph Attention Networks](GAT)<a name="GAT"></a>
+- ### [Graph Attention Networks](GAT)<a name="GAT"></a>
 
 Graph Attention Network (GAT) is a neural network architecture that operates on graph-structured data, leveraging masked self-attentional layers to address the shortcomings of prior methods based on graph convolutions or their approximations. By stacking layers in which nodes are able to attend over their neighborhoods’ features, the method enables (implicitly) specifying different weights to different nodes in a neighborhood, without requiring any kind of costly matrix operation (such as inversion) or depending on knowing the graph structure upfront.
 
@@ -322,7 +322,7 @@ Expected behaviour:
 |------|-------:|----------------:|--------------:|--------------:|-------------:|
 |Very high|Very high|Medium|Medium|Medium|Very high
 
-- [Random](RAND)<a name="rand"></a>
+- ### [Random](RAND)<a name="RAND"></a>
 
 Popularity recommender models allows to predict any items (randomly selected) that a particular costumer has not previously purchased.
 
@@ -332,7 +332,7 @@ Expected behaviour:
 |------|-------:|----------------:|--------------:|--------------:|-------------:|
 |Low|Low|High|Close to 0|High|Low
 
-- [Popularity](POPU)<a name="popu"></a>
+- ### [Popularity](POP)<a name="POP"></a>
 
 Popularity recommender models allows to predict most popular items (with more interactions) that a particular costumer has not previously purchased. This is the most basic recommendation system which provides generalized recommendation to every user depending on the popularity. Whatever is more popular among the general public, is more likely to be recommended to new customers. The generalized recommendation is not personalized, is based on the count.
 
