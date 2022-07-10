@@ -158,11 +158,11 @@ Under this section we present all the GAN versions implemented. We approach to t
 
 ### 3.1. Evaluation Metrics  <a name="31-metrics"></a>
 
-Since we lack from any medical expertise for assessing the quality of the generated images, we have implemented several metrics to measure traits of our output pictures.
+We have implemented several metrics to measure the Recommenders performance in terms of accurracy and fairness.All the metrics are evaluated at a cut-off of 10. We do this because we are interested in evaluating the quality of the top recommendations.
 
-- #### Peak Signal-to-Noise Ratio (PSNR)
+- #### HIT RATIO
 
-This metric is used to measure the quality of a given image (noise), which underwent some transformation, compared to the its original (signal). In our case, the original picture is the real batch of images feeded into our network and the noise is represented by a given generated image.
+In recommender settings, the hit ratio is simply the fraction of users for which the correct answer is included in the recommendation list of length TOPK. the larger TOPK is, the higher hit ratio becomes.[Source](https://towardsdatascience.com/ranking-evaluation-metrics-for-recommender-systems-263d0a66ef54)
 
 - #### Structural Similarity (SSIM)
 
