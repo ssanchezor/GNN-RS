@@ -287,7 +287,7 @@ To launch the instance we used Cloud Deep Learning VM Image. We created a Linux 
 |FM + GCN  |36,11%|20,77%|50,97%|0,7351|10,1138|MEDIUM|
 |FM + GAT |39,27 %|23,17 %|49,98 %|0,7575|9,1396|VERY HIGH|
 
-The Random Model of course shows the best results regarding the fairness but the accuracy metrics are very poor. Popularity Model has the better results related to accuracy but obviously has bias. The more balanced one is FM+GAT Model than performance better in all the metrics than the rest.
+The Random Model of course shows the best results regarding the fairness but the accuracy metrics are very poor. Popularity Model has the better results related to accuracy but obviously has bias. The more balanced one is FM+GAT Model that performs better in all the metrics than the rest of models.
 
 ### 6.2 Results 10K Customers (Full) <a name="62-results10kF"></a>
 
@@ -299,8 +299,8 @@ The Random Model of course shows the best results regarding the fairness but the
 |FM + GCN  |1,03%|0,58%|6,49 %|0,9926|8,465|MEDIUM|
 |FM + GAT |2,20 %|1,46%|17,65 %|0,9739|8,465|VERY HIGH|
 
-The test on all elements of the training set helps us put the numbers in context and see them in some perspective.
-The ranking of the models does not change much and the relationship between metrics is maintained, but the popularity model shows a greater bias.
+The test over all items of the training set helps us put the numbers in context and see them in some perspective.
+The ranking of the models does not change much and the relationship among metrics is kept, but the popularity model shows a greater bias.
 
 ### 6.3 Results 80K Customers (Random Sampling Test Set) <a name="63-results80k"></a>
 
