@@ -1,8 +1,8 @@
-# AIDL21: GAN-based synthetic medical image augmentation
+# AIDL21: Recommender Systems with GCN
 
-This repository contains different Generative Adversarial Networks (GANs) implementations to explore methods for synthetic data augmentation . They all are dedicated to Artificial Image Synthesis in the context of Medical imaging data.
+This repository contains different models for making personalized user recommendations.
 
-Our project aims to display the effectiveness of synthetic  data generation as a form of image augmentation technique to improve the predictive classification performance of a scaled up Convolutional Neural Network (CNN) known as EfficientNet, proposed in [ICML 2019](https://arxiv.org/pdf/1905.11946.pdf). We suggest an augmentation scheme that  is  based  on  a combination  of  standard  image  perturbation  and  synthetic  dermatologic  lesion  generation  using  GAN  for improved skin cancer classification.
+Our project aims to compare different models and evaluate how the use of models such as FM, GCN and GAT can improve the quality of these recommendations. Additionally, we assess how popularity bias affects these models.
 
 ### About
 Final Project for the UPC [Artificial Intelligence with Deep Learning Postgraduate Course](https://www.talent.upc.edu/ing/estudis/formacio/curs/310402/postgraduate-course-artificial-intelligence-deep-learning/) 2021-2022 online edition, authored by:
