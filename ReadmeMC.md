@@ -69,14 +69,6 @@ As the kaggle's original data for all the full dataset of H&M is to big, we have
 
 Full dataset has been download from kaggle's  ["H&M Personalized Fashion Recommendations"](https://www.kaggle.com/competitions/h-and-m-personalized-fashion-recommendations)
 
-Files are:
-
-|             File         | | 
-|:------------------------:|:-------:|
-|articles.csv     | Article information related (article id, product code, ...). This file will be used later for report generation|
-|customers.csv                | Customer information related (article id, product code, ...). This file will be used later for report generation|
-|transactions_train.csv   | Transaction file. This file has the main information we will use for the RS models (t_date(transaction date), customer_id, article_id, price, sales_channel_id |
-|images   | Image directory of the aprox 106K items |
  
  #### Data filtering (data_filtering.py)
  
@@ -315,30 +307,64 @@ All model share a very common pattern
 
 #### B.2.1 Random model <a name="B2-models-nofeat-random"></a>
 
-In 'model_Random.py' there is a simple class definition that will pick a random item
+In 'model_Random.py' there is created a `RandomModel` class that generates a random recommender model that predicts random articles that the costumer has not previously purchased
 
-'main_Random.py' will 
-* Create a instance of the dataset (`full_dataset = CustomerArticleDataset(...)`)
+'main_Random.py' will;
+* Create a instance of the dataset (`full_dataset = CustomerArticleDataset(...)`). 
 * Create a dataloder instance (`data_loader = DataLoader(...)`)
-* Create model instance (`model=RandomModel(..)`) 
+* Create model instance (`model = RandomModel(data_loader.dataset.field_dims)`) 
 
-There are no epochs, so the only remaining task are:
-* There is no training. The predictions will generated when we test the test dataset
-* We will verifiy the accuraccy of the dataset:`metric1, metric2...= testpartial(model, full_dataset, device, topk=topk)`
-* We will generate a report displaying actual H&M data
+As there are no parameters to learn, test data will generate when testing performance of the dataset that will return metrics and some additional info for the report:
+```
+train_loss=0 # no parameters to learn
+        hr, ndcg, cov, gini, dict_recomend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
+```
+ * Last step will be the report generation.
 
-#### B.2.2 Popularity model <a name="B2-models-nofeat-poularity"></a>
 
-In 'model_Popularity.py' there is a simple class definition that will pick the most popular items
+# B.2.2 Popularity model <a name="B2-models-nofeat-poularity"></a>
 
-'main_Popularity.py' will 
-* Create a instance of the dataset (`full_dataset = CustomerArticleDataset(...)`)
+In 'model_Popularity.py' there is created a `Popularity_Recommender` class that generates a popularity recommender model that predicts most popular items that the costumer has not previously purchased
+
+'main_Popularity.py' will;
+
+* Create a instance of the dataset (`full_dataset = CustomerArticleDataset(...)`). 
 * Create a dataloder instance (`data_loader = DataLoader(...)`)
-* Create model instance (` model= Popularity_Recommender(full_dataset.train_mat)`) 
+* Create model instance (`model= Popularity_Recommender(full_dataset.train_mat)`) 
 
-There are no epochs, so the only remaining task are:
-* There is no training. The predictions will generated when we test the test dataset
-* We will verifiy the accuraccy of the dataset:`metric1, metric2...= testpartial(model, full_dataset, device, topk=topk)`
-* We will generate a report displaying actual H&M data
+As there are no parameters to learn, test data will generate when testing performance of the dataset that will return metrics and some additional info for the report:
+```
+train_loss=0 # no parameters to learn
+        hr, ndcg, cov, gini, dict_recomend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
+```
+ * Last step will be the report generation.
+
 
 #### B.2.3 Factorization Machines model <a name="B2-models-nofeat-FM"></a>
+
+In 'model_FM.py' are the classes we will need for Machines Factorization model.
+ * `FeaturesLinear`  that is part of the Factorization Machine formula
+ * `FM_operation` the last term of the Factorization Machine formula
+ * `FactorizationMachineModel` generates Factorization Machine Model with pairwise interactions using regular embeddings
+ 
+'main_FM.py' will;
+
+* Will define a Tersorboard instance to log the metrics (see note below)
+* Create a instance of the dataset (`full_dataset = CustomerArticleDataset(...)`). 
+* Create a dataloder instance (`data_loader = DataLoader(...)`)
+* Create model instance (`model = FactorizationMachineModel(full_dataset.field_dims[-1], 32).to(device)`) 
+* Define loss function and optimizer:
+    * `criterion = torch.nn.BCEWithLogitsLoss(reduction='mean')`
+    * `optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)`
+For each epoch, we will train the epoch, test the test dataset:
+```
+for epoch_i in range(num_epochs):
+        train_loss = train_one_epoch(model, optimizer, data_loader, criterion, device)
+        hr, ndcg, cov, gini, dict_recommend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
+```
+Last step will be the report generation.
+
+Note: Tensorboard information can be displayed if need it.
+
+![TB sample for FM](https://github.com/ssanchezor/GNN-RS/blob/main/Images/Tensorboard_FM_80000.GIF?raw=true)
+
