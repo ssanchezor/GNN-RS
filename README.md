@@ -380,7 +380,7 @@ It has not been possible to compute the FM+GAT model with this dataset due to th
 
 * Our original dataset had a distribution with an obvious **popularity bias** ,inherent to fashion, and for this reason it is difficult to obtain better results in terms of **Gini and Novelty** if other strategies are not used, such as performing a subsequent reranking including more items belonging to the long tail or using a hybrid recommender always taking into account the users preferences.
 
-* The selection of metrics to mesure the **Fairness** has not been easy.
+* The selection and interpretation of metrics to mesure the **Fairness** has not been easy.
 
 ## 8. Acknowledgements <a name="8-acknowledgements"></a>
 
