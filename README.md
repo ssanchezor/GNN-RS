@@ -87,6 +87,31 @@ Transaction data is divided into several different files:
 |Number of transactions  | 31.788.324|
 |Data range  | From 2018 to 2020 |
 
+As a result of a preliminary analysis of the data set, we have observed the following characteristics:
+- Higher accumulation of younger costumers
+<p align="center">
+  <img src="Images/Customerxage.png">
+</p>
+- Quite uniform distribution in transactions grouped by costumer's age
+<p align="center">
+  <img src="Images/InteractionxCustomerAge.png">
+</p>
+- Non-uniform distribution in transactions grouped by product category
+<p align="center">
+  <img src="Images/Interactionsxartcategorylabsinside.png">
+</p>
+- Non-uniform distribution in transactions grouped by product color
+<p align="center">
+  <img src="Images/InteractionsxColor.png">
+</p>
+
+Other observations:
+<p align="center">
+  <img src="Data/images-sagan/data-tree-background.png">
+</p>
+<p align="center">
+  <img src="Data/images-sagan/data-tree-background.png">
+</p>
 
 ### 2.2. Pre-processing  <a name="22-preprocessing"></a> 
 
@@ -104,14 +129,14 @@ Results after applying data filtering:
 |Number of articles    | 38.782|
 |Number of costumers                | 10.000|
 |Number of transactions  | 489.710|
-|Data range  | From 2020|
+|Data range  | 2020|
 
 |             Filtered Dataset features - 80K      | | 
 |:------------------------:|:-------:|
 |Number of articles    | 52.661|
 |Number of costumers                | 80.000|
 |Number of transactions  | 3.990.745|
-|Data range  | From 2020|
+|Data range  | 2020|
 
 <p align="center">
   <img src="Data/images-sagan/data-tree-background.png">
