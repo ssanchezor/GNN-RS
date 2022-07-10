@@ -308,16 +308,18 @@ To launch the instance we used Cloud Deep Learning VM Image. We created a Linux 
 |FM + GCN  |59,59 %|36,02 %|64,10 %|0,7615|9,1412|MEDIUM|
 |FM + GAT |Not feasible|	Not feasible|	Not feasible|	Not feasible|	Not feasible|	VERY HIGH|
 
-<div<div style="overflow-x:auto;">
+<div style="overflow-x:auto;">
   <table>
     <tr><td>
          <p align="left">
-         <img src="Images/FactorizationMachine.png" width="300">
+         <b>Random    </b>
+         <img src="Images/Random80KDistribution.png" width="300">
          </p>
         </td>
         <td>
          <p align="left">
-         <img src="Images/FactorizationMachine.png" width="300">
+          <b>Popularity </b>
+         <img src="Images/Popularity80KDistribution.png" width="300">
          </p>
         </td>
       </tr>
