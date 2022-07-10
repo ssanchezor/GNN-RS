@@ -78,7 +78,7 @@ Transaction data is divided into several files:
 - customers.csv - metadata for each customer_id in dataset
 - transactions_train.csv - training data, consisting of the purchases each customer for each date, as well as additional information (i.e. channel).
 
-|             Dataset features          | 
+|             Dataset features      ||    | 
 |:------------------------:|:-------:|
 |Number of articles    | 105.542|
 |Number of costumers                | 1.371.980|
