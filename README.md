@@ -880,6 +880,24 @@ It has not been possible to compute the FM+GAT model with this dataset due to th
       </tr>
    </table>
   </div>
+    
+### 6.5. Reports  <a name='65-reports'></a>
+    
+These are some of the reports from the best models or the more significative models. Values can differ from other values in this page as have been generated  at later stages.
+
+Reports will contain:
+* Model results
+* Recommendation distribution
+* First 100 most recommended items
+* Recommendations for the first 20 users
+* 5 Users recommendations with HR 1 
+* 5 User recommendations with no match
+(Note: The number of 20/5/5 can be changed in `utilities.py`
+
+![Factorizacion Machines Model - Partial - 80.000 users - Partial](https://github.com/ssanchezor/GNN-RS/blob/main/Data/FactorizationMachine-Partial_80000_users.pdf)
+![Popularity Recommender - Partial - 80.000 users - Partial](https://github.com/ssanchezor/GNN-RS/blob/main/Data/PopularityRecommender-Partial_80000_users.pdf)
+![Random Recommender - Partial - 80.000 users - Partial](https://github.com/ssanchezor/GNN-RS/blob/main/Data/RandomRecommender-Partial-80000_users.pdf)
+
   
 ## 7. Conclusions <a name="7-conclusions"></a>
 
