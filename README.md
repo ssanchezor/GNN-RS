@@ -118,7 +118,7 @@ As a result of a preliminary analysis of the dataset, we have observed the follo
  · Predominant channel (2) for the articles purchase:
 
 <p align="left">
-  <img src="Images/interactionxchannel.png" width="400" height="300">
+  <img src="Images/interactionxchannel.png" width="300" height="300">
 </p>
 
 ### 2.2. Pre-processing  <a name="22-preprocessing"></a> 
