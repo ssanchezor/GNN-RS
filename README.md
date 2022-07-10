@@ -2,7 +2,7 @@
 
 This repository contains different machine learning models that are commonly used to implement personalized Recommender Systems.
 
-Our project aims to compare the different models, such as FM, GCN and GAT, and evaluate how well they perform in making recommendations. In order to do this, we will calculate for each of them some metrics (HR, NDCG, Coverty, etc...) that are frequently used in this area.
+Our project aims to compare the different models, such as FM, GCN and GAT, and evaluate how well they perform in making recommendations. In order to do this, we will calculate for each of them some metrics (HR, NDCG, Coverage, etc...) that are frequently used in this area.
 
 We will perform a detailed analysis of the obtained results  in order to detect and assesses possible biases. 
 
