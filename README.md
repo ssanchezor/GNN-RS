@@ -25,7 +25,8 @@ Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
     - [2.2. Pre-processing](#22-preprocessing) 
 - [3. Deep Neural Networks Models](#3-dnns)    
     - [3.1. Evaluation Metrics](#31-metrics)
-    - [3.2. Machine Learning Models](#32-gans)
+    - [3.2. Experiment Methods & Test Strategy](#32-experimenttest)
+    - [3.3. Machine Learning Models](#33-ML)
         - [Random](RAND)
         - [Popularity](POP)
         - [FM with regular embeddings](FM)
@@ -195,13 +196,17 @@ We calculate it as -log(p(i)) where p(i) is popularity of the item. [Source](htt
 
 Measure | Bar | 
 :------: | :------:|
-HIT RATIO   | The higher the better.  | 
-NDCG   |  The higher the better quality of the ranking.    | 
-COVERAGE |  The higher the more items are recommended.  |  
-GINI   |   Between 0 and 1. The closer to 0 the more equity.    |
-NOVELTY |  The Higher the more diversity of less popular items is included in the recommendations   |
+HIT RATIO   |The higher the better.  | 
+NDCG   |The higher the better quality of the ranking.    | 
+COVERAGE |The higher the more items are recommended.  |  
+GINI   |Between 0 and 1. The closer to 0 the more equity.    |
+NOVELTY |The Higher the more diversity of less popular items is included in the recommendations   |
 
-### 3.2. Generative Adversarial Networks (GANs)  <a name="32-gans"></a>
+### 3.2. Experiment Methods & Test Strategy  <a name="32-experimenttest"></a>
+Our experiments are based on Offline testing. We use implicit feedback, where the purchases of each user are  available for positive items, whilst all non-interacted items are considered as negatives.
+In order to have a faster experimentation and reduce their computational cost we opted for random sampling to build target sets. As some papers pointed that maybe the model ranking can not be estable using this method, we tested with the full test set in order to compare the results and assess our ranking remains equal, so we mantain this strategy in the rest of experiments.[Source](https://arxiv.org/pdf/2107.13045.pdf)
+
+### 3.2. Machine Learning Models  <a name="33-ML"></a>
 
 - [DC-GAN](DC-SN-GAN)<a name="DC-GAN"></a>
 
