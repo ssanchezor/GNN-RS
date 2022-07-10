@@ -88,33 +88,31 @@ Transaction data is divided into several different files:
 |Data range  | From 2018 to 2020 |
 
 As a result of a preliminary analysis of the data set, we have observed the following characteristics:
-· Higher accumulation of younger costumers
+· Higher accumulation of younger costumers:
 <p align="left">
   <img src="Images/Customerxage.png" width="500" 
      height="300" >
 </p>
-· Quite uniform distribution in transactions grouped by costumer's age
+
+· Quite uniform distribution in transactions grouped by costumer's age:
+
 <p align="left">
   <img src="Images/InteractionxCustomerAge.png" width="500" 
      height="300" >
 </p>
-· Non-uniform distribution in transactions grouped by product category
+
+· Non-uniform distribution in transactions grouped by product category:
+
 <p align="left">
   <img src="Images/Interactionsxartcategorylabsinside.png" width="500" 
      height="300" >
 </p>
-· Non-uniform distribution in transactions grouped by product color
+
+· Non-uniform distribution in transactions grouped by product color:
+
 <p align="left">
   <img src="Images/InteractionsxColor.png" width="500" 
      height="300" >
-</p>
-
-Other observations:
-<p align="center">
-  <img src="Data/images-sagan/data-tree-background.png">
-</p>
-<p align="center">
-  <img src="Data/images-sagan/data-tree-background.png">
 </p>
  
 ### 2.2. Pre-processing  <a name="22-preprocessing"></a> 
