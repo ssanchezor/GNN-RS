@@ -217,7 +217,7 @@ NOVELTY |The higher the better, less popular items included in the recommendatio
 ### 3.2. Experiment Methods & Test Strategy  <a name="32-experimenttest"></a>
 Our experiments are based on <b>offline testing</b>. We use implicit feedback, where the purchases of each user are available as positive items, while all non-interacted items are considered as negative.
 
-In order to have a faster training and reduce its computational cost, we have opted for using a <b>random sampling</b> approach to build the target test datasets. As some papers pointed out that by using this method the ranking(comparison) of the models could not be estable, we have tested them with the all the items included in the training dataset (except the interactions of each user) in order to compare the results and verify that our ranking and relation among metrics of models remains equal. Since it was the case, we have decided to mantain this strategy for the rest of experiments. [Source](https://arxiv.org/pdf/2107.13045.pdf)
+In order to have a faster training and reduce its computational cost, we have opted for using a <b>random sampling</b> approach to build the target test datasets. As some papers pointed out that by using this method the ranking(comparison) of the models could not be estable, we have tested them with all the items included in the training dataset as target (except the interactions of each user) in order to compare the results and verify that our ranking and relation among metrics of models remains equal. Since it was the case, we have decided to mantain this strategy for the rest of experiments. [Source](https://arxiv.org/pdf/2107.13045.pdf)
 
 ### 3.3. Machine Learning Models  <a name="33-ML"></a>
 
