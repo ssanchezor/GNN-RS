@@ -271,7 +271,7 @@ To launch the instance we used Cloud Deep Learning VM Image. We created a Linux 
 
 
 ## 6. Results <a name="6-results"></a>
-## 6.1 Results 10K Customers <a name="61-results10k"></a>
+### 6.1 Results 10K Customers (Random Sampling Test Set) <a name="61-results10k"></a>
 
 
 |Model | HR@10 | NDCG@10 |COV@10 |GINI@10 |NOV@10 |COMPUTATIONAL REQUIREMENTS|
@@ -279,43 +279,32 @@ To launch the instance we used Cloud Deep Learning VM Image. We created a Linux 
 |Random | 10,33%	|4,76%|92,60%|0,3397|11,3275|	LOW|
 |Popularity |39,61%|22,33%|16,42%|0,9006|7,821|LOW|
 |FM |20,22%|10,44%|34,42%|0,8525|9,995|LOW|
+|FM+Context |36,88%|20,42%|26,51%|0,8448|8,7726|LOW|
 |FM + GCN  |36,11%|20,77%|50,97%|0,7351|10,1138|MEDIUM|
 |FM + GAT |39,27 %|23,17 %|49,98 %|0,7575|9,1396|VERY HIGH|
 
 
+### 6.2 Results 10K Customers (Full) <a name="62-results10kF"></a>
 
+|Model | HR@10 | NDCG@10 |COV@10 |GINI@10 |NOV@10 |COMPUTATIONAL REQUIREMENTS|
+:------: | :------:| :------:| :------:| :------:|:------:|:-----------------:|
+|Random | 0,00%|0,00%|92,60%|0,3404|11,335|LOW|
+|Popularity |1,01%|0,49%|0,04 %|0,9997|4,811|LOW|
+|FM |20,22%|0,15%|0,70%|7,29 %|0,9957|9,327|LOW|
+|FM + GCN  |1,03%|0,58%|6,49 %|0,9926|8,465|MEDIUM|
+|FM + GAT |2,20 %|1,46%|17,65 %|0,9739|8,465|VERY HIGH|
 
-- #### DC-GAN 64x64
+### 6.3 Results 80K Customers (Random Sampling Test Set) <a name="63-results80k"></a>
 
-![skin_lesions_700_twick](https://user-images.githubusercontent.com/48655676/110391353-a1d4d980-8067-11eb-9eca-4f458fffd203.png)
+|Model | HR@10 | NDCG@10 |COV@10 |GINI@10 |NOV@10 |COMPUTATIONAL REQUIREMENTS|
+:------: | :------:| :------:| :------:| :------:|:------:|:-----------------:|
+|Random |9,97 %|4,53 %|	100%|0,1456|12,2173|LOW|
+|Popularity |47,61 %|27,04 %|18,92 %|0,8978|8,0931|LOW|
+|FM |31,38 %|15,98 %|51,33 %|0,8464|9,5201|LOW|
+|FM + Context |53,24%|29,99%|39,91%|0,8312|8,6605|LOW|
+|FM + GCN  |59,59 %|36,02 %|64,10 %|0,7615|9,1412|MEDIUM|
+|FM + GAT |Not feasible|	Not feasible|	Not feasible|	Not feasible|	Not feasible|	VERY HIGH|
 
-- #### SN-GAN 64x64
-
-![skin_lesions_800_twick3_sn](https://user-images.githubusercontent.com/48655676/110391188-70f4a480-8067-11eb-9d8b-ce150ef7797b.png)
-
-- #### W-GAN 64x64
-
-![WGAN-64](https://github.com/mestecha/AIDL21-SAGAN/blob/main/W-GAN/wgan-images/gen_wgan_64.png)
-
-- #### AC-GAN 64x64
-
-<p align="center">
-  <img src="AC-GAN/acgan-images/64-64-600.png">
-</p>
-
-- #### SN-GAN 128x128
-
-![SN_final](https://user-images.githubusercontent.com/48655676/114686469-18be5b80-9d13-11eb-80ae-aa53aa7061e6.png)
-
-- #### W-GAN 128x128
-
-![WGAN-128](https://github.com/mestecha/AIDL21-SAGAN/blob/main/W-GAN/wgan-images/gen_wgan_128.png)
-
-- #### AC-GAN 128x128
-
-<p align="center">
-  <img width="50%" height="50%" src="AC-GAN/acgan-images/grid-128-64-600.jpg">
-</p>
 
 ## 6. Conclusions <a name="6-conclusions"></a>
 
