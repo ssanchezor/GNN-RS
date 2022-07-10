@@ -27,12 +27,11 @@ Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
     - [3.1. Evaluation Metrics](#31-metrics)
     - [3.2. Experiment Methods & Test Strategy](#32-experimenttest)
     - [3.3. Machine Learning Models](#33-ML)
-        - [Random](RAND)
-        - [Popularity](POP)
-        - [FM with regular embeddings](FM)
-        - [FM with GCN embeddings](FMGCN)
-        - [FM with GAT embeddings](FMGAT)
-    - [3.3. Adding context](#32-efficientnet) 
+        - [Factorization Machine](#331-FM)
+        - [Graph Convolutional Networks](#332-GCN)
+        - [Graph Attention Networks](#333-GAT)
+        - [Random](#334-RAND)
+        - [Popularity](#335-POP)
 - [4. Environment Requirements](#4-envs)
     - [4.1. Software](#41-software)
     - [4.2. Hardware](#42-hardware)
@@ -53,11 +52,9 @@ But what makes a recommender a good recommender? It is not only a question of pe
 
 Of course, some items are popular for a reason, so it is important to find a trade-off between accuracy & fairness.
 
-
 ### 1.1. Motivation <a name="11-motivation"></a>
 
 In this project we have compared differents methods and models to make  recommendations and we have tried to find out which of them gives  more balanced results in terms of hits and fairness, reducing the popularity bias without damaging the quality of the ranking.
-
 
 ### 1.2. Objectives <a name="12-milestones"></a>
 
@@ -221,7 +218,7 @@ In order to have a faster training and reduce its computational cost, we have op
 
 ### 3.3. Machine Learning Models  <a name="33-ML"></a>
 
-- [Factorization Machine](FM)<a name="FM"></a>
+### Factorization Machine <a name="331-FM"></a>
 
 <b>Embeddings</b>
 
@@ -239,7 +236,7 @@ Matrix factorization is a way to generate latent features when multiplying two d
   <img src="Images/Matrix Factorization.png" width="500">
 </p>
 
-The way it works is by decomposing the rating matrix, which is the one containing all the user-item interactions, into two rectangular matrices of lower dimension whose dot product will result in the same rating matrix again. In that way, we can end up with a matrix of features for each of the users and items, which will contain the latent representation of each of the entities, so we will have computed the embeddings.
+The way it works is by decomposing the rating matrix (adjacency matrix), which is the one containing all the user-item interactions, into two rectangular matrices of lower dimension whose dot product will result in the same rating matrix again. In that way, we can end up with a matrix of features for each of the users and items, which will contain the latent representation of each of the entities, so we will have computed the embeddings.
 
 <b>Factorization Machine</b>
 
@@ -249,8 +246,87 @@ Factorization Machines (FM) are a supervised Machine Learning technique introduc
   <img src="Images/FactorizationMachine.png" width="500">
 </p>
 
+In our study case, we will be evaluating Factorization Machine with and without context. When adding context, we will be considering the channel where the transaction has been done. In that sense, our rating matrix (adjacency) would look like:
 
+<p align="left">
+  <img src="Images/AdjacencyMatrix.PNG" width="500">
+</p>
 
+Prior to the test, we will be generating a number of <b>negative samples</b> in order to have test cases where we know that the user has not bought that particular article, so we can make a better evaluation of the model's performance.
+
+Finally, we will be computing Factorization Machine with regular embeddings as well as using Graph Convolutional Networks to extend this model so they can capture high-order interactions between features.
+
+Expected behaviour:
+
+|Hit Ratio|NDCG|Coverage|Gini Index|Novelty (MSI)|Computational resources| 
+|------:|-------:|----------------:|--------------:|--------------:|-------------:|
+|Medium|Medium|Medium|Medium|Medium|Medium|
+
+### Graph Convolutional Networks <a name="332-GCN"></a>
+
+Factorization Machines add some side information to the possible interactions through extending the feature vectors, which may provoke a very high number of parameters, specially when adding different features. Graph Convolutional Networks helps to address this problem by making use of Knowledge Graphs to represent the available data, since it is an easier way to consider more entities involved in the interactions.
+
+In order to identify rating patterns on the graph, we use Graph Convolutional Networks, that perform convolutions on the graph in the same way that Convolutional Neural Networks do on images. They work by assuming that connected nodes tend to be similar and share labels and they enable us to identify high-order
+interactions between features.
+
+GCNs take as an input:
+- A Feature Matrix X (n×d) where n is the number of nodes and d is the number of features per node. Every row of it represents a description in d features of one of the nodes.
+- A matrix A (n×n) called Adjacency Matrix that describes the connectivity in the graph, by specifying the edges in the graph.
+
+They perform the following propagation rule:
+
+<p align="left">
+  <img src="Images/GCN.PNG" width="300">
+</p>
+Where:
+- A is the adjacency matrix.
+- D is the diagonal matrix that normalizes A by taking the average of neigh-boring node features.
+- Â = A + I, where I is the Identity Matrix.  This way, we add self-connections to our adjacency matrix and we will reflect the node itself
+in the graph interactions.
+- σ is an activation function (for example, ReLU).
+- W(l) is a matrix of layer-specific trainable weights.
+
+Expected behaviour:
+
+| Hit Ratio   | NDCG |  Coverage |   Gini Index |  Novelty (MSI)  | Computational resources   
+|------|-------:|----------------:|--------------:|--------------:|-------------:|
+|High|High|Medium|Medium|Medium|High
+
+### Graph Attention Networks <a name="333-GAT"></a>
+
+Graph Attention Network (GAT) is a neural network architecture that operates on graph-structured data, leveraging masked self-attentional layers to address the shortcomings of prior methods based on graph convolutions or their approximations. By stacking layers in which nodes are able to attend over their neighborhoods’ features, the method enables (implicitly) specifying different weights to different nodes in a neighborhood, without requiring any kind of costly matrix operation (such as inversion) or depending on knowing the graph structure upfront.
+
+GAT helps to assess one of the problems of GCNs, which way to aggregate messages is structure-dependent, affecting its generalizability. Instead, GAT introduces the attention mechanism as a substitute for the statically normalized convolution operation. The figure below clearly illustrates the key difference:
+
+<p align="left">
+  <img src="Images/GCNVSGAT.jpg" width="500">
+</p>
+
+Expected behaviour:
+
+| Hit Ratio   | NDCG |  Coverage |   Gini Index |  Novelty (MSI)  | Computational resources   
+|------|-------:|----------------:|--------------:|--------------:|-------------:|
+|Very high|Very high|Medium|Medium|Medium|Very high
+
+### Random <a name="334-RAND"></a>
+
+Popularity recommender models allows to predict any items (randomly selected) that a particular costumer has not previously purchased.
+
+Expected behaviour:
+
+| Hit Ratio   | NDCG |  Coverage |   Gini Index |  Novelty (MSI)  | Computational resources   
+|------|-------:|----------------:|--------------:|--------------:|-------------:|
+|Low|Low|High|Close to 0|High|Low
+
+### Popularity <a name="335-POP"></a>
+
+Popularity recommender models allows to predict most popular items (with more interactions) that a particular costumer has not previously purchased. This is the most basic recommendation system which provides generalized recommendation to every user depending on the popularity. Whatever is more popular among the general public, is more likely to be recommended to new customers. The generalized recommendation is not personalized, is based on the count.
+
+Expected behaviour:
+
+| Hit Ratio   | NDCG |  Coverage |   Gini Index |  Novelty (MSI)  | Computational resources   
+|------|-------:|----------------:|--------------:|--------------:|-------------:|
+|High|High|Low|Close to 1|Low|Low
 
 ## 4. Environment Requirements <a name="4-envs"></a>
 ### 4.1. Software  <a name="41-software"></a>
