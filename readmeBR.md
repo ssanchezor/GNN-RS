@@ -92,34 +92,48 @@ H&M dataset is divided into several different files:
 
 As a result of a preliminary analysis of the dataset, we have observed the following characteristics:
 
-· Higher accumulation of younger costumers:
-<p align="left">
-  <img src="Images/CustomerxAgeaxis.png" width="400" >
-</p>
-
-· Quite uniform distribution in transactions grouped by costumer's age:
-
-<p align="left">
-  <img src="Images/InteractionxCustomerAge.png" width="400">
-</p>
-
-· Non-uniform distribution in transactions grouped by product category:
-
-<p align="left">
-  <img src="Images/Interactionsxartcategorylabsinside.png" width="400">
-</p>
-
-· Non-uniform distribution in transactions grouped by product color:
-
-<p align="left">
-  <img src="Images/InteractionsxColor.png" width="400">
-</p>
- 
- · Predominant channel (2) for the articles purchase:
-
-<p align="left">
-  <img src="Images/interactionxchannel.png" width="250">
-</p>
+<div style="overflow-x:auto;">
+  <table>
+    <tr><td>
+         <p align="left">Higher accumulation of younger costumers</p>
+         <p align="left">
+            <img src="Images/CustomerxAgeaxis.png" width="400" >
+         </p>
+        </td>
+        <td>
+         <p align="left">Uniform distribution in transactions grouped by costumer's age:</p>
+         <p align="left">
+            <img src="Images/InteractionxCustomerAge.png" width="400">
+         </p>
+        </td>
+      </tr>
+      <tr><td>
+         <p align="left">Non-uniform distribution in transactions grouped by product category:</p>
+         <p align="left">
+            <img src="Images/Interactionsxartcategorylabsinside.png" width="400">
+         </p>
+        </td>
+        <td>
+         <p align="left">Non-uniform distribution in transactions grouped by product color:</p>
+         <p align="left">
+            <img src="Images/InteractionsxColor.png" width="400">
+         </p>
+        </td>
+      </tr>
+       <tr><td>
+         <p align="left">Predominant channel (2) for purchasing articles:</p>
+         <p align="left">
+            <img src="Images/interactionxchannel.png" width="400">
+         </p>
+        </td>
+         <td>
+         <p align="left">Most of costumers do not check news:</p>
+         <p align="left">
+            <img src="Images/CustomerNews.png" width="400">
+         </p>
+        </td>
+  </table>
+</div>
 
 ### 2.2. Pre-processing  <a name="22-preprocessing"></a> 
 
