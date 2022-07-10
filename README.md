@@ -23,7 +23,7 @@ Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
 - [2. H&M Dataset](#2-available-datasets)
     - [2.1. Data Description](#21-eda)
     - [2.2. Pre-processing](#22-preprocessing) 
-- [3. Deep Neural Networks Models](#3-dnns)    
+- [3. Models](#3-models)    
     - [3.1. Evaluation Metrics](#31-metrics)
     - [3.2. Experiment Methods & Test Strategy](#32-experimenttest)
     - [3.3. Machine Learning Models](#33-ML)
@@ -160,35 +160,35 @@ As it can be seen, it appears that our H&M dataset has some popularity bias sinc
 
 `Short Head: 12.667 articles 24.10% (80%) - Max Ranking 5283 votes`
                                                        
-## 3. Deep Neural Networks Models <a name="3-dnns"></a>
+## 3. Models <a name="3-models"></a>
 
-Under this section we present all the GAN versions implemented. We approach to the proble with our own variation of implementation of the technique and methodology first introduced in [Frid-Adar et al.](https://arxiv.org/abs/1803.01229) in 2018.
+Under this section we present all the different models that we have used for implementing the Recommender Systems, as well as the different evaluation metrics that we have measured in order to compare their performance.
 
 ### 3.1. Evaluation Metrics  <a name="31-metrics"></a>
 
-We have implemented several metrics to measure the Recommenders performance in terms of accurracy and fairness.All the metrics are evaluated at a cut-off of 10. We do this because we are interested in evaluating the quality of the top recommendations.
+We have implemented different types of metrics, that are popular in the Recommender systems field, in order to evaluate model performance in terms of accurracy and fairness. All the metrics have been calculated taking into account a model that provides the TOPK article recommendations, where K in our case is 10. We have considered this approach since we are interested in evaluating the quality of the top recommendations.
 
-- #### HIT RATIO
+- #### HIT RATIO (HR)
 
-In recommender settings, the hit ratio is simply the fraction of users for which the correct answer is included in the recommendation list of length TOPK. the larger TOPK is, the higher hit ratio becomes. [Source](https://towardsdatascience.com/ranking-evaluation-metrics-for-recommender-systems-263d0a66ef54)
+In Recommender settings, the Hit Ratio can be described as the fraction of users for which the correct answer is included in the recommendation list of length TOPK. The larger TOPK is, the higher HR becomes. [Source](https://towardsdatascience.com/ranking-evaluation-metrics-for-recommender-systems-263d0a66ef54)
 
 - #### Normalized Discounted Cumulative Gain (NDCG)
 
-Normalized Discounted Cumulative Gain. It is a measure of ranking quality.The idea of DCG is that highly relevant documents appearing lower in a recommendations list should be penalized and relevance value is reduced logarithmically proportional to the position of the result. And NDCG is simply to normalize the DCG score by IDCG such that its value is always between 0 and 1 regardless of the length. [Source](https://towardsdatascience.com/ranking-evaluation-metrics-for-recommender-systems-263d0a66ef54)
+NDCG is also commonly used as a measure of ranking quality, since it takes into account the position where articles have been recommended in the TOPK list. The idea of DCG is that highly relevant articles appearing lower in a recommendations list should be penalized, and relevance value is reduced logarithmically proportional to the position of the result. NDCG is computed as the normalization of DCG score by IDCG, delimiting its value between 0 and 1 regardless of the length. [Source](https://towardsdatascience.com/ranking-evaluation-metrics-for-recommender-systems-263d0a66ef54)
 
 - #### COVERAGE
 
-Coverage is the percent of items in the training data the model is able to recommend on a test set.
+Coverage can be described as the percentage of articles in the training dataset that the model has been able to cover when computing the TOPK recommendations for all the users of the test dataset.
 
-- #### GINI Coefficient
+- #### GINI
 
-To assess the diversity of the recommendations we use the  Gini index.  When a value of the index is 1 it signifies that a single item is being recommended to all users. A value of 0 means that all items are recommended equally to all the users. The Gini coefficient is defined based on the Lorenz curve. The Lorenz curve plots the percentiles of the items on the graph's horizontal axis according to the number of recommendation (or purchases). The cumulative recommendations/purchases is plotted on the vertical axis. [Source](https://www.researchgate.net/figure/The-Lorenz-curve-and-Gini-coefficient_fig3_242258189)
+Gini index is commonly used to to assess the diversity of the recommendations. The Gini coefficient is defined based on the Lorenz curve, that plots the percentiles of the items on the graph's horizontal axis according to the number of recommendation (or purchases). The cumulative recommendations/purchases is plotted on the vertical axis. An index value of 1 means that a single item is being recommended to all users, where a value of 0 means that all items are recommended equally to all the users.  [Source](https://www.researchgate.net/figure/The-Lorenz-curve-and-Gini-coefficient_fig3_242258189)
 
 <p align="left">
   <img src="Images/gini.png" width="400">
 </p>
 
-We need to adjust the recommendation algorithm to increase the coverage of products and improve the distribution of product recommendations.
+In our case study, we will try to adjust the recommendation algorithm in order to increase the coverage of products and improve the distribution of article recommendations.
 
 - #### NOVELTY
 
@@ -197,22 +197,22 @@ Low Probability Event: High Information (surprising).
 High Probability Event: Low Information (unsurprising).
 
 Information will be zero when the probability of an event is 1.0 or a certainty there is no surprise.
-We calculate it as -log(p(i)) where p(i) is popularity of the item. [Source](https://digibuo.uniovi.es/dspace/bitstream/handle/10651/50960/diez2018.pdf?sequence=1)
+We calculate it as `-log(p(i))` where p(i) is popularity of the item. [Source](https://digibuo.uniovi.es/dspace/bitstream/handle/10651/50960/diez2018.pdf?sequence=1)
 
 - #### Measure Assessment
 
 Measure | Bar | 
 :------: | :------:|
-HIT RATIO   |The higher the better.  | 
-NDCG   |The higher the better quality of the ranking.    | 
-COVERAGE |The higher the more items are recommended.  |  
-GINI   |Between 0 and 1. The closer to 0 the more equity.    |
-NOVELTY |The Higher the more diversity of less popular items is included in the recommendations   |
+HIT RATIO   |The higher the better, more accuracy.  | 
+NDCG   |The higher the better, meaningful results first.    | 
+COVERAGE |The higher the better, more items are recommended.  |  
+GINI   |The lower the better, more equity.    |
+NOVELTY |The higher the better, less popular items are included in the recommendations   |
 
 ### 3.2. Experiment Methods & Test Strategy  <a name="32-experimenttest"></a>
-Our experiments are based on <b>Offline testing</b>. We use implicit feedback, where the purchases of each user are  available for positive items, whilst all non-interacted items are considered as negatives.
+Our experiments are based on <b>Offline testing</b>. We use implicit feedback, where the purchases of each user are available as positive items, while all non-interacted items are considered as negative.
 
-In order to have a faster experimentation and reduce their computational cost we opted for <b>random sampling</b> to build target sets. As some papers pointed that maybe the model ranking can not be estable using this method, we tested with the full test set in order to compare the results and assess our ranking remains equal, so we mantain this strategy in the rest of experiments.[Source](https://arxiv.org/pdf/2107.13045.pdf)
+In order to have a faster training and reduce its computational cost, we have opted for using a <b>random sampling</b> approach to build the target datasets. As some papers pointed out that by using this method the model could become inestable, we have tested it with the full test datatest set in order to compare the results and verify that our ranking remains equal. Since it was the case, we have decided to mantain this strategy for the rest of experiments.[Source](https://arxiv.org/pdf/2107.13045.pdf)
 
 ### 3.2. Machine Learning Models  <a name="33-ML"></a>
 
