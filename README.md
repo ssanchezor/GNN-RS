@@ -353,7 +353,7 @@ To launch the instance we used Cloud Deep Learning VM Image. We created a Linux 
     <tr><td>
          <p align="left"> <b>Radar Chart    </b></p>
          <p align="left">
-         <img src="Images/spidergraphtransparent.png" width="500">
+         <img src="Images/spidergraphblack.png" width="800">
          </p>
         </td>
       </tr>
