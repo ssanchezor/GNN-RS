@@ -19,23 +19,25 @@ Advised by [Santiago Puch](https://www.linkedin.com/in/santipuch)
 - [1. Introduction](#1-intro)
     - [1.1. Motivation](#11-motivation)
     - [1.2. Objectives](#12-milestones)
-- [2. Corpora](#2-available-datasets)
+- [2. H&M Dataset](#2-available-datasets)
     - [2.1. Data Description](#21-eda)
     - [2.2. Pre-processing](#22-preprocessing) 
 - [3. Deep Neural Networks Models](#3-dnns)    
     - [3.1. Evaluation Metrics](#31-metrics)
-    - [3.2. Graph Convolutional Networks](#32-gans)
-        - [Random](DC-SN-GAN)
-        - [Popularity](W-GAN)
-        - [ATT](AC-GAN)
-        - [SN-GAN](DC-SN-GAN)
-    - [3.2. EfficientNet](#32-efficientnet) 
+    - [3.2. Machine Learning Models](#32-gans)
+        - [Random](RAND)
+        - [Popularity](POP)
+        - [FM with regular embeddings](FM)
+        - [FM with GCN embeddings](FMGCN)
+        - [FM with GAT embeddings](FMGAT)
+    - [3.3. Adding context](#32-efficientnet) 
 - [4. Environment Requirements](#4-envs)
     - [4.1. Software](#41-software)
     - [4.2. Hardware](#42-hardware)
-- [5. Results](#5-results)
-- [6. Conclusions](#6-conclusions) 
-- [7. Acknowledgements](#7-acknowledgements)
+- [5. How to run the program](#5-program) 
+- [6. Results](#6-results)
+- [7. Conclusions](#7-conclusions) 
+- [8. Acknowledgements](#8-acknowledgements)
  
 ## 1. Introduction <a name="1-intro"></a>
 
@@ -206,6 +208,13 @@ EfficientNet is a convolutional neuronal network that provides and optimal relat
 
 ## 4. Environment Requirements <a name="4-envs"></a>
 ### 4.1. Software  <a name="41-software"></a>
+
+Cómo installar python
+Cómo installar miniconda / setup environment
+Librerias
+Tabla => nombres clases q tenemos su proposito
+
+
 
 We selected PyTorch as framwork for our scientific computing package to develop our project. Regarding the image transformations used for standard augmentations, we have selected both Torchvision and Albumentation packages. To approach the imbalance dataset issue we used Torchsampler’s Imbalanced Dataset Sampler library. For visualization, we also used both classical Pyplot and Seaborn packages. For the dataset preprocessing, we made use of the modules available in Scikit-Learn library. Some of the GANs-based implementations developed make use of YAML as the preferred language for defining its configuration parameters files. Lastly, the package Pytorch Image Quality Assessment (PIQA) is used to generate the metrics that evaluate the quality of the synthetic images. And finally, for the model we made use of lukemelas EfficientNet architecture. 
  
