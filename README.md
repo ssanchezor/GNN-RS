@@ -121,7 +121,7 @@ Due to computational limitations, we have decided to apply a series of different
 - Articles that have been purchased more than 5 times
 - Customers who have bought more than 20 articles
 - Reduce data range for the last year
-- Shuffle & pick N customers (10K and 80K)
+- Shuffle & pick N customers (10K and 80K in our study case)
 
 These values can be modified in any time by following the steps defined in: [1.2. Objectives](#12-milestones)
 
