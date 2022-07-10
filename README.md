@@ -118,7 +118,7 @@ As a result of a preliminary analysis of the dataset, we have observed the follo
  · Predominant channel (2) for the articles purchase:
 
 <p align="left">
-  <img src="Images/interactionxchannel.png" width="200">
+  <img src="Images/interactionxchannel.png" width="250">
 </p>
 
 ### 2.2. Pre-processing  <a name="22-preprocessing"></a> 
@@ -193,6 +193,7 @@ In our case study, we will try to adjust the recommendation algorithm in order t
 - #### NOVELTY
 
 To evaluate the novelty we use the mean self-information (MSI) also call Surprise. The intuition behind quantifying information is the idea of measuring how much surprise there is in an event. Those events that are rare (low probability) are more surprising and therefore have more information than those events that are common (high probability). [Source](https://machinelearningmastery.com/what-is-information-entropy/)
+
 Low Probability Event: High Information (surprising).
 High Probability Event: Low Information (unsurprising).
 
@@ -212,11 +213,37 @@ NOVELTY |The higher the better, less popular items included in the recommendatio
 ### 3.2. Experiment Methods & Test Strategy  <a name="32-experimenttest"></a>
 Our experiments are based on <b>offline testing</b>. We use implicit feedback, where the purchases of each user are available as positive items, while all non-interacted items are considered as negative.
 
-In order to have a faster training and reduce its computational cost, we have opted for using a <b>random sampling</b> approach to build the target datasets. As some papers pointed out that by using this method the model could become inestable, we have tested it with the full test datatest set in order to compare the results and verify that our ranking remains equal. Since it was the case, we have decided to mantain this strategy for the rest of experiments.[Source](https://arxiv.org/pdf/2107.13045.pdf)
+In order to have a faster training and reduce its computational cost, we have opted for using a <b>random sampling</b> approach to build the target datasets. As some papers pointed out that by using this method the model could become inestable, we have tested it with the full test datatest set in order to compare the results and verify that our ranking remains equal. Since it was the case, we have decided to mantain this strategy for the rest of experiments. [Source](https://arxiv.org/pdf/2107.13045.pdf)
 
-### 3.2. Machine Learning Models  <a name="33-ML"></a>
+### 3.3. Machine Learning Models  <a name="33-ML"></a>
 
-- [DC-GAN](DC-SN-GAN)<a name="DC-GAN"></a>
+- [Factorization Machine](FM)<a name="FM"></a>
+
+<b>Embeddings</b>
+Once we have generated our train and test datasets, we need a way to personalize users (customers) and items (articles). In order to do so, embeddings are commonly used. An embedding can be described as a relatively low-dimensional space into which you can translate high-dimensional vectors. They encode different features information across some given dimensions.
+
+Given enough data, we can train an algorithm to understand relationships between entities and automatically learn features to represent them.
+
+<b>Matrix Factorization</b>
+Our Recommender systems are based on collaborative filtering, which objective is to discover the similarities on the user’s past behavior and make predictions to the user based on a similar preference with other users. This model is then used to predict items (or ratings for items) that the user may have an interest in.
+
+Matrix factorization is a way to generate latent features when multiplying two different kinds of entities. Collaborative filtering is the application of matrix factorization to identify the relationship between items’ and users’ entities. With the input of users’ transactions on different articles, we would like to predict whether users would like certain articles so the users can get the recommendation based on the prediction.
+
+<p align="left">
+  <img src="Images/Matrix Factorization.png" width="500">
+</p>
+
+The way it works is by decomposing the rating matrix, which is the one containing all the user-item interactions, into two rectangular matrices of lower dimension whose dot product will result in the same rating matrix again. In that way, we can end up with a matrix of features for each of the users and items, which will contain the latent representation of each of the entities, so we will have computed the embeddings.
+
+<b>Factorization Machine</b>
+
+Factorization Machines (FM) are a supervised Machine Learning technique introduced in 2010 [paper](https://www.csie.ntu.edu.tw/~b97053/paper/Rendle2010FM.pdf). Factorization Machines get their name from their ability to reduce problem dimensionality thanks to applying matrix factorization techniques.
+
+<p align="left">
+  <img src="Images/FactorizationMachine.png" width="500">
+</p>
+
+
 
 A DC-GAN is a specific flavor of GAN dedicated to image generation. The architecture consists on a _Generator_ and a _Discriminator_ built upon four 2d convolutional layers. It was first described by _Radford et. al._ in this [paper](https://arxiv.org/pdf/1511.06434.pdf). The _Discriminator_ in build out of strided convolutions, batch normalization layers and uses Leaky Relu activations. Originally, the input size of the images is 64 and it is already set to process color images (3x64x64). The _Generator_ differs from the _Discriminator_ in the convolutional layers, which are transposed. It has as an input a random vector sampled from a normal distribution which will be transformed by adversarial training into an RGB image of the selected shape.
 
