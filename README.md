@@ -91,29 +91,25 @@ As a result of a preliminary analysis of the data set, we have observed the foll
 
 · Higher accumulation of younger costumers:
 <p align="left">
-  <img src="Images/CustomerxAgeaxis.png" width="500" 
-     height="300" >
+  <img src="Images/CustomerxAgeaxis.png" width="400" >
 </p>
 
 · Quite uniform distribution in transactions grouped by costumer's age:
 
 <p align="left">
-  <img src="Images/InteractionxCustomerAge.png" width="500" 
-     height="300" >
+  <img src="Images/InteractionxCustomerAge.png" width="400">
 </p>
 
 · Non-uniform distribution in transactions grouped by product category:
 
 <p align="left">
-  <img src="Images/Interactionsxartcategorylabsinside.png" width="500" 
-     height="300" >
+  <img src="Images/Interactionsxartcategorylabsinside.png" width="400">
 </p>
 
 · Non-uniform distribution in transactions grouped by product color:
 
 <p align="left">
-  <img src="Images/InteractionsxColor.png" width="500" 
-     height="300" >
+  <img src="Images/InteractionsxColor.png" width="400">
 </p>
  
 ### 2.2. Pre-processing  <a name="22-preprocessing"></a> 
