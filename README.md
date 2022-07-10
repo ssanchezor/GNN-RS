@@ -372,9 +372,9 @@ It has not been possible to compute the FM+GAT model with this dataset due to th
 
 * The results of the**FM+GAT** model were promising with a small dataset, but it has not been possible to test it with a larger one due to the computational resources it required.
 
-* **FM+GCN** Model give a very good and balanced much better than Popularity Model.
+* **FM+GCN** Model give a good and balanced resulto, much better than Popularity Model.
 
-* **Popularity** Model is a very cheap model with notso bad performance in terms of accuracy.
+* **Popularity** Model is a very cheap model with not so bad performance in terms of accuracy.
 
 * By adding **extra features** to the FM Model we observed an evident improvements in the metrics so we guess that doing the same for FM+GCN and FM+GAT will allow to have a very good results in all the metrics.
 
