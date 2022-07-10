@@ -894,9 +894,9 @@ Reports will contain:
 * 5 User recommendations with no match
 (Note: The number of 20/5/5 can be changed in `utilities.py`
 
-![Factorizacion Machines Model - Partial - 80.000 users - Partial](https://github.com/ssanchezor/GNN-RS/blob/main/Data/FactorizationMachine-Partial_80000_users.pdf)
-![Popularity Recommender - Partial - 80.000 users - Partial](https://github.com/ssanchezor/GNN-RS/blob/main/Data/PopularityRecommender-Partial_80000_users.pdf)
-![Random Recommender - Partial - 80.000 users - Partial](https://github.com/ssanchezor/GNN-RS/blob/main/Data/RandomRecommender-Partial-80000_users.pdf)
+* ![Factorizacion Machines Model - Partial - 80.000 users - Partial](https://github.com/ssanchezor/GNN-RS/blob/main/Data/FactorizationMachine-Partial_80000_users.pdf)
+* ![Popularity Recommender - Partial - 80.000 users - Partial](https://github.com/ssanchezor/GNN-RS/blob/main/Data/PopularityRecommender-Partial_80000_users.pdf)
+* ![Random Recommender - Partial - 80.000 users - Partial](https://github.com/ssanchezor/GNN-RS/blob/main/Data/RandomRecommender-Partial-80000_users.pdf)
 
   
 ## 7. Conclusions <a name="7-conclusions"></a>
