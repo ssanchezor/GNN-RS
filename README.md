@@ -71,11 +71,13 @@ The main purpose of this project is to test the potencial of deep neural network
 For training and testing our models, we have used the dataset provided by Kaggle competition [H&M Personalized Fashion Recommendations
 ](https://www.kaggle.com/c/h-and-m-personalized-fashion-recommendations).
 
-H&M dataset contains data from all the transactions that took place during 2018-2020 period, as well as images of all the involved articles.
+H&M Group is a family of brands and businesses with 53 online markets and approximately 4,850 stores. In this competition, H&M Group invited users to develop product recommendations based on data from previous transactions, as well as from customer and product meta data. The available meta data spans from simple data, such as garment type and customer age, to text data from product descriptions, to image data from garment images.
+
+H&M dataset contains data from all the transactions that took place during 2018-2020 period, as well as some costumer and article metadata, including images of all the involved products.
 
 ### 2.1. Data Description  <a name="21-eda"></a>
 
-Transaction data is divided into several different files:
+H&M dataset is divided into several different files:
 - articles.csv - detailed metadata for each article_id available for purchase
 - customers.csv - metadata for each customer_id in dataset
 - transactions_train.csv - training data, consisting of the purchases each customer for each date, as well as additional information (i.e. channel).
