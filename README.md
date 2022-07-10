@@ -89,22 +89,22 @@ Transaction data is divided into several different files:
 
 As a result of a preliminary analysis of the data set, we have observed the following characteristics:
 - Higher accumulation of younger costumers
-<p align="center">
+<p align="left">
   <img src="Images/Customerxage.png" width="500" 
      height="300" >
 </p>
 - Quite uniform distribution in transactions grouped by costumer's age
-<p align="center">
+<p align="left">
   <img src="Images/InteractionxCustomerAge.png" width="500" 
      height="300" >
 </p>
 - Non-uniform distribution in transactions grouped by product category
-<p align="center">
+<p align="left">
   <img src="Images/Interactionsxartcategorylabsinside.png" width="500" 
      height="300" >
 </p>
 - Non-uniform distribution in transactions grouped by product color
-<p align="center">
+<p align="left">
   <img src="Images/InteractionsxColor.png" width="500" 
      height="300" >
 </p>
