@@ -443,3 +443,11 @@ for epoch_i in range(num_epochs):
         hr, ndcg, cov, gini, dict_recommend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
 ```
 * Last step will be the report generation (as data is different, report generation has a specific version for this dataset).
+
+
+Report generation.
+
+![Random model - 80.000 users - Partial](https://github.com/ssanchezor/GNN-RS/blob/main/Data/RandomRecommender-Partial-80000_users.pdf)
+
+Regional features (e.g. [RMAC](https://arxiv.org/pdf/1604.01325.pdf))
+![hustlin_erd](erd.pdf)
