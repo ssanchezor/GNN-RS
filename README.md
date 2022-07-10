@@ -141,10 +141,6 @@ Results after applying data filtering:
 
 After doing some analysis of the resulting data, we have computed the long-tail graph to show the distribution of popularity among articles in the dataset (for both 10K and 80K customers).
 
-<p align="center">
-  <img src="Images/HM10KPopularityRanking.png width="400">
-</p>
-
 <p align="left">
   <img src="Images/HM80KPopularityRanking.png" width="400">
 </p>
