@@ -1,0 +1,93 @@
+<html>
+    <head>
+    <style>
+    table {
+    border-collapse: separate;
+    border-spacing: 5px;
+    }
+    table, th, td {
+    border: 3px;
+    }
+    </style><title>Result visualization</title>
+    </head> 
+    <body>
+
+<h1>Result visualizaton</h1>
+
+
+<h2>Report we generate</h2>
+<a href="GCN-Partial-80000.pdf" target="_blank">Report GCN with 80.000 user dataset</a><br/>
+
+<h2>GCN vs Factorization Machines vs Popularity</h2>
+
+<ul>
+<li>Results from the 80.000 users subset</li>
+<li>Contains aprox 52.600 items</li>
+<li>Models used: GCN, FM and Popularity (GCN-att not available)
+</ul>
+
+<h3>Graph convolutional network</h3>
+<table><tr><td>HR@10</td><td>NDCG@10</td><td>COV@10</td><td>GINI@10</td><td>NOV@10</td></tr>
+<tr><td>0.6069</td><td>0.3721</td><td>0.6762</td><td>0.7390</td><td>9.2457</td></tr>
+</table>
+
+
+<h3>Factorization Machines</h3>
+
+<table><tr><td>HR@10</td><td>NDCG@10</td><td>COV@10</td><td>GINI@10</td><td>NOV@10</td></tr>
+<tr><td>0.3146</td><td>0.1597</td><td>0.5143</td><td>0.8462</td><td>9.5537</td></tr>
+</table>
+
+<h3>Popularity</h3>
+
+
+<table><tr><td>HR@10</td><td>NDCG@10</td><td>COV@10</td><td>GINI@10</td><td>NOV@10</td></tr>
+<tr><td>0.4774</td><td>0.2711</td><td>0.1894</td><td>0.8980</td><td>8.0927</td></tr>
+</table>
+
+<h3>Similar style</h3>
+<a href="C01_similar_sytle.pdf" target="_blank">* Example 1 - C01_similar_sytle.pdf</a><br/>
+<a href="C02_colorful.pdf" target="_blank">Example 2 - C02_colorful.pdf</a><br/>
+<a href="C03_woman_underwear.pdf" target="_blank">Example 3 - Underware + bikini - C03_woman_underwear.pdf</a><br/>
+<a href="C07_patterned_dress.pdf" target="_blank">Example 4 - patterned dress hit - C07_patterned_dress.pdf</a><br/>
+<a href="C08_similar_sytle_recommendation.pdf" target="_blank">Example 5 - similar style for GCN - C08_similar_sytle_recommendation.pdf</a><br/>
+<a href="C10_PaleTones_with_patterned.pdf" target="_blank">* Example 6 - Pale tones - C10_PaleTones_with_patterned.pdf</a><br/>
+
+<h3>Misc</h3>
+<a href="C05_Lightly_recommendation.pdf" target="_blank">* Lightly item recommended spite of other items - C05_Lightly_recommendation.pdf</a><br/>
+<a href="C11_sockets.pdf" target="_blank">* Sockets shopper - C11_sockets.pdf</a><br/>
+<a href="C15_dresses_and_skirts.pdf" target="_blank">* Dresses and skirts - C15_dresses_and_skirts.pdf</a><br/>
+<a href="C13_dresses_customer.pdf" target="_blank">Woman with a lot of dresses - C13_dresses_customer.pdf</a><br/>
+<a href="C06_heavy_shopper.pdf" target="_blank">Heavy shopper - all 3 model have hits - C06_heavy_shopper.pdf</a><br/>
+<a href="C16_heavy_shopper.pdf" target="_blank">Heavy shopper - all 3 model fail -C16_heavy_shopper.pdf</a><br/>
+<a href="C22_woman_61_with_child_items.pdf" target="_blank">C22_woman_61_with_child_items.pdf</a><br/>
+
+
+<h3>Customer with man items</h3>
+<a href="C14_men-woman-basket.pdf" target="_blank">Man-Woman basket C14_men-woman-basket.pdf</a><br/>
+<a href="C20_men-woman.pdf" target="_blank">Man-Woman basket - C20_men-woman.pdf</a><br/>
+<a href="C23_woman_30years_with_child_items.pdf" target="_blank">C23_woman_30years_with_child_items.pdf</a><br/>
+
+
+
+<h3>Age</h3>
+<a href="C19_18y_woman.pdf" target="_blank">* C19_18y_woman.pdf</a><br/>
+<a href="C17_62y_woman.pdf" target="_blank">C17_62y_woman.pdf</a><br/>
+<a href="C18_18y_woman.pdf" target="_blank">C18_18y_woman.pdf</a><br/>
+
+
+
+
+<h3>Fails</h3>
+<a href="C21_pants-fail.pdf" target="_blank">* Paints fail - C21_pants-fail.pdf</a><br/>
+<a href="C04_GCN_Fail.pdf" target="_blank">Clear fail with user and a lot of pants - C04_GCN_Fail.pdf</a><br/>
+<a href="C12_GCN_epic_fail.pdf" target="_blank">C12_GCN_epic_fail.pdf</a><br/>
+
+
+
+
+
+
+
+</body>
+
