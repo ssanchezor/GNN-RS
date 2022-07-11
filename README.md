@@ -613,7 +613,7 @@ This is dictionary file that will allow us to relate each indexed article with t
 
 #### Adding context `build_dataset_features.py` <a name="511-datasetcontext"></a>
 
-The program has the same structure as `build_dataset.py` but the generated files will also include context information (in our study case channel):
+The program has the same structure as `build_dataset.py` but the generated files will also include context information (in our study case is the channel). In order to do this, since incorporate context means adding a new column in the transactions file, we have changed the `extract_dictionary` and `generate_dataset` classes to also consider this new information.
 
 Visualizing results:
     
@@ -673,7 +673,7 @@ For instance, for user 38:
     
 ### 5.2. Executing models <a name="52-models-exec"></a>
 
-In our case study we are going to implement and analyze different Recommender System models: Factorization Machine (with and without context), Graph Convolutional Networks, Graph Attention Network#52-models-impls, Random and Popularity. All of them are implemented by following a similar structure: 
+In our study case we are going to implement and analyze different Recommender System models: Factorization Machine (with and without context), Graph Convolutional Networks, Graph Attention Network#52-models-impls, Random and Popularity. All of them are implemented by following a similar structure: 
 
 | Program | Description |
 |:------------------------:|:-------:|
@@ -819,9 +819,9 @@ We generated an extension for the Factorization Machine model to be able to add 
 
 As explained in section [Adding context `build_dataset_features.py`](#511-datasetcontext), dataset now will include and extra column in the transaction table to add information about the channel. Therefore, we had to implement some minor changes to the different files:
 
-'model_FM_context.py' has the same structure as 'model_FM.py' but:
-    * Embeddings have higher dimension: `self.embeddings = torch.nn.ModuleList([torch.nn.Embedding(sum(field_dims), embed_dim) for _ in range(self.num_fields)]` 
-    * Adjacency matrix has higher dimension
+`model_FM_context.py` has the same structure as `model_FM.py` but:
+- Embeddings have higher dimension: `self.embeddings = torch.nn.ModuleList([torch.nn.Embedding(sum(field_dims), embed_dim) for _ in range(self.num_fields)]` 
+- Adjacency matrix has higher dimension:
         ```
         adj_mat[x[0], x[1]] = 1.0
         adj_mat[x[1], x[0]] = 1.0
@@ -830,7 +830,7 @@ As explained in section [Adding context `build_dataset_features.py`](#511-datase
         adj_mat[x[1], x[2]] = 1.0
         adj_mat[x[2], x[1]] = 1.0
         ```
-    * Negative interactions have to consider channel:
+- Negative interactions now also consider the channel:
     ```
     # generates a given number (num_negatives) of negative interactions
             for idx in range(num_negatives):
@@ -846,11 +846,10 @@ As explained in section [Adding context `build_dataset_features.py`](#511-datase
             self.interactions.append(neg_triplet.copy())
     ```
 
-`main_FM_context.py` uses the same structure as `main_FM.py` (only changing the TensorBoard path and instancing 'ContextFactorizationMachineModel')
+`main_FM_context.py` uses the same structure as `main_FM.py` (only changing the TensorBoard path and instancing `ContextFactorizationMachineModel`)
 
 ## 6. Results <a name="6-results"></a>
 ### 6.1 Results 10K Customers (Random Sampling Test Set) <a name="61-results10k"></a>
-
 
 |Model | HR@10 | NDCG@10 |COV@10 |GINI@10 |NOV@10 |COMPUTATIONAL REQUIREMENTS|
 :------: | :------:| :------:| :------:| :------:|:------:|:-----------------:|
@@ -861,7 +860,7 @@ As explained in section [Adding context `build_dataset_features.py`](#511-datase
 |FM + GCN  |36,11%|20,77%|50,97%|0,7351|10,1138|MEDIUM|
 |FM + GAT |39,27 %|23,17 %|49,98 %|0,7575|9,1396|VERY HIGH|
 
-The Random Model of course shows the best results regarding the fairness but the accuracy metrics are very poor. Popularity Model has the better results related to accuracy but obviously has bias. The more balanced one is FM+GAT Model that performs better in all the metrics than the rest of models.
+As expected, the random model shows the best results regarding the fairness but its accuracy metrics are very poor. On the other hand, the popularity model has the better results in terms of accuracy but recommends very few articles (coverage value is low), meaning that it has a high popularity bias. For this test set, the more balanced would be FM+GAT model, which is able to achieve better results than the others in most of the metrics.
 
 ### 6.2 Results 10K Customers (Full) <a name="62-results10kF"></a>
 
@@ -873,8 +872,7 @@ The Random Model of course shows the best results regarding the fairness but the
 |FM + GCN  |1,03%|0,58%|6,49 %|0,9926|8,465|MEDIUM|
 |FM + GAT |2,20 %|1,46%|17,65 %|0,9739|8,465|VERY HIGH|
 
-The test over all items of the training set helps us put the numbers in context and see them in some perspective.
-The ranking of the models does not change much and the relationship among metrics is kept, but the popularity model shows a greater bias.
+The test over all items of the training set helps us put the numbers in context and see them with some perspective. The ranking of the models does not change much and the relationship among metrics is kept, but the popularity model shows a greater bias.
 
 ### 6.3 Results 80K Customers (Random Sampling Test Set) <a name="63-results80k"></a>
 
@@ -887,7 +885,7 @@ The ranking of the models does not change much and the relationship among metric
 |FM + GCN  |59,59 %|36,02 %|64,10 %|0,7615|9,1412|MEDIUM|
 |FM + GAT |Not feasible|	Not feasible|	Not feasible|	Not feasible|	Not feasible|	VERY HIGH|
 
-It has not been possible to compute the FM+GAT model with this dataset due to the memory and gpu requirements it required, although the results would most likely have been better than the rest. Anyway FM + GCN improve all the metrics by adding more data. Also is important to mention than by adding the sales channel as context information in the embeddings with the FM Model, improves a lot the results obtained by FM. 
+Although it has not been possible to compute the FM+GAT model with this dataset due to the memory and GPU it requires, we can expect it to achieve the best results. However, we can see how FM + GCN greatly improved all the metrics by just adding more data. Also, is important to mention that by adding the sales channel as context information in the embeddings with the FM Model, we can see a relevant improvement in lots of the results obtained with FM. 
 
 <div style="overflow-x:auto;">
   <table>
@@ -942,19 +940,19 @@ It has not been possible to compute the FM+GAT model with this dataset due to th
    </table>
   </div>
     
-### 6.5. Reports  <a name='65-reports'></a>
+### 6.5. Visualizing customized reports  <a name='65-reports'></a>
     
-These are some of the reports from the best models or the more significative models. Values can differ from other values in this page as have been generated  at later stages.
+We have generated customized reports from the best models to have a deeper understanding of the results, as well as to visualize some of the recommendations. (Values may sligthly differ from other values in this report as have been generated at later stages)
 
-Reports will contain:
+Reports contain:
 * Model results
 * Recommendation distribution
 * First 100 most recommended items
 * Recommendations for the first 20 users
-* 5 Users recommendations with HR 1 
-* 5 User recommendations with no match
+* 5 User recommendations with perfect match (HR=1) 
+* 5 User recommendations without match
 
-(Note: The number of 20/5/5 can be changed in `utilities.py`)
+(Note: Report configuration (`20/5/5`) can be changed in `utilities.py`)
     
 Current reports:
 
