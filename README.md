@@ -469,7 +469,7 @@ kaggle competitions download -c h-and-m-personalized-fashion-recommendations
 ``` 
 #### Data filtering `data_filtering.py`
  
-Assuming that download files will be in data/ folder:
+Downloaded files need to be stored in the `/data/` folder.
  ```
  ../data/articles.csv
  ../data/customers.csv
