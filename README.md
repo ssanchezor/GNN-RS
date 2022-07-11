@@ -951,7 +951,7 @@ Reports contain:
 * 5 User recommendations with perfect match (HR=1) 
 * 5 User recommendations without match
 
-(Note: Report configuration (`20/5/5`) can be changed in `utilities.py`)
+Note: Report configuration (`20/5/5`) can be changed in `utilities.py`
     
 Current reports:
 
@@ -962,17 +962,17 @@ Current reports:
   
 ## 7. Conclusions <a name="7-conclusions"></a>
 
-* The results of the **FM+GAT** model were promising with a small dataset, but it has not been possible to test it with a larger one due to the computational resources it required.
+* The results of the **FM+GAT** model are promising with a small dataset, but it has not been possible to test it with a larger one due to the computational resources it requires (calculating attention scores considerably increases the number of parameters), although we expect it to achieve the best results. For those scenarios where computational resources are not a problem, seems to be the best model to achieve highest results.
 
-* **FM+GCN** Model give a good and balanced resulto, much better than Popularity Model.
+* **FM+GCN** model also gives quite good accuracy results while preserving balanced fairness scores (NDCG, Gini, Novelty, etc.). Since it is somewhat lighter to train than the FM+GAT, it is perfect for softer implementations that do not require really high accuracy rates. 
+    
+* **Popularity** model is a very cheap model with good results in terms of accuracy. However, it has a large index of popularity bias. For those scenarios where accuracy is all that matters, it becomes a good candidate to be considered. 
 
-* **Popularity** Model is a very cheap model with not so bad performance in terms of accuracy.
+* By adding **extra context** to the FM Model we have observed relevant improvements in the metrics, so we expect that by doing the same for FM+GCN and FM+GAT will further improve its results in all the metrics. However, we have not been able to ehance the models due to lack of time.
 
-* By adding **extra features** to the FM Model we observed an evident improvements in the metrics so we guess that doing the same for FM+GCN and FM+GAT will allow to have a very good results in all the metrics.
+* Our original dataset had a distribution with an obvious **popularity bias**, inherent to the fashion industry, and for this reason it is difficult to obtain better results in terms of **Gini** and **Novelty**. Other strategies could be used to reduce the bias, such as performing a subsequent reranking including more items belonging to the long tail or using a hybrid recommender that always takes into account the user's preferences.
 
-* Our original dataset had a distribution with an obvious **popularity bias** ,inherent to fashion, and for this reason it is difficult to obtain better results in terms of **Gini and Novelty** if other strategies are not used, such as performing a subsequent reranking including more items belonging to the long tail or using a hybrid recommender always taking into account the users preferences.
-
-* The selection and interpretation of metrics to mesure the **Fairness** has not been easy.
+* The selection and interpretation of the differnt metrics to mesure the **fairness** of the recommender systems has not been easy.
 
 ## 8. Acknowledgements <a name="8-acknowledgements"></a>
 
