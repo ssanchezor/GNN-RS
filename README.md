@@ -1,8 +1,8 @@
 # AIDL21: Recommender Systems with GCN
 
-This repository contains different machine learning models, such as FM, GCN and GAT, that are commonly used to implement personalized Recommender Systems. It consists of a first part to explain, in a theoretical manner, the main characteristics of this type of systems, as well as a second part with a set of detailed steps on how to run the program.
+This repository contains different machine learning models implementations, such as FM, GCN and GAT, that are commonly used to build personalized Recommender Systems. It consists of a first part that explains, in a theoretical manner, the main characteristics of this type of systems, as well as a second part with a set of detailed steps on how to run the program.
 
-Our project aims to compare the different models and evaluate how well they perform in making recommendations, in this case focusing on a real example from the fashion industry. In order to do this, for each of them, we will measure some metrics (HR, NDCG, Coverage, etc...) that are frequently used in this kind of systems.
+Our project aims to understand and compare the different models and evaluate how well they perform in making recommendations, taking as a example a real case study from the fashion industry. In order to do this we will measure some metrics for each of them (HR, NDCG, Coverage, etc...) that are frequently used in this type of systems.
 
 Finally, we will perform a detailed analysis of the obtained results in order to detect and assess possible biases. 
 
@@ -56,26 +56,27 @@ Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
  
 ## 1. Introduction <a name="1-intro"></a>
 
-Nowadays Recommender Systems have become a key peace to solve the problem of overload information. The information if far for being reduced, as well as the diversity of users that uses platform such as  Netflix, wirh more than 17.000 titles and 221.64 million of paying subscriptions, or Amazon, with116.44 billion U.S. dollars sales and more than 200 million Prime members.
+Recommender Systems are a useful tool that automatizes the task of predicting the preferences of the users of a service in order to recommend them items that could match its preferences. They have become a key piece to solve the problem of overload information that we live today. Data is far from being reduced, as well as the diversity of users that use online platforms such as Netflix, with more than 17.000 titles and 221.64 million of paying subscriptions, or Amazon, with 116.44 billion U.S. dollars sales and more than 200 million Prime members.
 
-But what makes a recommender a good recommender? It is not only a question of personalizing the recommendations in such a way that the system shows the user items related to their tastes, but also of reflecting the diversity in a fair way, so that users can discover new things that may interest them and, at the same time, the systems ensure that no bias or, worse, discrimination is added.
-
-Of course, some items are popular for a reason, so it is important to find a trade-off between accuracy & fairness.
+But what makes a Recommender good? It is not only a question of personalizing the recommendations in such a way that the system shows the user items related to their tastes, but also of reflecting the diversity in a fair way, so that users can discover new things that may interest them and, at the same time, ensure that no bias or, worse, discrimination is added to the recommendations. Of course, some items are popular for a reason, so it is important to find a trade-off between accuracy and fairness.
 
 ### 1.1. Motivation <a name="11-motivation"></a>
 
-In this project we have compared differents methods and models to make  recommendations and we have tried to find out which of them gives  more balanced results in terms of hits and fairness, reducing the popularity bias without damaging the quality of the ranking.
+In this project we have compared differents methods and models to make recommendations in order to find out which gives more balanced results in terms of accuracy and fairness, trying to reduce the Popularity Bias without damaging the quality of the ranking.
 
 ### 1.2. Objectives <a name="12-milestones"></a>
 
-The main purpose of this project is to test the potencial of deep neural networks to solve the problem of personalize recommendations, in particular the use of Graph convolutional networks and Graph attention networks and to analyze how to popularity bias affect  each model.  To be more specific, the main objectives are the following:
-- Find a complete dataset that fits the task. In this case we opted for an H&M dataset.
-- Explore and undestand the data, clean and pre-process it to be used for training and test our models.
-- Implement different simple models as Random and Popularity to have a reference.
-- Implement a Factorization Machine with regular embeddings and after add embeddings generated by an GCN and GAT and analyze the results.
-- Explore the Popularity Bias and analyze how it affects each model.
-- Carried out some experiments adding more data expecting improvements in the results.
-- Add some features related to the contexto of the transaction a evaluate how each model results are affected.
+The main purpose of this project is to learn and test the potencial of some traditional Recommender System models and understand their behaviour. In particular, we will start by detailing Factorization Machine model and extend it by introducing Graph Convolutional Networks and Graph Attention Networks to analyze and quantify its improvmement. Finally, we will create Random and Popularity models and compare the results obtained with all the models. Through the results, we will be able to evaluate how Popularity Bias affect each model. 
+
+To be more specific, main project objectives are:
+- Find a complete dataset that fits the task. In this case we opted for real dataset from H&M fashion brand.
+- Explore and undestand the data, clean and pre-process it to be able to use it for training and testing our models.
+- Implement different simple models such as Random and Popularity recommenders.
+- Implement a Factorization Machine model with regular embeddings and extend it by adding embeddings generated by a GCN and GAT. 
+- Analyze and compare the results obtained with all the models (using different types of metrics).
+- Explore the Popularity Bias and analyze to what extent it affects each model.
+- Carry out some experiments of adding more data to the model to see how it improves.
+- Add context to the model in order to quantify its improvement in the different metrics.
 - Extract conclusions and insights from the results and visualize them in an understandable way.
 
 ## 2. H&M Dataset <a name="2-available-datasets"></a>
@@ -238,7 +239,7 @@ NOVELTY |The higher the better, less popular items included in the recommendatio
 ### 3.2. Experiment Methods & Test Strategy  <a name="32-experimenttest"></a>
 Our experiments are based on <b>offline testing</b>. We use implicit feedback, where the purchases of each user are available as positive items, while all non-interacted items are considered as negative.
 
-In order to have a faster training and reduce its computational cost, we have opted for using a <b>random sampling</b> approach to build the target test datasets. As some papers pointed out that by using this method the ranking(comparison) of the models could not be estable, we have tested them with all the items included in the training dataset as target (except the interactions of each user) in order to compare the results and verify that our ranking and relation among metrics of models remains equal. Since it was the case, we have decided to mantain this strategy for the rest of experiments. [Source](https://arxiv.org/pdf/2107.13045.pdf)
+In order to have a faster training and reduce its computational cost, we have opted for using a <b>random sampling</b> approach to build the target test datasets. As some papers pointed out that by using this method the ranking (comparison) of the models could not be estable, we have tested them with all the items included in the training dataset as target (except the interactions of each user) in order to compare the results and verify that our ranking and relation among metrics of models remained equal. Since it was the case, we have decided to mantain this strategy for the rest of experiments. [Source](https://arxiv.org/pdf/2107.13045.pdf)
 
 ### 3.3. Machine Learning Models  <a name="33-ML"></a>
 
