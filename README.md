@@ -103,12 +103,9 @@ H&M dataset is divided into several different files:
 - customers.csv - metadata for each customer_id in dataset
 - transactions_train.csv - training data, consisting of the purchases each customer for each date, as well as additional information (i.e. channel).
 
-|             Dataset features      | | 
-|:------------------------:|:-------:|
-|Number of articles    | 105.542|
-|Number of costumers                | 1.371.980|
-|Number of transactions  | 31.788.324|
-|Data range  | From 2018 to 2020 |
+<p align="left">
+  <img src="Images/hmdataset.PNG" width="700">
+</p>
 
 As a result of a preliminary analysis of the dataset, we have observed the following characteristics:
 
