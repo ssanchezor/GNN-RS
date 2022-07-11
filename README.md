@@ -460,18 +460,17 @@ The program is divided into different files:
 
 ### 5.1. Dataset creation <a name="51-dataset"></a>
     
-As the Kaggle's original data for all the full dataset of H&M is too big, we have had to create a filtering program to reduce the dataset and create the input files for the model processing.
+Since the H&M original dataset is too big, we have had to create a filtering program to reduce the dataset and create the input files for the model processing.
 
 #### Starting point: Full Kaggle dataset
 
 Full dataset has been downloaded from Kaggle's competition page: ["H&M Personalized Fashion Recommendations"](https://www.kaggle.com/competitions/h-and-m-personalized-fashion-recommendations)
     
- You can manually download the data or execute the following command using Kaggle API [Set-up Kaggle API](https://github.com/Kaggle/kaggle-api#readme):
+ You can manually download the data or execute the following command by using Kaggle API [Set-up Kaggle API](https://github.com/Kaggle/kaggle-api#readme):
     
 ```
 kaggle competitions download -c h-and-m-personalized-fashion-recommendations
-```
- 
+``` 
  #### Data filtering (data_filtering.py)
  
  We will assume downloaded files will be in:
@@ -514,24 +513,27 @@ After applying the filters with `10.000` and `80.000` customers, we our dataset 
 |10.000| 38.200 | 401.000 |
 |80.000| 52.600 | 3.272.000 |
 
-#### Working files for models without features with `build_dataset.py`
+#### Creating train and test datasets `build_dataset.py`
 
-The dataset we will be use for our models depend if there are some feature or not. First case is just without any feture.
-
-So, we need to transform the previous filtered csv in to working files that will resemble the Movilens indexed format for all items and customers. The program that will make this conversion is `build_dataset.py`
-
-We will need to specifiy the csv with our filtered dataset in the main procedure
+We need to transform the previous filtered dataset to train and test datasets. 
+    
+Also, data has to be presented in a indexed format for all items and costumers in order to be able to define the adjacency matrix.
+    
+In order to do this, we will need to specifiy the generated dataset file (csv) in the main procedure:
+    
 ```
 if __name__ == '__main__':
-    transactions = transactions = pd.read_csv("../data/transactions_ddup_2019-09-22_nart_5_ncust_20_ncustr_80000.csv")
+   transactions = pd.read_csv("../data/transactions_ddup_2019-09-22_nart_5_ncust_20_ncustr_80000.csv")
 ```
 After running the program, it will generate the working files we need to use to run the models
 
-Customer-article transactions are sorted by users and then by date for each user. The first transaction will be used for the test dataset.
+Then, customer-article transactions are first sorted by user and transaction date.
+    
+Visualizing results:
+    
+`../data/customer.test.article'`
 
-##### ../data/customer.test.article
-
-This is the general format:
+General format:
 | customer_id | article_id | label| t_dat|
 |:-----------:|:----------:|:----:|:----:|
 |...|...|...|...|
@@ -541,7 +543,9 @@ This is the general format:
 |user i+1|item 1 |1|tdat 1|
 |...|...|...|...|
 
-For example the first transaction of the first 4 users:
+The first transaction for each customer will be used to build the test dataset.   
+    
+First transaction of the first 4 users:
 | customer_id | article_id | label| t_dat|
 |:-----------:|:----------:|:----:|:----:|
 |1	|1	|1	|20200519|
@@ -551,10 +555,9 @@ For example the first transaction of the first 4 users:
 |...|...|...|...|
 |...|...|...|...|
 
-##### ../data/customer.train.article
+`../data/customer.train.article`
 
-Train data will contain the remain transactions for each user:
-
+Train data will contain the remaining transactions for each user:
 | customer_id | article_id | label| t_dat|
 |:-----------:|:----------:|:----:|:----:|
 |...|...|...|...|
@@ -568,8 +571,7 @@ Train data will contain the remain transactions for each user:
 |...|...|...|...|
 |...|...|...|...|
 
-For instance for user 38:
-
+For instance, for user 38:
 | customer_id | article_id | label| t_dat|
 |:-----------:|:----------:|:----:|:----:|
 |...|...|...|...|
@@ -589,9 +591,9 @@ For instance for user 38:
 |...|...|...|...|
 |...|...|...|...|
 
-##### ../data/customer.dic
+`../data/customer.dic`
 
-This is dictionary file that will allow us to relate each indexed customer with the actual customer value in original H&M dataset. This will be use to generate our reports only.
+This is a dictionary file that will allow us to relate each indexed customer with the customer value in original H&M dataset. This will be only used for reporting purposes.
 
 | actual customer_id | indexed customer_id | 
 |-------------------:|:------------------:|
@@ -603,9 +605,9 @@ This is dictionary file that will allow us to relate each indexed customer with 
 |...|...|
 |...|...|
 
-##### ../data/article.dic
+`/data/article.dic`
 
-This is dictionary file that will allow us to relate each indexed article with the actual article value in original H&M dataset. This will be use to generate our reports only.
+This is dictionary file that will allow us to relate each indexed article with the article value in original H&M dataset. This will be only used for reporting purposes.
 
 | actual aticle_id | indexed article_id | 
 |-------------------:|:------------------:|
@@ -618,24 +620,13 @@ This is dictionary file that will allow us to relate each indexed article with t
 |...|...|
 
 
-#### Working files for models with features with `build_dataset_features.py`
+#### Adding context `build_dataset_features.py`
 
-The dataset we will be use for our models depend if there are some feature or not. Second case is just without the sales channel value.
+The program has the same structure `as build_dataset.py` but the generated files include context information:
 
-The program that will make this conversion is `build_dataset_features.py`
+`../data/customer.test.article.channel`
 
-We will need to specifiy the csv with our filtered dataset in the main procedure
-```
-if __name__ == '__main__':
-    transactions = transactions = pd.read_csv("../data/transactions_ddup_2019-09-22_nart_5_ncust_20_ncustr_80000.csv")
-```
-After running the program, it will generate the working files we need to use to run the models
-
-Customer-article transactions are sorted by users and then by date for each user. The first transaction will be used for the test dataset.
-
-##### ../data/customer.test.article.channel
-
-This is the general format:
+General format:
 | customer_id | article_id | chanel_id |label| t_dat|
 |:-----------:|:----------:|:----:|:----:|:----:|
 |...|...|...|...|...|
@@ -645,7 +636,7 @@ This is the general format:
 |user i+1|item 1 |channel 1 |1|tdat 1|
 |...|...|...|...|...|
 
-For example the first transaction of the first 4 users:
+First transaction of the first 4 users:
 | customer_id | article_id | label| t_dat|
 |:-----------:|:----------:|:----:|:----:|
 |1	|1	|1	|1	|20200519|
@@ -655,10 +646,9 @@ For example the first transaction of the first 4 users:
 |...|...|...|...|
 |...|...|...|...|
 
-##### ../data/customer.train.article.channel
+`../data/customer.train.article.channel`
 
-Train data will contain the remain transactions for each user:
-
+Train data will contain the remaining transactions for each user:
 | customer_id | article_id |  chanel_id | label| t_dat|
 |:-----------:|:----------:|:----:|:----:|:----:|
 |...|...|...|...|...|
@@ -672,8 +662,7 @@ Train data will contain the remain transactions for each user:
 |...|...|...|...|...|
 |...|...|...|...|...|
 
-For instance for user 38:
-
+For instance, for user 38:
 | customer_id | article_id | label| t_dat|
 |:-----------:|:----------:|:----:|:----:|
 |...|...|...|...|
@@ -688,14 +677,6 @@ For instance for user 38:
 |39	|1282	|1	|1	|20200903|
 |...|...|...|...|...|
 |...|...|...|...|...|
-
-##### ../data/customer.dic
-
-This is dictionary file that will allow us to relate each indexed customer with the actual customer value in original H&M dataset. Remains the same for featured dataset.
-
-##### ../data/article.dic
-
-This is dictionary file that will allow us to relate each indexed article with the actual article value in original H&M dataset. Remains the same for featured dataset.
 
 ### 5.2. Model execution without features <a name="B2-models-nofeat"></a>
 
