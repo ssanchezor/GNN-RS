@@ -50,7 +50,7 @@ Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
     - [6.2. Results 10k Customers (Full)](#62-results10KF)
     - [6.3. Results 80k Customers (Full)](#63-results80K)
     - [6.4. Model Comparison](#64-comparison)
-    - [6.5. Reports](#65-reports)
+    - [6.5. Customized Reports](#65-reports)
 - [7. Conclusions](#7-conclusions) 
 - [8. Acknowledgements](#8-acknowledgements)
  
@@ -940,7 +940,7 @@ Although it has not been possible to compute the FM+GAT model with this dataset 
    </table>
   </div>
     
-### 6.5. Visualizing customized reports  <a name='65-reports'></a>
+### 6.5. Customized reports  <a name='65-reports'></a>
     
 We have generated customized reports from the best models to have a deeper understanding of the results, as well as to visualize some of the recommendations. (Values may sligthly differ from other values in this report as have been generated at later stages)
 
