@@ -75,7 +75,9 @@ In this project we have compared differents methods and models to make recommend
 
 ### 1.2. Objectives <a name="12-milestones"></a>
 
-The main purpose of this project is to learn and test the potencial of some traditional Recommender System models and understand their behaviour. In particular, we will start by detailing Factorization Machine model and extend it by introducing Graph Convolutional Networks and Graph Attention Networks to analyze and quantify its improvmement. Finally, we will create Random and Popularity models and compare the results obtained with all the models. Through the results, we will be able to evaluate how Popularity Bias affect each model. 
+The main purpose of this project is to learn and test the potencial of some traditional Recommender System models and understand their behaviour. 
+
+In particular, we will start by detailing Factorization Machine model and extend it by introducing Graph Convolutional Networks and Graph Attention Networks to analyze and quantify its improvmement. Finally, we will create Random and Popularity models and compare the results obtained with all the models. Through the results, we will be able to evaluate how Popularity Bias affect each model. 
 
 To be more specific, main project objectives are:
 - Find a complete dataset that fits the task. In this case we opted for real dataset from H&M fashion brand.
