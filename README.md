@@ -185,7 +185,7 @@ Results after applying data filtering:
 After doing some analysis of the resulting data, we have computed the long-tail graph to show the distribution of popularity among articles in the dataset (for both 10K and 80K customers).
 
 <p align="left">
-  <img src="Images/HM80KPopularityRanking.png" width="400">
+  <img src="Images/HM80KPopularityRanking.png" width="500">
 </p>
 
 Products on left side (or in blue line) are called as popular because their popularity is higher then those in yellow or long-tail area. Moreover, popular products are generally competitive products. On the other hand, products in yellow long-tail area are thought to be unpopular or new products in market. The threshold which discriminates the popular and unpopular items in market is an hyper-parameter for the retailer. 
