@@ -6,7 +6,7 @@ from build_dataset_context import CustomerArticleDataset
 from torch.utils.data import DataLoader
 from utilities import Popularity_Graphic
 from torch.utils.tensorboard import SummaryWriter
-from utils_report import info_model_report_with_context
+from utilities import info_model_report_with_feature 
 
 
 if __name__ == '__main__':
@@ -15,7 +15,7 @@ if __name__ == '__main__':
     device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 
     # setting up TensorBoard and data paths...
-    logs_base_dir = "runHM_10000"
+    logs_base_dir = "runHM"
     os.makedirs(logs_base_dir, exist_ok=True)
     tb_fm_feat = SummaryWriter(log_dir=f'{logs_base_dir}/{logs_base_dir}_FM_FEAT/')
     dataset_path = "../data/"
@@ -33,11 +33,11 @@ if __name__ == '__main__':
     # training the model...
     tb = True
     topk = 10 # 10 articles to be recommended
-    num_epochs=20
+    num_epochs=15
 
     for epoch_i in range(num_epochs):
-        train_loss = train_one_epoch_context(model, optimizer, data_loader, criterion, device)
-        hr, ndcg, cov, gini, dict_recommend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
+        train_loss = train_one_epoch_context(model, optimizer, data_loader, criterion, device) 
+        hr, ndcg, cov, gini, dict_recommend, nov, l_info = testpartial(model, full_dataset, device, topk=topk, features=True)
 
         print(f'epoch {epoch_i}:')
         print(f'training loss = {train_loss:.4f} | Eval: HR@{topk} = {hr:.4f}, NDCG@{topk} = {ndcg:.4f}, COV@{topk} = {cov:.4f}, GINI@{topk} = {gini:.4f}, NOV@{topk} = {nov:.4f} ')
@@ -52,12 +52,12 @@ if __name__ == '__main__':
             tb_fm_feat.add_scalar(f'eval/NOV@{topk}', nov, epoch_i)
 
     # saving training results...
-    PATH = "FactorizationMachineModel_context.pt"
+    PATH = "FactorizationMachineModel_feat_80000.pt"
     torch.save(model.state_dict(), PATH)
 
     # generating customized report...
     res_header=[f"HR@{topk}", f"NDCG@{topk}", f"COV@{topk}",f"GINI@{topk}",f"NOV@{topk}" ]
     res_values=[f"{hr:.4f}", f"{ndcg:.4f}", f"{cov:.4f}", f"{gini:.4f}", f"{nov:.4f}"  ]
     res_info=[res_header,res_values]
-    info_model_report_with_context (model, dataset_path, res_info, l_info, \
+    info_model_report_with_feature (model, dataset_path, res_info, l_info, \
             full_dataset,dict_recommend, title="Factorization Machine with context - Partial", topk=10 )

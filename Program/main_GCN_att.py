@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from scipy.sparse import identity
 from torch_geometric.utils import from_scipy_sparse_matrix
-from utils_report import info_model_report # mcanals for report
+from utilities import info_model_report # mcanals for report
 
 
 if __name__ == '__main__':
@@ -17,7 +17,7 @@ if __name__ == '__main__':
     device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
     # setting up TensorBoard and data paths...
-    logs_base_dir = "runHM_10000"
+    logs_base_dir = "runHM"
     os.makedirs(logs_base_dir, exist_ok=True)
     tb_gcn_attention = SummaryWriter(log_dir=f'{logs_base_dir}/{logs_base_dir}_GCN_att/')
     dataset_path = "../data/"

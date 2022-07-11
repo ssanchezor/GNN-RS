@@ -6,7 +6,7 @@ from train import testpartial
 from build_dataset import CustomerArticleDataset
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
-from utils_report import info_model_report
+from utilities import info_model_report
 
 
 if __name__ == '__main__':
@@ -15,7 +15,7 @@ if __name__ == '__main__':
     device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 
     # setting up TensorBoard and data paths...
-    logs_base_dir = "runHM_10000"
+    logs_base_dir = "runHM"
     os.makedirs(logs_base_dir, exist_ok=True)
     tb_Popu = SummaryWriter(log_dir=f'{logs_base_dir}/{logs_base_dir}_POPU/')
     dataset_path = "../data/"
@@ -50,7 +50,7 @@ if __name__ == '__main__':
             tb_Popu.add_scalar(f'eval/NOV@{topk}', nov, epoch_i)
 
     # saving training results...
-    PATH = "Popularity_Recommender.pt"
+    PATH = "Popularity_Recommender_80000.pt"
     torch.save(model.state_dict(), PATH)
 
     # generating customized report...

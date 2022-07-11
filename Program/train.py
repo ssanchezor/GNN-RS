@@ -73,7 +73,7 @@ def testfull(model, full_dataset, device, topk=10):
     return mean(HR), mean(NDCG), coverage, gini, dicitems, mean(NOVELTY)
 
 
-def testpartial(model, full_dataset, device, topk=10):
+def testpartial(model, full_dataset, device, topk=10, features=False):
     # tests the model versus partial test dataset
     model.eval() # sets model to test status
     num_items = full_dataset.field_dims[-1]
@@ -86,10 +86,14 @@ def testpartial(model, full_dataset, device, topk=10):
     l_gt_item=[]
     l_recommened_list=[]
     l_val_recommened_list=[]
+    if features:
+        l_gt_channel=[]
 
     # evaluates for partial test dataset
     for (user_test) in tqdm (full_dataset.test_set, desc= "PARTIAL Eval test dataset: "): # debug de mcanals
         gt_item = user_test[0][1]
+        if features:
+            gt_channel=user_test[0][2]
         novelty = 0
         predictions = model.predict(user_test, device)
         _, indices = torch.topk(predictions, topk)
@@ -112,7 +116,11 @@ def testpartial(model, full_dataset, device, topk=10):
         l_gt_item.append(gt_item)
         l_users.append(user_test[0][0])        
         l_recommened_list.append(recommend_list)
-        l_info=[l_users, l_gt_item,l_recommened_list, l_val_recommened_list, NDCG]
+        if features:
+            l_gt_channel.append(gt_channel) # positive item
+            l_info=[l_users, l_gt_item,l_gt_channel, l_recommened_list, l_val_recommened_list, NDCG]
+        else:
+            l_info=[l_users, l_gt_item,l_recommened_list, l_val_recommened_list, NDCG]
 
     coverage = len({key: value for (key, value) in dicitems.items() if value > 0}) / (num_items - num_customers) # computes Coverage metric
     gini = getGini(list(dicitems.values())) # computes GINI metric

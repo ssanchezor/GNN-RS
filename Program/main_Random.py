@@ -6,7 +6,7 @@ from build_dataset import CustomerArticleDataset
 from torch.utils.data import DataLoader
 from model_Random import RandomModel
 from torch.utils.tensorboard import SummaryWriter
-from utils_report import info_model_report
+from utilities import info_model_report
 
 if __name__ == '__main__':
 
@@ -14,7 +14,7 @@ if __name__ == '__main__':
     device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 
     # setting up TensorBoard and data paths...
-    logs_base_dir = "runMOVIE"
+    logs_base_dir = "runHM"
     os.makedirs(logs_base_dir, exist_ok=True)
     tb_Rand = SummaryWriter(log_dir=f'{logs_base_dir}/{logs_base_dir}_RND/')
     dataset_path = "../data/"

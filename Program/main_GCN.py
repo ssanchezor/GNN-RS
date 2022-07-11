@@ -8,7 +8,7 @@ from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 from scipy.sparse import identity
 from torch_geometric.utils import from_scipy_sparse_matrix
-from utils_report import info_model_report # mcanals for report
+from utilities import info_model_report # mcanals for report
 
 
 if __name__ == '__main__':
@@ -17,7 +17,7 @@ if __name__ == '__main__':
     device = torch.device("cuda:1" if torch.cuda.is_available() else "cpu")
 
     # setting up TensorBoard and data paths...
-    logs_base_dir = "runHM_10000"
+    logs_base_dir = "runHM"
     os.makedirs(logs_base_dir, exist_ok=True)
     tb_gcn = SummaryWriter(log_dir=f'{logs_base_dir}/{logs_base_dir}_GCN/')
     dataset_path = "../data/"
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     # training the model...
     tb = True
     topk = 10 # 10 articles to be recommended
-    num_epochs=20
+    num_epochs=6
 
     for epoch_i in range(num_epochs):
         train_loss = train_one_epoch(model, optimizer, data_loader, criterion, device)    
@@ -65,7 +65,7 @@ if __name__ == '__main__':
             tb_gcn.add_scalar(f'eval/NOV@{topk}', nov, epoch_i)
 
     # saving training results...
-    PATH = "FactorizationMachineModel_withGCN_.pt"
+    PATH = "FactorizationMachineModel_withGCN_80000.pt"
     torch.save(model.state_dict(), PATH)
 
     # generating customized report...

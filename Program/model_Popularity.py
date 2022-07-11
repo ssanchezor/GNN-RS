@@ -2,7 +2,8 @@ import torch
 
 
 class Popularity_Recommender(torch.nn.Module):
-    # generates a popularity recommender model that predicts most popular items that the costumer has not previously purchased
+    # generates a popularity recommender model that predicts most popular 
+    # items that the costumer has not previously purchased
     def __init__(self, adj_mx):
         super(Popularity_Recommender, self).__init__()
         self.all_items = torch.Tensor(adj_mx.sum(axis=0, dtype=int)).flatten() # sums the occurrences of each article to get its popularity score
