@@ -938,7 +938,9 @@ Popularity bias visualization:
       </tr>
    </table>
   </div>
-    
+
+For a better understanding of the graph, we have modified some metrics, we have used the inverse of the gini to refer to diversity, so the more diverse the recommendations, the closer the result will be to 1. The value of novelty has also been normalized taking as reference the maximum of the values obtained, in this case that of the Random model. The ideal recommender would be the one that got the highest hit and ndcg values in the first place and kept the coverage, diversity and novelty as high as possible without harming the accuracy metrics. In this case, the one that presents more balanced values is the FM+GCN Model.
+
 ### 6.5. Customized reports  <a name='65-reports'></a>
     
 We have generated customized reports from the best models to have a deeper understanding of the results, as well as to visualize some of the recommendations. (Values may sligthly differ from other values in this report as have been generated at later stages)
