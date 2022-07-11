@@ -611,7 +611,7 @@ This is dictionary file that will allow us to relate each indexed article with t
 
 #### Adding context `build_dataset_features.py` <a name="511-datasetcontext"></a>
 
-The program has the same structure as `build_dataset.py` but the generated files will also include context information (in our study case is the channel). In order to do this, since adding context means having a new column in the transactions file, we have extended the `extract_dictionary` and `generate_dataset` classes to also consider this new information.
+The program has the same structure as `build_dataset.py` but the generated files will also include context information (in our case study is the channel). In order to do this, since adding context means having a new column in the transactions file, we have extended the `extract_dictionary` and `generate_dataset` classes to also consider this new information.
 
 Visualizing results:
     
