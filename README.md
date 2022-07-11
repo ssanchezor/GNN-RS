@@ -978,8 +978,10 @@ Current reports:
 
 ## 8. Acknowledgements <a name="8-acknowledgements"></a>
 
-We would like to thank all the teachers from the Prostgraduate Course on Artificial Intelligence with Deep Learning. It has been a hard but amazing journey.
+We would like to thank all the teachers from the Prostgraduate Course on Artificial Intelligence with Deep Learning, in particular to our advisor Paula Gómez, for all the materials and advise provided. 
 
 It is also fair to mention and appreciate the amount of articles and code available through the Internet, shared knowledge is the best way to progress.
 
 Finally, we would also thanks our families for its patient and support during this months.
+
+It has been a hard but amazing journey.
