@@ -62,7 +62,7 @@ Recommender Systems are a useful tool that automatizes the task of predicting th
   <img src="Images/recommenderimage.jpeg" width="500">
 </p>
 
-But what makes a recommender good? It is not only a question of personalizing the recommendations in such a way that the system shows the users items that are related to their tastes, but also of reflecting the diversity in a fair way, so that users can discover new things that may interest them and, at the same time, ensure that no bias or, worse, discrimination is added to the recommendations. Of course, some items are popular for a reason, so it is important to find a trade-off between accuracy and fairness. We want to reduce the <b>Popularity Bias</b>.
+But what makes a recommender good? It is not only a question of personalizing the recommendations in such a way that the system shows the users items that are related to their tastes, but also of reflecting the diversity in a fair way, so that users can discover new things that may interest them and, at the same time, ensure that no bias or, worse, discrimination is added to the recommendations. Of course, some items are popular for a reason, so it is important to find a trade-off between accuracy and fairness. We want to reduce the <b>Popularity Bias</b>. [Paper](file:///C:/Users/SESA657694/Documents/1901.07555.pdf).
 
 <p align="left">
   <img src="Images/popularitybias.PNG" width="400">
