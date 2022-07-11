@@ -121,33 +121,33 @@ As a result of a preliminary analysis of the dataset, we have observed the follo
          </p>
         </td>
         <td>
-         <p align="left">Uniform distribution of transactions grouped by costumer's age</p>
+         <p align="left">Transactions are equally distributed by costumer's age</p>
          <p align="center">
             <img src="Images/InteractionxCustomerAge.png" width="400">
          </p>
         </td>
       </tr>
       <tr><td>
-         <p align="left">Non-uniform distribution of transactions grouped by product category</p>
+         <p align="left">There are some product categories that are more popular</p>
          <p align="center">
             <img src="Images/Interactionsxartcategorylabsinside.png" width="400">
          </p>
         </td>
         <td>
-         <p align="left">Non-uniform distribution of transactions grouped by product color</p>
+         <p align="left">There is a predominant product color (black)</p>
          <p align="center">
             <img src="Images/InteractionsxColor.png" width="400">
          </p>
         </td>
       </tr>
        <tr><td>
-         <p align="left">Predominant channel (2) for purchasing articles</p>
+         <p align="left">There is a predominant channel (2) for purchasing articles</p>
          <p align="center">
             <img src="Images/interactionxchannel.png" width="300">
          </p>
         </td>
          <td>
-         <p align="left">Most of costumers do not check news</p>
+         <p align="left">Most of the costumers do not see the news</p>
          <p align="center">
             <img src="Images/CustomerNews.png" width="300">
          </p>
