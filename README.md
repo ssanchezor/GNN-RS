@@ -860,7 +860,7 @@ As explained in section [Adding context `build_dataset_features.py`](#511-datase
 |FM + GCN  |36,11%|20,77%|50,97%|0,7351|10,1138|MEDIUM|
 |FM + GAT |39,27 %|23,17 %|49,98 %|0,7575|9,1396|VERY HIGH|
 
-As expected, the random model shows the best results regarding the fairness but its accuracy metrics are very poor. On the other hand, the popularity model has the better results in terms of accuracy but recommends very few articles (coverage value is low), meaning that it has a high popularity bias. For this test set, the more balanced would be FM+GAT model, which is able to achieve better results than the others in most of the metrics.
+As expected, the random model shows the best results regarding the fairness but its accuracy metrics are very poor. On the other hand, the popularity model has the best results in terms of accuracy but recommends a very few number of articles (coverage value is low), meaning that it has a high popularity bias. For this test set, the more balanced model would be FM+GAT, which is able to achieve better results than the others in most of the metrics.
 
 ### 6.2 Results 10K Customers (Full) <a name="62-results10kF"></a>
 
@@ -872,7 +872,7 @@ As expected, the random model shows the best results regarding the fairness but 
 |FM + GCN  |1,03%|0,58%|6,49 %|0,9926|8,465|MEDIUM|
 |FM + GAT |2,20 %|1,46%|17,65 %|0,9739|8,465|VERY HIGH|
 
-The test over all items of the training set helps us put the numbers in context and see them with some perspective. The ranking of the models does not change much and the relationship among metrics is kept, but the popularity model shows a greater bias.
+The test over all items of the training set helps us put the numbers in context and see them with some perspective. The ranking of the models does not change much and the relationship among metrics is kept, but the popularity model shows even a greater bias.
 
 ### 6.3 Results 80K Customers (Random Sampling Test Set) <a name="63-results80k"></a>
 
@@ -885,7 +885,7 @@ The test over all items of the training set helps us put the numbers in context 
 |FM + GCN  |59,59 %|36,02 %|64,10 %|0,7615|9,1412|MEDIUM|
 |FM + GAT |Not feasible|	Not feasible|	Not feasible|	Not feasible|	Not feasible|	VERY HIGH|
 
-Although it has not been possible to compute the FM+GAT model with this dataset due to the memory and GPU it requires, we can expect it to achieve the best results. However, we can see how FM + GCN greatly improved all the metrics by just adding more data. Also, is important to mention that by adding the sales channel as context information in the embeddings with the FM Model, we can see a relevant improvement in lots of the results obtained with FM. 
+Although it has not been possible to compute the FM+GAT model with this dataset due to the memory and GPU it requires, we can expect it to achieve the best results as GCN outperformed Popularity. In that sense, we can see how FM + GCN greatly improved all the metrics by just adding more data. Also, is important to mention that by adding the sales channel as context information for the embeddings in the FM Model, we can see a relevant improvement in most of the results. 
 
 <div style="overflow-x:auto;">
   <table>
