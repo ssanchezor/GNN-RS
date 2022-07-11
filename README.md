@@ -164,7 +164,7 @@ Due to computational limitations, we have decided to apply a series of different
 - Reduce data range for the last year
 - Shuffle & pick N customers (10K and 80K in our study case)
 
-These values can be modified in any time by following the steps defined in: [1.2. Objectives](#12-milestones)
+These values can be modified in any time by following the steps defined in: [5.1. Dataset creation](#51-dataset)
 
 Results after applying data filtering:
 
@@ -887,6 +887,7 @@ The test over all items of the training set helps us put the numbers in context 
 
 Although it has not been possible to compute the FM+GAT model with this dataset due to the memory and GPU it requires, we can expect it to achieve the best results as GCN outperformed Popularity. In that sense, we can see how FM + GCN greatly improved all the metrics by just adding more data. Also, is important to mention that by adding the sales channel as context information for the embeddings in the FM Model, we can see a relevant improvement in most of the results. 
 
+Popularity bias visualization:
 <div style="overflow-x:auto;">
   <table>
     <tr><td>
