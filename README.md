@@ -1,6 +1,6 @@
 # AIDL21: Recommender Systems with GCN
 
-This repository contains different machine learning models implementations, such as FM, GCN and GAT, that are commonly used to build personalized <b>Recommender Systems</b>. It consists of a first part that explains, in a theoretical manner, the main characteristics of this type of systems, as well as a second part with a set of detailed steps on how to run the program.
+This repository contains different machine learning models implementations, such as FM, GCN and GAT, that are commonly used to build personalized <b>Recommender Systems</b>. 
 
 Our project aims to understand and compare the different models and evaluate how well they perform in making recommendations, taking as a example a real case study from the fashion industry. In order to do this we will measure some metrics for each of them (HR, NDCG, Coverage, etc...) that are frequently used in this type of systems.
 
