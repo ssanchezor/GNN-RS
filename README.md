@@ -467,15 +467,15 @@ Full dataset has been downloaded from Kaggle's competition page: ["H&M Personali
 ```
 kaggle competitions download -c h-and-m-personalized-fashion-recommendations
 ``` 
- #### Data filtering (data_filtering.py)
+#### Data filtering `data_filtering.py`
  
- We will assume downloaded files will be in:
+Assuming that download files will be in data/ folder:
  ```
  ../data/articles.csv
  ../data/customers.csv
  ../data/transactions_train.csv
  ```
- The following data filtering actios can be performed with this program:
+ The following data filtering actions can be performed with this program:
  - As transaction data spawns from `20-Sep-2018` till `22-Sep-2020`, we can select the temporal range we desire. For our models we have selected initial data as `2019-09-22`, so the program will only make use of later dates.
  - Filter by articles with a minimum number of transactions. In all our models we have considered items with at least `5` transactions.
  - Filter by customers who have done a minimum number of transactions. We have set a minimum of `20` transactions per customer.
