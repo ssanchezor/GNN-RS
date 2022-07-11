@@ -38,11 +38,11 @@ Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
 - [5. Running the code](#5-running)
     - [5.1. Dataset creation](#51-dataset)
     - [5.2. Executing models](#52-models-exec)
-        - [5.2.1 Random model](#521-models-nofeat-random)
-        - [5.2.2 Popularity model](#522-models-nofeat-poularity)
-        - [5.2.3 Factorization Machines model](#523-models-nofeat-FM)
-        - [5.2.4 Factorization Machines model](#524-models-nofeat-GCN)
-        - [5.2.5 Factorization Machines with GCN and attention](#525-models-nofeat-GCN-ATT)
+        - [5.2.1 Factorization Machine](#521-FM-exec)
+        - [5.2.2 Graph Convolutional Networks](#522-GCN.exec)
+        - [5.2.3 Graph Attention Networks](#523-GAT-exec)
+        - [5.2.4 Random](#524-rand-exec)
+        - [5.2.5 Popularity](#525-pop-exec)
     - [5.3. Model execution with features](#53-models-feat)
         - [5.3.1 Random model](#531-models-feat-FM)
 - [6. Results](#6-results)
@@ -671,7 +671,7 @@ For instance, for user 38:
 |...|...|...|...|...|
 |...|...|...|...|...|
     
-### 5.2. Executing models <a name="#52-models-exec"></a>
+### 5.2. Executing models <a name="52-models-exec"></a>
 
 In our case study we are going to implement and analyze different Recommender System models: Factorization Machine (with and without context), Graph Convolutional Networks, Graph Attention Network#52-models-impls, Random and Popularity. All of them are implemented by following a similar structure: 
 
@@ -743,7 +743,7 @@ In `model_GCN.py` we define the classes we will need to implement Graph Convolut
  * `FactorizationMachineModel_withGCN` implements Factorization Machine model using `FeaturesLinear(field_dims)` and `FM_operation(reduce_sum=True)` functions from the `model_FM.py` and the previous `GraphModel` as embeddings.
     
 In 'main_GCN.py' we execute the Graph Convolution Network recommender system:
-- Define a Tersorboard instance to log the metrics (see Note below)
+- Define a Tersorboard instance to log the metrics
 - Create an instance of the dataset (`full_dataset = CustomerArticleDataset(...)`)
 - Create a dataloder instance (`data_loader = DataLoader(...)`)
 - Generate the feature matrix:
@@ -779,66 +779,39 @@ This model mainly reuses the `model_GCN.py` code. Class is set up according the 
 Execution program 'main_GCN_att.py' is almost the same as 'main_GCN.py', only changing TensorBoard settings to save data in another location as well as changing attention parameter `attention=True`
 
 Note: We only have been able to run this model with the 10.000 user setup.
-    
-    
-    
-    
-    
-    
-    
-    
-    
-#### 5.2.1 Random model <a name="521-"></a>
+        
+#### 5.2.4 Random model <a name="524-rand-exec"></a>
 
-In 'model_Random.py' there is created a `RandomModel` class that generates a random recommender model that predicts random articles that the costumer has not previously purchased
-
-'main_Random.py' will;
-* Create an instance of the dataset (`full_dataset = CustomerArticleDataset(...)`). 
-* Create a dataloder instance (`data_loader = DataLoader(...)`)
-* Create model instance (`model = RandomModel(data_loader.dataset.field_dims)`) 
-
-As there are no parameters to learn, test data will generate when testing performance of the dataset that will return metrics and some additional info for the report:
+'model_Random.py' contains a `RandomModel` class that generates a recommender model that is able to predict random articles that the costumer has not previously purchased.
+    
+In 'main_Random.py' we execute the Random recommender system:
+- Define a Tersorboard instance to log the metrics
+- Create an instance of the dataset (`full_dataset = CustomerArticleDataset(...)`)
+- Create a dataloder instance (`data_loader = DataLoader(...)`)
+- Create a Random model instance (`RandomModel(data_loader.dataset.field_dims)`)
+- Since there are no parameters to learn, we only execute the test function for 1 epoch:
 ```
 train_loss=0 # no parameters to learn
         hr, ndcg, cov, gini, dict_recomend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
 ```
- * Last step will be the report generation.
+- Generate custom report (`info_model_report (...)`)
 
+#### 5.2.5 Popularity model <a name="525-pop-exec"></a>
 
-#### 5.2.2 Popularity model <a name="522-models-nofeat-poularity"></a>
+'model_Popularity.py' contains a `Popularity_Recommender` class that generates a recommender model that is able to predict the most popular articles that the costumer has not previously purchased.
 
-In 'model_Popularity.py' there is created a `Popularity_Recommender` class that generates a popularity recommender model that predicts most popular items that the costumer has not previously purchased
-
-'main_Popularity.py' will;
-
-* Create an instance of the dataset (`full_dataset = CustomerArticleDataset(...)`). 
-* Create a dataloder instance (`data_loader = DataLoader(...)`)
-* Create model instance (`model= Popularity_Recommender(full_dataset.train_mat)`) 
-
-As there are no parameters to learn, test data will generate when testing performance of the dataset that will return metrics and some additional info for the report:
+In 'main_Popularity.py' we execute the Random recommender system:
+- Define a Tersorboard instance to log the metrics
+- Create an instance of the dataset (`full_dataset = CustomerArticleDataset(...)`)
+- Create a dataloder instance (`data_loader = DataLoader(...)`)
+- Create a Popularity model instance (`Popularity_Recommender(full_dataset.train_mat)`)
+- Since there are no parameters to learn, we only execute the test function for 1 epoch:
 ```
 train_loss=0 # no parameters to learn
         hr, ndcg, cov, gini, dict_recomend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
 ```
- * Last step will be the report generation.
-
-
-
-
-
+- Generate custom report (`info_model_report (...)`)
  
-#### B.2.5 Factorization Machines with Graph Convolutional Network and attention <a name="525-models-nofeat-GCN-ATT"></a>
-
-This model reuses the 'model_GCN.py' code. Class is set up according the attention value:
-
- * `GraphModel`  generates different types of GCN embeddings as a function of the attention parameter value if set. If the attention is set as ON, it will use pytorch geometric [`GATConv`](https://pytorch-geometric.readthedocs.io/en/latest/modules/nn.html)
- * `FactorizationMachineModel_withGCN` the model definition that wii use `FeaturesLinear(field_dims)` and `FM_operation(reduce_sum=True)` from the `model_FM.py` and the previous `GraphModel`.
-
-'main_GCN_att.py' will almost the same as 'main_GCN.py' (i.e. Tensorboard settings.)
-
-Note: *We only have been able to run this model with the 10.000 user setup.*
-
-
 ### 5.3. Model execution with features <a name="53-models-feat"></a>
 #### 5.3.1 Factorization Machines with context <a name="531-models-feat-FM"></a>
 
