@@ -162,7 +162,7 @@ Due to computational limitations, we have decided to apply a series of different
 - Articles that have been purchased more than 5 times
 - Customers who have bought more than 20 articles
 - Reduce data range for the last year
-- Shuffle & pick N customers (10K and 80K in our study case)
+- Shuffle & pick N customers (10K and 80K in our case study)
 
 These values can be modified in any time by following the steps defined in: [5.1. Dataset creation](#51-dataset)
 
@@ -279,7 +279,7 @@ Factorization Machines (FM) are a supervised Machine Learning technique introduc
   <img src="Images/FactorizationMachine.png" width="500">
 </p>
 
-In our study case, we will be evaluating Factorization Machine with and without context. When adding context, we will be considering the channel where the transaction has been done. In that sense, our rating matrix (adjacency) would look like:
+In our case study, we will be evaluating Factorization Machine with and without context. When adding context, we will be considering the channel where the transaction has been done. In that sense, our rating matrix (adjacency) would look like:
 
 <p align="left">
   <img src="Images/AdjacencyMatrix.PNG" width="500">
@@ -671,7 +671,7 @@ For instance, for user 38:
     
 ### 5.2. Executing models <a name="52-models-exec"></a>
 
-In our study case we are going to implement and analyze different Recommender System models: Factorization Machine (with and without context), Graph Convolutional Networks, Graph Attention Network#52-models-impls, Random and Popularity. All of them are implemented by following a similar structure: 
+In our case study we are going to implement and analyze different Recommender System models: Factorization Machine (with and without context), Graph Convolutional Networks, Graph Attention Network, Random and Popularity. All of them are implemented by following a similar structure: 
 
 | Program | Description |
 |:------------------------:|:-------:|
