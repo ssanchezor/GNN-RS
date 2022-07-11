@@ -26,7 +26,7 @@ Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
 - [3. Models](#3-models)    
     - [3.1. Evaluation Metrics](#31-metrics)
     - [3.2. Experiment Methods & Test Strategy](#32-experimenttest)
-    - [3.3. Machine Learning Models](#33-ML)
+    - [3.3. Models](#33-models)
         - [Factorization Machine](#331-FM)
         - [Graph Convolutional Networks](#332-GCN)
         - [Graph Attention Networks](#333-GAT)
@@ -37,7 +37,7 @@ Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
     - [4.2. Hardware](#42-hardware)
 - [5. Running the code](#5-running)
     - [5.1. Dataset creation](#51-dataset)
-    - [5.2. Model execution withour features](#52-models-nofeat)
+    - [5.2. Executing models](#52-models-exec)
         - [5.2.1 Random model](#521-models-nofeat-random)
         - [5.2.2 Popularity model](#522-models-nofeat-poularity)
         - [5.2.3 Factorization Machines model](#523-models-nofeat-FM)
@@ -249,7 +249,7 @@ Our experiments are based on <b>offline testing</b>. We use implicit feedback, w
 
 In order to have a faster training and reduce its computational cost, we have opted for using a <b>random sampling</b> approach to build the target test datasets. As some papers pointed out that by using this method the ranking (comparison) of the models could not be estable, we have tested them with all the items included in the training dataset as target (except the interactions of each user) in order to compare the results and verify that our ranking and relation among metrics of models remained equal. Since it was the case, we have decided to mantain this strategy for the rest of experiments. [Paper: A Case Study on Sampling Strategies for Evaluating Neural Sequential Item Recommendation Models](https://arxiv.org/pdf/2107.13045.pdf)
 
-### 3.3. Machine Learning Models  <a name="33-ML"></a>
+### 3.3. Models  <a name="33-models"></a>
 
 ### Factorization Machine <a name="331-FM"></a>
 
@@ -465,8 +465,7 @@ Since the H&M original dataset is too big, we have had to create a filtering pro
 
 Full dataset has been downloaded from Kaggle's competition page: ["H&M Personalized Fashion Recommendations"](https://www.kaggle.com/competitions/h-and-m-personalized-fashion-recommendations)
     
- You can manually download the data or execute the following command by using Kaggle API [Set-up Kaggle API](https://github.com/Kaggle/kaggle-api#readme):
-    
+ You can manually download the data or execute the following command by using Kaggle API [Set-up Kaggle API](https://github.com/Kaggle/kaggle-api#readme):  
 ```
 kaggle competitions download -c h-and-m-personalized-fashion-recommendations
 ``` 
@@ -526,7 +525,7 @@ Once it has been loaded, customer-article transactions are filtered by user and 
  
 Visualizing results:
     
-`../data/customer.test.article'`
+`../data/customer.test.article`
 
 General format:
 | customer_id | article_id | label| t_dat|
@@ -612,10 +611,9 @@ This is dictionary file that will allow us to relate each indexed article with t
 |...|...|
 |...|...|
 
-
 #### Adding context `build_dataset_features.py`
 
-The program has the same structure as `build_dataset.py` but the generated files include context information:
+The program has the same structure as `build_dataset.py` but the generated files will also include context information (in our study case channel):
 
 Visualizing results:
     
@@ -672,15 +670,15 @@ For instance, for user 38:
 |39	|1282	|1	|1	|20200903|
 |...|...|...|...|...|
 |...|...|...|...|...|
+    
+### 5.2. Executing models <a name="#52-models-exec"></a>
 
-### 5.2. Model execution <a name="B2-models-nofeat"></a>
-
-All the models share a common pattern:
+In our case study we are going to implement and analyze different Recommender System models: Factorization Machine (with and without context), Graph Convolutional Networks, Graph Attention Network#52-models-impls, Random and Popularity. All of them are implemented by following a similar structure: 
 
 | Program | Description |
 |:------------------------:|:-------:|
-|model_MODEL_NAME.py| Definition of the model class |
-|main_MODEL_NAME.py| Main program in order to create an instance of the dataset and the dataloader, instantiate the desired model and execute the train and test functions in order to evaluate the performance|
+|model_[ModelName].py| Definition of the model class |
+|main_[ModelName].py| Main program in order to create an instance of the dataset and the dataloader, instantiate the desired model and execute the train and test functions in order to evaluate the performance|
     
 For the following methods, all the parameters in the brackets identified as `this` can be fine-tunned to adjust model's behaviour.  
 
@@ -695,12 +693,12 @@ data_loader = DataLoader(full_dataset, batch_size=256, shuffle=True, num_workers
 Creating an instance of the desired model (`Binary Cross Entropy` loss and `Adam` optimizer with `lr=0.001`):
 ```
 # generating the model...
-model = FactorizationMachineModel(full_dataset.field_dims[-1], 32).to(device)
+model = ModelName(full_dataset.field_dims[-1], 32).to(device)
 criterion = torch.nn.BCEWithLogitsLoss(reduction='mean')
 optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)
 ```
 
-Training the model ('topk=10' and `num_epochs=20`)
+Training the model (`topk=10` and `num_epochs=20`)
 ```
 # training the model...
     tb = True
@@ -712,7 +710,85 @@ Training the model ('topk=10' and `num_epochs=20`)
         hr, ndcg, cov, gini, dict_recommend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)    
 ```    
 
-#### 5.2.1 Random model <a name="521-models-nofeat-random"></a>
+#### 5.2.1 Factorization Machine model <a name="521-FM-exec"></a>
+
+In 'model_FM.py' we define the classes we will need to implement Machine Factorization model.
+- `FeaturesLinear`  linear part of the Factorization Machine formula
+- `FM_operation` last term of the Factorization Machine formula
+- `FactorizationMachineModel` generates Factorization Machine Model with pairwise interactions using regular embeddings
+ 
+In 'main_FM.py' we execute the Factorization Machine recommender system:
+- Define a Tersorboard instance to log the metrics (see Note below)
+- Create an instance of the dataset (`full_dataset = CustomerArticleDataset(...)`)
+- Create a dataloder instance (`data_loader = DataLoader(...)`)
+- Create a FM model instance (`model = FactorizationMachineModel(full_dataset.field_dims[-1], 32).to(device)`) 
+- Define loss function and optimizer:
+    - `criterion = torch.nn.BCEWithLogitsLoss(reduction='mean')`
+    - `optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)`
+- For each epoch, train and test the model:
+    ```
+    for epoch_i in range(num_epochs):
+        train_loss = train_one_epoch(model, optimizer, data_loader, criterion, device)
+        hr, ndcg, cov, gini, dict_recommend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
+    ```
+- Generate custom report (`info_model_report (...)`)
+   
+Note: Tensorboard information can be disabled by changing the following parameter: `tb=False`
+![TB sample for FM](https://github.com/ssanchezor/GNN-RS/blob/main/Images/Tensorboard_FM_80000.GIF?raw=true)
+    
+#### 5.2.2 Graph Convolutional Network model <a name="522-GCN-exec"></a>
+    
+In `model_GCN.py` we define the classes we will need to implement Graph Convolutional Network model:
+ * `GraphModel` generates different types of embeddings as a function of the attention parameter value. If the attention is set as off, it will use pytorch geometric [`GCNConv`"](https://pytorch-geometric.readthedocs.io/en/latest/modules/nn.html)
+ * `FactorizationMachineModel_withGCN` implements Factorization Machine model using `FeaturesLinear(field_dims)` and `FM_operation(reduce_sum=True)` functions from the `model_FM.py` and the previous `GraphModel` as embeddings.
+    
+In 'main_GCN.py' we execute the Graph Convolution Network recommender system:
+- Define a Tersorboard instance to log the metrics (see Note below)
+- Create an instance of the dataset (`full_dataset = CustomerArticleDataset(...)`)
+- Create a dataloder instance (`data_loader = DataLoader(...)`)
+- Generate the feature matrix:
+```
+    identity_matrix = identity(full_dataset.train_mat.shape[0])
+    identity_matrix = identity_matrix.tocoo().astype(np.float32)
+    indices = torch.from_numpy(np.vstack((identity_matrix.row, identity_matrix.col)).astype(np.int64))
+    values = torch.from_numpy(identity_matrix.data)
+    shape = torch.Size(identity_matrix.shape)
+    identity_tensor = torch.sparse.FloatTensor(indices, values, shape)
+    edge_idx, edge_attr = from_scipy_sparse_matrix(full_dataset.train_mat)
+```
+- Create a GCN model instance:  
+  - `attention = False`
+  - `model = FactorizationMachineModel_withGCN(full_dataset.field_dims[-1], 64, identity_tensor.to(device), edge_idx.to(device), attention).to(device)`
+- Define loss function and optimizer:
+    - `criterion = torch.nn.BCEWithLogitsLoss(reduction='mean')`
+    - `optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)`
+- For each epoch, train and test the model:
+    ```
+    for epoch_i in range(num_epochs):
+        train_loss = train_one_epoch(model, optimizer, data_loader, criterion, device)
+        hr, ndcg, cov, gini, dict_recommend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
+    ```
+- Generate custom report (`info_model_report (...)`)
+
+#### 5.2.3 Graph Attention Network model <a name="523-GAT-exec"></a>
+ 
+This model mainly reuses the `model_GCN.py` code. Class is set up according the attention value:
+ * `GraphModel` generates different types of embeddings as a function of the attention parameter value. If the attention is set as on, it will use pytorch geometric [`GATConv`](https://pytorch-geometric.readthedocs.io/en/latest/modules/nn.html)
+ * `FactorizationMachineModel_withGCN` implements Factorization Machine model using `FeaturesLinear(field_dims)` and `FM_operation(reduce_sum=True)` functions from the `model_FM.py` and the previous `GraphModel` as embeddings.
+
+Execution program 'main_GCN_att.py' is almost the same as 'main_GCN.py', only changing TensorBoard settings to save data in another location as well as changing attention parameter `attention=True`
+
+Note: We only have been able to run this model with the 10.000 user setup.
+    
+    
+    
+    
+    
+    
+    
+    
+    
+#### 5.2.1 Random model <a name="521-"></a>
 
 In 'model_Random.py' there is created a `RandomModel` class that generates a random recommender model that predicts random articles that the costumer has not previously purchased
 
@@ -747,67 +823,9 @@ train_loss=0 # no parameters to learn
  * Last step will be the report generation.
 
 
-#### 5.2.3 Factorization Machines model <a name="523-models-nofeat-FM"></a>
-
-In 'model_FM.py' are the classes we will need for Machines Factorization model.
- * `FeaturesLinear`  that is part of the Factorization Machine formula
- * `FM_operation` the last term of the Factorization Machine formula
- * `FactorizationMachineModel` generates Factorization Machine Model with pairwise interactions using regular embeddings
- 
-'main_FM.py' will;
-
-* Will define a Tersorboard instance to log the metrics (see note below)
-* Create an instance of the dataset (`full_dataset = CustomerArticleDataset(...)`). 
-* Create a dataloder instance (`data_loader = DataLoader(...)`)
-* Create model instance (`model = FactorizationMachineModel(full_dataset.field_dims[-1], 32).to(device)`) 
-* Define loss function and optimizer:
-    * `criterion = torch.nn.BCEWithLogitsLoss(reduction='mean')`
-    * `optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)`
-For each epoch, we will train the epoch, test the test dataset:
-```
-for epoch_i in range(num_epochs):
-        train_loss = train_one_epoch(model, optimizer, data_loader, criterion, device)
-        hr, ndcg, cov, gini, dict_recommend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
-```
-* Last step will be the report generation.
-
-Note: Tensorboard information can be displayed if need it.
-![TB sample for FM](https://github.com/ssanchezor/GNN-RS/blob/main/Images/Tensorboard_FM_80000.GIF?raw=true)
 
 
-#### 5.2.4 Factorization Machines with Graph Convolutional Network <a name="524-models-nofeat-GCN"></a>
 
-In 'model_GCN.py' are the classes we will need for Machines Factorization with Graph Convolutional Network model.
- * `GraphModel`  generates different types of GCN embeddings as a function of the attention parameter value if set. If the attention is set as off, it will use pytorch geometric ["`GCNConv`"](https://pytorch-geometric.readthedocs.io/en/latest/modules/nn.html)
- * `FactorizationMachineModel_withGCN` the model definition that wii use `FeaturesLinear(field_dims)` and `FM_operation(reduce_sum=True)` from the `model_FM.py` and the previous `GraphModel`.
-
-'main_GCN.py' will;
-
-* Will define a Tersorboard instance to log the metrics 
-* Create a instance of the dataset (`full_dataset = CustomerArticleDataset(...)`). 
-* Create a dataloder instance (`data_loader = DataLoader(...)`)
-* Will run a embedding/matrix preparation:
-''''
-    identity_matrix = identity(full_dataset.train_mat.shape[0])
-    identity_matrix = identity_matrix.tocoo().astype(np.float32)
-    indices = torch.from_numpy(np.vstack((identity_matrix.row, identity_matrix.col)).astype(np.int64))
-    values = torch.from_numpy(identity_matrix.data)
-    shape = torch.Size(identity_matrix.shape)
-    identity_tensor = torch.sparse.FloatTensor(indices, values, shape)
-    edge_idx, edge_attr = from_scipy_sparse_matrix(full_dataset.train_mat)
-* Create model instance:
-    * `attention = False`
-    * `model = FactorizationMachineModel_withGCN(full_dataset.field_dims[-1], 64, identity_tensor.to(device),                                            edge_idx.to(device), attention).to(device)`
-* Define loss function and optimizer:
-    * `criterion = torch.nn.BCEWithLogitsLoss(reduction='mean')`
-    * `optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)`
-For each epoch, we will train the epoch, test the test dataset:
-```
-for epoch_i in range(num_epochs):
-        train_loss = train_one_epoch(model, optimizer, data_loader, criterion, device)
-        hr, ndcg, cov, gini, dict_recommend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
-```
-* Last step will be the report generation.
  
 #### B.2.5 Factorization Machines with Graph Convolutional Network and attention <a name="525-models-nofeat-GCN-ATT"></a>
 
