@@ -43,8 +43,8 @@ Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
         - [5.2.3 Graph Attention Networks](#523-GAT-exec)
         - [5.2.4 Random](#524-rand-exec)
         - [5.2.5 Popularity](#525-pop-exec)
-    - [5.3. Model execution with features](#53-models-feat)
-        - [5.3.1 Random model](#531-models-feat-FM)
+    - [5.3. Adding context](#53-context)
+        - [5.3.1 Factorization Machine with context](#531-FM-context-exec-FM)
 - [6. Results](#6-results)
     - [6.1. Results 10k Customers (Random Sampling TestSet)](#61-results10K)
     - [6.2. Results 10k Customers (Full)](#62-results10KF)
@@ -611,7 +611,7 @@ This is dictionary file that will allow us to relate each indexed article with t
 |...|...|
 |...|...|
 
-#### Adding context `build_dataset_features.py`
+#### Adding context `build_dataset_features.py` <a name="511-datasetcontext"></a>
 
 The program has the same structure as `build_dataset.py` but the generated files will also include context information (in our study case channel):
 
@@ -739,7 +739,7 @@ Note: Tensorboard information can be disabled by changing the following paramete
 #### 5.2.2 Graph Convolutional Network model <a name="522-GCN-exec"></a>
     
 In `model_GCN.py` we define the classes we will need to implement Graph Convolutional Network model:
- * `GraphModel` generates different types of embeddings as a function of the attention parameter value. If the attention is set as off, it will use pytorch geometric [`GCNConv`"](https://pytorch-geometric.readthedocs.io/en/latest/modules/nn.html)
+ * `GraphModel` generates different types of embeddings as a function of the attention parameter value. If the attention is set as off, it will use pytorch geometric [`GCNConv`](https://pytorch-geometric.readthedocs.io/en/latest/modules/nn.html)
  * `FactorizationMachineModel_withGCN` implements Factorization Machine model using `FeaturesLinear(field_dims)` and `FM_operation(reduce_sum=True)` functions from the `model_FM.py` and the previous `GraphModel` as embeddings.
     
 In 'main_GCN.py' we execute the Graph Convolution Network recommender system:
@@ -812,36 +812,41 @@ train_loss=0 # no parameters to learn
 ```
 - Generate custom report (`info_model_report (...)`)
  
-### 5.3. Model execution with features <a name="53-models-feat"></a>
-#### 5.3.1 Factorization Machines with context <a name="531-models-feat-FM"></a>
+### 5.3. Adding context <a name="53-context"></a>
+#### 5.3.1 Factorization Machine with context <a name="531-FM-context-exec"></a>
 
-This is the only model we have setup with context (the sales channel)-
+We generated an extension for the Factorization Machine model to be able to add context and quantify to what extent it modifies the performance. In our case, we have decided to add channel information.
 
-Dataset includes and extra column in the transaction table. 
+As explained in section [Adding context `build_dataset_features.py`](#511-datasetcontext), dataset now will include and extra column in the transaction table to add information about the channel. Therefore, we had to implement some minor changes to the different files:
 
-'model_FM_context.py' has the model definition:
+'model_FM_context.py' has the same structure as 'model_FM.py' but:
+    * Embeddings have higher dimension: `self.embeddings = torch.nn.ModuleList([torch.nn.Embedding(sum(field_dims), embed_dim) for _ in range(self.num_fields)]` 
+    * Adjacency matrix has higher dimension
+        ```
+        adj_mat[x[0], x[1]] = 1.0
+        adj_mat[x[1], x[0]] = 1.0
+        adj_mat[x[0], x[2]] = 1.0
+        adj_mat[x[2], x[0]] = 1.0
+        adj_mat[x[1], x[2]] = 1.0
+        adj_mat[x[2], x[1]] = 1.0
+        ```
+    * Negative interactions have to consider channel:
+    ```
+    # generates a given number (num_negatives) of negative interactions
+            for idx in range(num_negatives):
+                # generates random interactions
+                j = np.random.randint(max_users, max_items)
+                k = np.random.randint(max_items, max_channels)
+                # loops to exclude true interactions (could be cases where random is true interaction)
+                while (x[0], j) in self.train_mat:
+                    j = np.random.randint(max_users, max_items)
+                    k = np.random.randint(max_items, max_channels)
+                neg_triplet[:, 1][idx] = j
+                neg_triplet[:, 2][idx] = k
+            self.interactions.append(neg_triplet.copy())
+    ```
 
- * `FeaturesLinear`  that is part of the Factorization Machine formula
- * `ContextFactorizationMachine` the last term of the Factorization Machine formula
- * `ContextFactorizationMachineMode` generates Factorization Machine Model with pairwise interactions using regular embeddings
-
-'main_FM_context.py' will;
-
-* Will define a Tersorboard instance to log the metrics (see note below)
-* Create an instance of the dataset (`full_dataset = CustomerArticleDataset(...)`). 
-* Create a dataloder instance (`data_loader = DataLoader(...)`)
-* Create model instance (`model = ContextFactorizationMachineModel(full_dataset.field_dims, 32).to(device)`) 
-* Define loss function and optimizer:
-    * `criterion = torch.nn.BCEWithLogitsLoss(reduction='mean')`
-    * `optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)`
-For each epoch, we will train the epoch, test the test dataset:
-```
-for epoch_i in range(num_epochs):
-        train_loss = train_one_epoch(model, optimizer, data_loader, criterion, device)
-        hr, ndcg, cov, gini, dict_recommend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)
-```
-* Last step will be the report generation (as data is different, report generation has a specific version for this dataset).
-
+`main_FM_context.py` uses the same structure as `main_FM.py` (only changing the TensorBoard path and instancing 'ContextFactorizationMachineModel')
 
 ## 6. Results <a name="6-results"></a>
 ### 6.1 Results 10K Customers (Random Sampling Test Set) <a name="61-results10k"></a>
