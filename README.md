@@ -58,7 +58,15 @@ Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
 
 Recommender Systems are a useful tool that automatizes the task of predicting the preferences of the users of a service in order to recommend them items that could match its preferences. They have become a key piece to solve the problem of overload information that we live today. Data is far from being reduced, as well as the diversity of users that use online platforms such as Netflix, with more than 17.000 titles and 221.64 million of paying subscriptions, or Amazon, with 116.44 billion U.S. dollars sales and more than 200 million Prime members.
 
-But what makes a Recommender good? It is not only a question of personalizing the recommendations in such a way that the system shows the user items related to their tastes, but also of reflecting the diversity in a fair way, so that users can discover new things that may interest them and, at the same time, ensure that no bias or, worse, discrimination is added to the recommendations. Of course, some items are popular for a reason, so it is important to find a trade-off between accuracy and fairness.
+<p align="left">
+  <img src="Images/recommenderimage.jpeg" width="500">
+</p>
+
+But what makes a recommender good? It is not only a question of personalizing the recommendations in such a way that the system shows the user items related to their tastes, but also of reflecting the diversity in a fair way, so that users can discover new things that may interest them and, at the same time, ensure that no bias or, worse, discrimination is added to the recommendations. Of course, some items are popular for a reason, so it is important to find a trade-off between accuracy and fairness.
+
+<p align="left">
+  <img src="Images/popularitybias.png" width="500">
+</p>
 
 ### 1.1. Motivation <a name="11-motivation"></a>
 
