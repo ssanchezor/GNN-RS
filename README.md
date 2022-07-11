@@ -116,39 +116,39 @@ As a result of a preliminary analysis of the dataset, we have observed the follo
   <table>
     <tr><td>
          <p align="left">Most of the costumers are young</p>
-         <p align="left">
+         <p align="center">
             <img src="Images/CustomerxAgeaxis.png" width="400" >
          </p>
         </td>
         <td>
          <p align="left">Uniform distribution of transactions grouped by costumer's age</p>
-         <p align="left">
+         <p align="center">
             <img src="Images/InteractionxCustomerAge.png" width="400">
          </p>
         </td>
       </tr>
       <tr><td>
          <p align="left">Non-uniform distribution of transactions grouped by product category</p>
-         <p align="left">
+         <p align="center">
             <img src="Images/Interactionsxartcategorylabsinside.png" width="400">
          </p>
         </td>
         <td>
          <p align="left">Non-uniform distribution of transactions grouped by product color</p>
-         <p align="left">
+         <p align="center">
             <img src="Images/InteractionsxColor.png" width="400">
          </p>
         </td>
       </tr>
        <tr><td>
-         <p align="left">Predominant channel (2) for purchasing articles:</p>
-         <p align="left">
+         <p align="left">Predominant channel (2) for purchasing articles</p>
+         <p align="center">
             <img src="Images/interactionxchannel.png" width="300">
          </p>
         </td>
          <td>
-         <p align="left">Most of costumers do not check news:</p>
-         <p align="left">
+         <p align="left">Most of costumers do not check news</p>
+         <p align="center">
             <img src="Images/CustomerNews.png" width="300">
          </p>
         </td>
