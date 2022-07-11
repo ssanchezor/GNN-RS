@@ -128,7 +128,7 @@ As a result of a preliminary analysis of the dataset, we have observed the follo
         </td>
       </tr>
       <tr><td>
-         <p align="left">There are some product categories that are more popular</p>
+         <p align="left">There are some product categories that are more popular than others (i.e. ladieswear)</p>
          <p align="center">
             <img src="Images/Interactionsxartcategorylabsinside.png" width="400">
          </p>
