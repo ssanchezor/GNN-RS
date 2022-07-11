@@ -966,7 +966,7 @@ Current reports:
 
 * The results of the **FM+GAT** model are promising with a small dataset, but it has not been possible to test it with a larger one due to the computational resources it requires (calculating attention scores considerably increases the number of parameters), although we expect it to achieve the best results. For those scenarios where computational resources are not a problem, seems to be the best model to achieve highest results.
 
-* **FM+GCN** model also gives quite good accuracy results while preserving balanced fairness scores (NDCG, Gini, Novelty, etc.). Since it is somewhat lighter to train than the FM+GAT, it is perfect for softer implementations that do not require really high accuracy rates. 
+* **FM+GCN** model also gives quite good accuracy results while preserving balanced fairness scores (NDCG, Gini, Novelty, etc.). Since it is somewhat lighter to train than the FM+GAT, it is perfect for softer implementations that do not require really high accuracy rates. As a curiosity, after displaying the results, looks like FM+GCN model is able to propose recommendations that match more the user style than for instance the popularity model.
     
 * **Popularity** model is a very cheap model with good results in terms of accuracy. However, it has a large index of popularity bias. For those scenarios where accuracy is all that matters, it becomes a good candidate to be considered. 
 
