@@ -364,27 +364,36 @@ Expected behaviour:
 ## 4. Environment Requirements <a name='4-requirements'>
 
 ### 4.1. Software  <a name='41-software'></a>
-
-All project has been based on python and related libraries.
-
-In order to use a controlled environment we have used conda.
-
-##### Miniconda
-
-We assume python and conda are installed.
-```
-laika@casiopea:~$ python3 -V
-Python 3.8.10
-laika@casiopea:~$ conda -V
-conda 4.13.0
-```
-Then we create the environment and active it.
+    
+#### Installing Python
+Before continuing, make sure you have Python installed and available from your command line. You can check this by simply running:
 
 ```
-conda create --name jupyter_geo python=3.8
-conda activate jupyter_geo
+#!/bin/bash
+$ python --version
 ```
-Then we install all de required packages:
+   
+Your output should look similar to: 3.8.2. If you do not have Python, please install the latest 3.8 version from [python.org](https://www.python.org/).
+
+##### Setting up the Python environment:
+
+Make sure you have Conda installed and available from your command line. You can check this by simply running:
+
+```
+$ conda -V
+```
+
+Your output should look similar to: conda 4.13.0. If you do not have Conda, please install the latest version from [conda.io](https://docs.conda.io/en/latest/)
+    
+Then we create the environment and activate it.
+
+```
+conda create --name [EnvName] python=3.8
+conda activate [EnvName]
+```
+##### Installing dependencies:
+
+We need to install all the required packages:
 
 ```
 conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch
@@ -392,38 +401,80 @@ conda install pyg -c pyg
 conda install scikit-learn-intelex
 conda install -c conda-forge tensorboard
 conda install -c conda-forge gdown 
-conda install -c anaconda jupyter 
 conda install -c pytorch torchtext 
 conda install -c anaconda more-itertools 
 conda install -c conda-forge spacy 
 conda install -c conda-forge matplotlib 
-```
+```   
+##### Downloading the program:
 
+You can download the program by running the following command on the GitHub GUI:
+```
+gh repo clone ssanchezor/GNN-RS
+```
+Or manually by accessing the following url: [GNN-RS](https://github.com/ssanchezor/GNN-RS.git)
+    
 ### 4.2. Hardware  <a name='42-hardware'></a> 
 
-We have used Google Collab for many of the early stages of the software development. 
-
-Once we have started more in deep work, we have used:
-
-* Local machine -> Ubuntu - I7 machine 48 GB with 2 x 1070 RTX 8 GB GPUs
-
-* Google Cloud Platform -> 4 GPU x Tesla T4.
-
+During the early stages of the software development, we have used Google Colab to build the models. This work environment provided us an easy way to work in teams and have access to GPUs. However, specially when implementing GCN and GAT models, due to its high computing demands, we have created a Google Cloud virtual machine instance to train the models.
+   
+Tools:
+- Google Colab
+- Local machine: Ubuntu - I7 machine 48 GB with 2 x 1070 RTX 8 GB GPUs
+- Google Cloud Platform: n1-highmem-2 machine and 4 NVIDIA Tesla k80 GPUs
 
 ## 5. Running the code <a name='5-running'></a>
+    
+The program is divided into different files:
+    
+#### General:
+| File                                                                                                                                                                            |Description                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |---------------------------------------------------------------------------------------------------------------------------------------------- |
+| [data_filtering.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/data_filtering.py)                                                                       |Applies some filters to reduce the original dataset                                                                                                       |
+| [build_dataset.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/build_dataset.py)                                                                         |Generates train and test datasets (without context)                                                                                                      |
+| [build_dataset_context.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/build_dataset_context.py)                                                                            |Generates train and test datasets (with context)                                                                                                                   |
+| [train.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/train.py)                                                                   |Defines train and test functions, as well as evaluation metrics                                                                                             |
+| [utilities.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/utilities.py)                                                     |Defines custom report functions                                                                          |
 
-As the Kaggle's original data for all the full dataset of H&M is to big, we have had to create a filtering program in order to reduce the dataset and create the input files for the model processing.
+#### Models:
+
+| File                                                                                                                                                                            |Description                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |---------------------------------------------------------------------------------------------------------------------------------------------- |
+| [model_FM.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/model_FM.py)                                                                       |Defines Factorization Machine model (without context)                                                                                                       |
+| [model_FM_context.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/model_FM_context.py)                                                                         |Defines Factorization Machine model (with context)                                                                                                      |
+| [model_GCN.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/model_GCN.py)                                                                            |Defines Graph Convolutional Network and Graph Attention Network models                                                                                                          |
+| [model_Random.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/model_Random.py)                                                                   |Defines Random model                                                                                           |
+| [model_Popularity.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/model_Popularity.py)                                                     |Defines Popularity model      
+    
+#### Main:  
+
+| File                                                                                                                                                                            |Description                                                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |---------------------------------------------------------------------------------------------------------------------------------------------- |
+| [main_FM.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/main_FM.py)                                                                       |Executes Factorization Machine recommender system (without context)                                                                                                   |
+| [main_FM_context.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/main_FM_context.py)                                                                         | Executes Factorization Machine recommender system  (with context)                                                                                                     |
+| [main_GCN.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/main_GCN.py)                                                                            |Executes Graph Convolutional Network recommender system                                                                                                         |
+|[main_GCN_att.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/main_GCN_att.py)                                                                            |Executes Graph Attention Network recommender system                                                                                                         |    
+| [main_Random.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/main_Random.py)                                                                   |Executes Random recommender system
+| [main_Popularity.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/main_Popularity.py)                                                     |Executes Popularity recommender system
+    
 
 ### 5.1. Dataset creation <a name="51-dataset"></a>
+    
+As the Kaggle's original data for all the full dataset of H&M is too big, we have had to create a filtering program to reduce the dataset and create the input files for the model processing.
 
 #### Starting point: Full Kaggle dataset
 
-Full dataset has been download from kaggle's  ["H&M Personalized Fashion Recommendations"](https://www.kaggle.com/competitions/h-and-m-personalized-fashion-recommendations)
-
+Full dataset has been downloaded from Kaggle's competition page: ["H&M Personalized Fashion Recommendations"](https://www.kaggle.com/competitions/h-and-m-personalized-fashion-recommendations)
+    
+ You can manually download the data or execute the following command using Kaggle API [Set-up Kaggle API](https://github.com/Kaggle/kaggle-api#readme):
+    
+```
+kaggle competitions download -c h-and-m-personalized-fashion-recommendations
+```
  
  #### Data filtering (data_filtering.py)
  
- We will assume Kaggle files will be in:
+ We will assume downloaded files will be in:
  ```
  ../data/articles.csv
  ../data/customers.csv
@@ -431,18 +482,19 @@ Full dataset has been download from kaggle's  ["H&M Personalized Fashion Recomme
  ```
  
  The following restrictions can be set with this program:
- - As transaction data spawns from `20-Sep-2018` till `22-Sep-2020`, we can select the temporal range. For our models we have always set the initial data `2019-09-22` (program will read only dates before this one.)
- - We want to take in account articles with a minimum number of transactions (we understand that it should be a minimum threshold of the article importance. In all our models we have requested that only items with at least `5` transactions should be considered. 
- - In order to work with customers, we need them with a minimum significance. We can set the minimum number a customer must have to be take in account. We have set at least `20` transactions per customer in order to be considered in all models.
- - At the end, we have set the size of the our dataset depending the number of users to be randomly selected once the previous restrictions are set. He have used an smaller dataset with `10000` customers and a much larger of `80000` customers. 
+ - As transaction data spawns from `20-Sep-2018` till `22-Sep-2020`, we can select the temporal range we desire. For our models we have selected initial data as `2019-09-22`, so the program will only make use of later dates.
+ - Filter by articles with a minimum number of transactions. In all our models we have considered items with at least `5` transactions.
+ - Filter by customers who have done a minimum number of transactions. We have set a minimum of `20` transactions per customer.
+ - Finally, we can reduce the size of our dataset by decreasing the number of costumers (in a random manner). In our case, we have used an smaller dataset with `10000` customers and a much larger of `80000` customers. 
  
-These restrictions are hardcoded in the program. These lines need to be changed in the main procedure
+These restrictions are hardcoded in the program. They can be changed at any time to adjust to each scenario:
+    
 ```
 ini_date= "2019-09-22" 
 min_trans_per_article=5
 min_trans_per_customer=20
 total_customers=10000
-```
+``` 
 The file will generate automatically a csv file with these convention:
 
 ```
@@ -453,10 +505,9 @@ For example for the selected values, result file will be:
 ```
 transactions_ddup_2019-09-22_nart_5_ncust_20_ncustr_10000.csv
 ```
+This file is the one it will be used as dataset for the models.
 
-This file is the one it will be used as data for the models.
-
-Just to get an idea, these 2 settings will represent:
+After applying the filters with `10.000` and `80.000` customers, we our dataset looks like:
 
 | Customers dataset | Number of items | Number of transactions|
 |:-----------------:|:---------------:|:---------------------:|
