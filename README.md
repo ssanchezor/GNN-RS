@@ -372,17 +372,15 @@ Before continuing, make sure you have Python installed and available from your c
 #!/bin/bash
 $ python --version
 ```
-   
 Your output should look similar to: 3.8.2. If you do not have Python, please install the latest 3.8 version from [python.org](https://www.python.org/).
 
-##### Setting up the Python environment:
+#### Setting up the Python environment:
 
 Make sure you have Conda installed and available from your command line. You can check this by simply running:
 
 ```
 $ conda -V
 ```
-
 Your output should look similar to: conda 4.13.0. If you do not have Conda, please install the latest version from [conda.io](https://docs.conda.io/en/latest/)
     
 Then we create the environment and activate it.
@@ -391,7 +389,7 @@ Then we create the environment and activate it.
 conda create --name [EnvName] python=3.8
 conda activate [EnvName]
 ```
-##### Installing dependencies:
+#### Installing dependencies:
 
 We need to install all the required packages:
 
@@ -406,7 +404,7 @@ conda install -c anaconda more-itertools
 conda install -c conda-forge spacy 
 conda install -c conda-forge matplotlib 
 ```   
-##### Downloading the program:
+#### Downloading the program:
 
 You can download the program by running the following command on the GitHub GUI:
 ```
