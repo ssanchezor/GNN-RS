@@ -425,7 +425,7 @@ Tools:
 
 ## 5. Running the code <a name='5-running'></a>
     
-The program is divided into different files:
+The program is divided into different files that can be grouped as:
     
 #### General:
 | File                                                                                                                                                                            |Description                                                                                                                                    |
@@ -457,7 +457,6 @@ The program is divided into different files:
 | [main_Random.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/main_Random.py)                                                                   |Executes Random recommender system
 | [main_Popularity.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/main_Popularity.py)                                                     |Executes Popularity recommender system
     
-
 ### 5.1. Dataset creation <a name="51-dataset"></a>
     
 Since the H&M original dataset is too big, we have had to create a filtering program to reduce the dataset and create the input files for the model processing.
@@ -479,15 +478,13 @@ kaggle competitions download -c h-and-m-personalized-fashion-recommendations
  ../data/customers.csv
  ../data/transactions_train.csv
  ```
- 
- The following restrictions can be set with this program:
+ The following data filtering actios can be performed with this program:
  - As transaction data spawns from `20-Sep-2018` till `22-Sep-2020`, we can select the temporal range we desire. For our models we have selected initial data as `2019-09-22`, so the program will only make use of later dates.
  - Filter by articles with a minimum number of transactions. In all our models we have considered items with at least `5` transactions.
  - Filter by customers who have done a minimum number of transactions. We have set a minimum of `20` transactions per customer.
  - Finally, we can reduce the size of our dataset by decreasing the number of costumers (in a random manner). In our case, we have used an smaller dataset with `10000` customers and a much larger of `80000` customers. 
  
-These restrictions are hardcoded in the program. They can be changed at any time to adjust to each scenario:
-    
+These restrictions are hardcoded in the program. They can be changed at any time to adjust to each scenario:   
 ```
 ini_date= "2019-09-22" 
 min_trans_per_article=5
@@ -504,9 +501,9 @@ For example for the selected values, result file will be:
 ```
 transactions_ddup_2019-09-22_nart_5_ncust_20_ncustr_10000.csv
 ```
-This file is the one it will be used as dataset for the models.
+This file is the one that will be used as dataset for the models.
 
-After applying the filters with `10.000` and `80.000` customers, we our dataset looks like:
+For example, after applying the filters with `10.000` and `80.000` customers, our dataset will look like:
 
 | Customers dataset | Number of items | Number of transactions|
 |:-----------------:|:---------------:|:---------------------:|
@@ -515,20 +512,18 @@ After applying the filters with `10.000` and `80.000` customers, we our dataset 
 
 #### Creating train and test datasets `build_dataset.py`
 
-We need to transform the previous filtered dataset to train and test datasets. 
+We need to transform the previous filtered dataset to train and test datasets. Also, data has to be presented in a indexed format for all items and costumers in order to be able to compute the adjacency matrix.
     
-Also, data has to be presented in a indexed format for all items and costumers in order to be able to define the adjacency matrix.
-    
-In order to do this, we will need to specifiy the generated dataset file (csv) in the main procedure:
+First, we will need to specifiy the path of previously generated dataset file (csv) in the main procedure:
     
 ```
 if __name__ == '__main__':
    transactions = pd.read_csv("../data/transactions_ddup_2019-09-22_nart_5_ncust_20_ncustr_80000.csv")
 ```
-After running the program, it will generate the working files we need to use to run the models
+After running the program, it will generate the working files we need to use to run the models.
 
-Then, customer-article transactions are first sorted by user and transaction date.
-    
+Once it has been loaded, customer-article transactions are filtered by user and transaction date. The first transaction for each customer will be used to build the test dataset.   
+ 
 Visualizing results:
     
 `../data/customer.test.article'`
@@ -543,9 +538,7 @@ General format:
 |user i+1|item 1 |1|tdat 1|
 |...|...|...|...|
 
-The first transaction for each customer will be used to build the test dataset.   
-    
-First transaction of the first 4 users:
+First transaction for the first 4 users:
 | customer_id | article_id | label| t_dat|
 |:-----------:|:----------:|:----:|:----:|
 |1	|1	|1	|20200519|
@@ -554,7 +547,7 @@ First transaction of the first 4 users:
 |4	|92|	1	|20200618|
 |...|...|...|...|
 |...|...|...|...|
-
+     
 `../data/customer.train.article`
 
 Train data will contain the remaining transactions for each user:
@@ -622,8 +615,10 @@ This is dictionary file that will allow us to relate each indexed article with t
 
 #### Adding context `build_dataset_features.py`
 
-The program has the same structure `as build_dataset.py` but the generated files include context information:
+The program has the same structure as `build_dataset.py` but the generated files include context information:
 
+Visualizing results:
+    
 `../data/customer.test.article.channel`
 
 General format:
@@ -636,7 +631,7 @@ General format:
 |user i+1|item 1 |channel 1 |1|tdat 1|
 |...|...|...|...|...|
 
-First transaction of the first 4 users:
+First transaction for the first 4 users:
 | customer_id | article_id | label| t_dat|
 |:-----------:|:----------:|:----:|:----:|
 |1	|1	|1	|1	|20200519|
@@ -678,15 +673,44 @@ For instance, for user 38:
 |...|...|...|...|...|
 |...|...|...|...|...|
 
-### 5.2. Model execution without features <a name="B2-models-nofeat"></a>
+### 5.2. Model execution <a name="B2-models-nofeat"></a>
 
-All model share a very common pattern
+All the models share a common pattern:
 
 | Program | Description |
 |:------------------------:|:-------:|
 |model_MODEL_NAME.py| Definition of the model class |
-|main_MODEL_NAME.py| Main program in order to create an instance of the dataset, another instance of the loader, another instance of the model and the loss function and the optimizer, and finally the loop for each epoch in order to train the epoch and evaluate the dataset |
+|main_MODEL_NAME.py| Main program in order to create an instance of the dataset and the dataloader, instantiate the desired model and execute the train and test functions in order to evaluate the performance|
+    
+For the following methods, all the parameters in the brackets identified as `this` can be fine-tunned to adjust model's behaviour.  
 
+Creating an instance of the dataset and dataloader (`batch_size=256`, `num_negatives_train=4` and `num_negatives_test=99`):
+```
+# generating full dataset...
+full_dataset = CustomerArticleDataset(dataset_path, num_negatives_train=4, num_negatives_test=99)
+# splitting dataset into different batches...
+data_loader = DataLoader(full_dataset, batch_size=256, shuffle=True, num_workers=0)
+```
+
+Creating an instance of the desired model (`Binary Cross Entropy` loss and `Adam` optimizer with `lr=0.001`):
+```
+# generating the model...
+model = FactorizationMachineModel(full_dataset.field_dims[-1], 32).to(device)
+criterion = torch.nn.BCEWithLogitsLoss(reduction='mean')
+optimizer = torch.optim.Adam(params=model.parameters(), lr=0.001)
+```
+
+Training the model ('topk=10' and `num_epochs=20`)
+```
+# training the model...
+    tb = True
+    topk = 10 # 10 articles to be recommended
+    num_epochs=20
+
+    for epoch_i in range(num_epochs):
+        train_loss = train_one_epoch(model, optimizer, data_loader, criterion, device)
+        hr, ndcg, cov, gini, dict_recommend, nov, l_info = testpartial(model, full_dataset, device, topk=topk)    
+```    
 
 #### 5.2.1 Random model <a name="521-models-nofeat-random"></a>
 
