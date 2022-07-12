@@ -443,7 +443,12 @@ The program is divided into different files that can be grouped as:
 | [model_GCN.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/model_GCN.py)                                                                            |Defines Graph Convolutional Network and Graph Attention Network models                                                                                                          |
 | [model_Random.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/model_Random.py)                                                                   |Defines Random model                                                                                           |
 | [model_Popularity.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/model_Popularity.py)                                                     |Defines Popularity model      
-    
+
+In that sense, to execute the program you will need first:
+1. Execute `data_filtering.py` to filter the dataset applying the desired restrictions. A file with the reduced dataset will be generated as an output.
+2. Execute `build_dataset.py`(or `build_dataset_features.py`if you want context) to generate the required files to build train and test datasets. Two files (one for train and one for test) be generated as an output.
+3. Once we have the files generated, we can execute any of the main files depending on the model we want to use (i.e. `main_FM.py` if we want to use Factorization Machine). You can run all of them consecutively without having to perform any of the above steps.
+
 #### Main:  
 
 | File                                                                                                                                                                            |Description                                                                                                                                    |
@@ -939,7 +944,9 @@ Popularity bias visualization:
    </table>
   </div>
 
-For a better understanding of the graph, some metrics have beed adapted. The inverse of the gini has been used to refer to diversity, so the more diverse the recommendations, the closer the result will be to 1. The value of novelty has also been normalized taking as reference the maximum of the values obtained, in this case that of the Random model. The ideal recommender would be the one that got the highest hit and ndcg values in the first place and kept the coverage, diversity and novelty as high as possible without harming the accuracy metrics. In this case, the one that presents more balanced values is the FM+GCN Model.
+Some metrics have been adapted for a better understanding of the graph. For instance, the inverse of the Gini index has been used as reference to diversity, so the closer the result is to 1, the more diverse the recommendations are. Also, the value of novelty has been normalized taking as reference the maximum value obtained in the different models, which in our case is the Random model. 
+
+The ideal recommender would be the one that obtains the highest HR and NDCG values in the first place while maintining coverage, diversity and novelty scores as high as possible. In our case study, the one that presents the more balanced values would be the FM+GCN Model.
 
 ### 6.5. Customized reports  <a name='65-reports'></a>
     
@@ -983,10 +990,8 @@ With context
 
 ## 8. Acknowledgements <a name="8-acknowledgements"></a>
 
-We would like to thank all the teachers from the Prostgraduate Course on Artificial Intelligence with Deep Learning, in particular to our advisor Paula Gómez, for all the materials and advise provided. 
+We would like to thank all the teachers from the Prostgraduate Course on Artificial Intelligence with Deep Learning. In particular, a special thanks to our advisor Paula Gómez, for all the materials and advise provided during the project development. 
 
-It is also fair to mention and appreciate the amount of articles and code available through the Internet, shared knowledge is the best way to progress.
+Also, it is worth mentioning the great help from the Deep Learning community sharing its knowledge with the huge amount of articles and code available through the Internet, from which we have been inspired to make the project.
 
-Finally, we would also thanks our families for its patient and support during this months.
-
-It has been a hard but amazing journey.
+Finally, we would also thanks our families for its patience and support during this months. It has been a hard but an amazing journey.
