@@ -49,7 +49,7 @@ Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
     - [6.1. Results 10k customers (random sampling testset)](#61-results10K)
     - [6.2. Results 10k customers (full testset)](#62-results10KF)
     - [6.3. Results 80k customers (random sampling testset)](#63-results80K)
-    - [6.4. Model Comparison](#64-comparison)
+    - [6.4. Models Comparison](#64-comparison)
     - [6.5. Customized Reports](#65-reports)
 - [7. Conclusions](#7-conclusions) 
 - [8. Acknowledgements](#8-acknowledgements)
@@ -929,7 +929,7 @@ Popularity bias visualization:
   </table>
 </div>
 
-### 6.4 Model Comparison <a name="64-comparison"></a>   
+### 6.4 Models Comparison <a name="64-comparison"></a>   
 
 
 <div style="overflow-x:auto;">
