@@ -46,9 +46,9 @@ Advised by [Paula Gómez](https://www.linkedin.com/in/paulagd-1995/)
     - [5.3. Adding context](#53-context)
         - [5.3.1 Factorization Machine with context](#531-FM-context-exec-FM)
 - [6. Results](#6-results)
-    - [6.1. Results 10k Customers (Random Sampling TestSet)](#61-results10K)
-    - [6.2. Results 10k Customers (Full)](#62-results10KF)
-    - [6.3. Results 80k Customers (Random Sampling TestSet)](#63-results80K)
+    - [6.1. Results 10k customers (random sampling testset)](#61-results10K)
+    - [6.2. Results 10k customers (full testset)](#62-results10KF)
+    - [6.3. Results 80k customers (random sampling testset)](#63-results80K)
     - [6.4. Model Comparison](#64-comparison)
     - [6.5. Customized Reports](#65-reports)
 - [7. Conclusions](#7-conclusions) 
@@ -847,7 +847,7 @@ As explained in section [Adding context `build_dataset_features.py`](#511-datase
 `main_FM_context.py` uses the same structure as `main_FM.py` (only changing the TensorBoard path and instancing `ContextFactorizationMachineModel`)
 
 ## 6. Results <a name="6-results"></a>
-### 6.1 Results 10K Customers (Random Sampling Test Set) <a name="61-results10k"></a>
+### 6.1 Results 10K customers (random sampling testset) <a name="61-results10k"></a>
 
 |Model | HR@10 | NDCG@10 |COV@10 |GINI@10 |NOV@10 |COMPUTATIONAL REQUIREMENTS|
 :------: | :------:| :------:| :------:| :------:|:------:|:-----------------:|
@@ -860,7 +860,7 @@ As explained in section [Adding context `build_dataset_features.py`](#511-datase
 
 As expected, the random model shows the best results regarding the fairness but its accuracy metrics are very poor. On the other hand, the popularity model has the best results in terms of accuracy but recommends a very few number of articles (coverage value is low), meaning that it has a high popularity bias. For this test set, the more balanced model would be FM+GAT, which is able to achieve better results than the others in most of the metrics.
 
-### 6.2 Results 10K Customers (Full) <a name="62-results10kF"></a>
+### 6.2 Results 10K customers (full testset) <a name="62-results10kF"></a>
 
 |Model | HR@10 | NDCG@10 |COV@10 |GINI@10 |NOV@10 |COMPUTATIONAL REQUIREMENTS|
 :------: | :------:| :------:| :------:| :------:|:------:|:-----------------:|
@@ -872,7 +872,7 @@ As expected, the random model shows the best results regarding the fairness but 
 
 The test over all items of the training set helps us put the numbers in context and see them with some perspective. The ranking of the models does not change much and the relationship among metrics is kept, but the popularity model shows even a greater bias.
 
-### 6.3 Results 80K Customers (Random Sampling Test Set) <a name="63-results80k"></a>
+### 6.3 Results 80K customers (random sampling testset) <a name="63-results80k"></a>
 
 |Model | HR@10 | NDCG@10 |COV@10 |GINI@10 |NOV@10 |COMPUTATIONAL REQUIREMENTS|
 :------: | :------:| :------:| :------:| :------:|:------:|:-----------------:|
@@ -971,7 +971,7 @@ With context
 
 * The results of the **FM+GAT** model are promising with a small dataset, but it has not been possible to test it with a larger one due to the computational resources it requires (calculating attention scores considerably increases the number of parameters), although we expect it to achieve the best results. For those scenarios where computational resources are not a problem, seems to be the best model to achieve highest results.
 
-* **FM+GCN** model also gives quite good accuracy results while preserving balanced fairness scores (NDCG, Gini, Novelty, etc.). Since it is somewhat lighter to train than the FM+GAT, it is perfect for softer implementations that do not require really high accuracy rates. As a curiosity, after displaying the results, looks like FM+GCN model is able to propose recommendations that match more the user style than for instance the popularity model.
+* **FM+GCN** model also gives quite good accuracy results while preserving balanced fairness scores (NDCG, Gini, Novelty, etc.). Since it is somewhat lighter to train than the FM+GAT, it is perfect for softer implementations that do not require really high accuracy rates. As a curiosity, after displaying the results, looks like FM+GCN model is able to propose recommendations that match better with the user style than others, like for example popularity model.
     
 * **Popularity** model is a very cheap model with good results in terms of accuracy. However, it has a large index of popularity bias. For those scenarios where accuracy is all that matters, it becomes a good candidate to be considered. 
 
