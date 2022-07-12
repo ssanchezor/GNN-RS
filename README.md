@@ -1,4 +1,4 @@
-# AIDL21: Recommender Systems with GCN
+# AIDL22: Recommender Systems with GCN
 
 This repository contains different machine learning models implementations, such as FM, GCN and GAT, that are commonly used to build personalized <b>Recommender Systems</b>. 
 
