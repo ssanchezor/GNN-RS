@@ -444,11 +444,6 @@ The program is divided into different files that can be grouped as:
 | [model_Random.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/model_Random.py)                                                                   |Defines Random model                                                                                           |
 | [model_Popularity.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/model_Popularity.py)                                                     |Defines Popularity model      
 
-In that sense, to execute the program you will need first:
-1. Execute `data_filtering.py` to filter the dataset applying the desired restrictions. A file with the reduced dataset will be generated as an output.
-2. Execute `build_dataset.py`(or `build_dataset_features.py`if you want context) to generate the required files to build train and test datasets. Two files (one for train and one for test) be generated as an output.
-3. Once we have the files generated, we can execute any of the main files depending on the model we want to use (i.e. `main_FM.py` if we want to use Factorization Machine). You can run all of them consecutively without having to perform any of the above steps.
-
 #### Main:  
 
 | File                                                                                                                                                                            |Description                                                                                                                                    |
@@ -459,6 +454,11 @@ In that sense, to execute the program you will need first:
 |[main_GCN_att.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/main_GCN_att.py)                                                                            |Executes Graph Attention Network recommender system                                                                                                         |    
 | [main_Random.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/main_Random.py)                                                                   |Executes Random recommender system
 | [main_Popularity.py](https://github.com/ssanchezor/GNN-RS/blob/main/Program/main_Popularity.py)                                                     |Executes Popularity recommender system
+    
+In that sense, to execute the program you will need first:
+1. Execute `data_filtering.py` to filter the dataset applying the desired restrictions. A file with the reduced dataset will be generated as an output.
+2. Execute `build_dataset.py`(or `build_dataset_features.py`if you want context) to generate the required files to build train and test datasets. Two files (one for train and one for test) be generated as an output.
+3. Once we have the files generated, we can execute any of the main files depending on the model we want to use (i.e. `main_FM.py` if we want to use Factorization Machine). You can run all of them consecutively without having to perform any of the above steps.
     
 ### 5.1. Dataset creation <a name="51-dataset"></a>
     
