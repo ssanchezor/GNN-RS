@@ -7,7 +7,7 @@ Our project aims to understand and compare the different models and evaluate how
 Finally, we will perform a detailed analysis of the obtained results in order to detect and assess possible biases. 
 
 ### About
-Final Project for the UPC [Artificial Intelligence with Deep Learning Postgraduate Course](https://www.talent.upc.edu/ing/estudis/formacio/curs/310402/postgraduate-course-artificial-intelligence-deep-learning/) 2021-2022 online edition, authored by:
+Final Project for the UPC [Artificial Intelligence with Deep Learning Postgraduate Course](https://www.talent.upc.edu/ing/estudis/formacio/curs/310402/postgraduate-course-artificial-intelligence-deep-learning/) 2022 online edition, authored by:
 
 * [Bernat Ribes](https://www.linkedin.com/in/bernat-ribes-garcia-247338a0/)
 * [Sonia Sánchez](https://www.linkedin.com/in/sosanchez/)
